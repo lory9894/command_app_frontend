@@ -1,0 +1,24 @@
+[
+  {
+    "name": "il Petrone",
+    "price": 5.50,
+    "description": "panino con prosciutto e mozzarella",
+    "imageUrl": "faioeghd",
+    "course": "Panino"
+  },
+  {
+    "name": "Coppo di Vino",
+    "price": 100.00,
+    "description": "vino rosso",
+    "imageUrl": "faioeghd",
+    "course": "Bevanda"
+  },
+    {
+        "name": "CapecchiCola",
+        "price": 100.00,
+        "description": "hoha hoha",
+        "imageUrl": null,
+        "course": "Bevanda"
+    }
+
+]
