@@ -89,13 +89,14 @@ class _MenuState extends State<Menu> {
       itemBuilder: (BuildContext context, int index) {
         return ExpansionTile(
           title: Text(_dishes_courses().elementAt(index)),
-          children: dishes!
+          children: dishes
               .where(
                   (dish) => dish.course == _dishes_courses().elementAt(index))
               .map((dish) => ListTile(
                     title: Text(dish.name),
                     subtitle: Text(dish.description),
-                    trailing: Text("${dish.price}€"),
+                    // trailing: Text("${dish.price}€"),
+                    trailing: const Icon(Icons.add),
                   ))
               .toList(),
         );
