@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Dish {
   final String name;
@@ -61,16 +62,22 @@ class _MenuState extends State<Menu> {
 
 ]
 """;
-    //var json_online = await http.get(Uri.http("localhost:8080", "dummy_dishes"));
-    var dishes_dict = jsonDecode(json);
-    dishes_dict.forEach((dish) => dishes.add(Dish(
-        name: dish['name'],
-        description: dish['description'],
-        price: dish['price'],
-        imageUrl: dish['imageUrl'],
-        course: dish['course'])));
-    print(dishes_dict);
-    print(dishes);
+    // to make it work https://stackoverflow.com/questions/65630743/how-to-solve-flutter-web-api-cors-error-only-with-dart-code
+    // then python -m http.server 8080 in the folder that contains dummy_dishes.json
+    http.get(Uri.http("localhost:8080", "dummy_dishes.json")).then((value) => {
+          setState(() {
+            dishes = (jsonDecode(value.body) as List)
+                .map((e) => Dish(
+                    name: e["name"],
+                    description: e["description"],
+                    price: e["price"],
+                    imageUrl: e["imageUrl"],
+                    course: e["course"]))
+                .toList();
+            courses = dishes.map((e) => e.course).toSet();
+          }),
+          dishes.forEach((element) => print(element.name))
+        });
   }
 
   //if the list of courses is not provided, it will be generated from the list of dishes
@@ -81,7 +88,6 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListView.builder(
       //find the number of different courses in list dishes
 
