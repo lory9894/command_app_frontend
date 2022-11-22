@@ -94,14 +94,26 @@ class _MenuState extends State<Menu> {
       itemCount: _dishes_courses().length,
       itemBuilder: (BuildContext context, int index) {
         return ExpansionTile(
-          title: Text(_dishes_courses().elementAt(index)),
+          //title : course name white text
+          title: Text(
+            _dishes_courses().elementAt(index),
+          ),
+          //background color of the tile when closed
+          collapsedBackgroundColor: Theme.of(context).backgroundColor,
+
           children: dishes
               .where(
                   (dish) => dish.course == _dishes_courses().elementAt(index))
               .map((dish) => ListTile(
+                    tileColor: Colors.white,
+                    leading: CircleAvatar(
+                      backgroundImage: dish.imageUrl != null
+                          ? NetworkImage(dish.imageUrl!)
+                          : null,
+                      child: dish.imageUrl == null ? Text(dish.name[0]) : null,
+                    ),
                     title: Text(dish.name),
-                    subtitle: Text(dish.description),
-                    // trailing: Text("${dish.price}€"),
+                    subtitle: Text("${dish.description} - ${dish.price}€"),
                     trailing: const Icon(Icons.add),
                   ))
               .toList(),
