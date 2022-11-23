@@ -14,26 +14,26 @@ class _ShoppingCartState extends State<ShoppingCart> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Carrello"),
+          title: const Text("Carrello"),
         ),
         body: Column(children: [
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Container(height: 500, width: 500, child: shoppingCartList()),
-          Container(
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Expanded(child: SizedBox(height: 400, width: 500, child: shoppingCartList())),
+          const SizedBox(
               height: 100,
               width: 300,
-              child: const TextField(
+              child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Codice Promozionale',
                 ),
               )),
-          Container(
+          SizedBox(
               height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("Totale: FAKEPRICE"),
+                  const Text("Totale: FAKEPRICE"),
                   ElevatedButton(
                     onPressed: () {
                       if (order.tableID == null) {
@@ -73,7 +73,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                       }
                       //TODO: schermata di pagamento
                     },
-                    child: Text("Completa ordine"),
+                    child: const Text("Completa ordine"),
                   ),
                 ],
               )),
