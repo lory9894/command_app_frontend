@@ -21,11 +21,14 @@ class Order {
   double total = 0;
   Map<Dish, int> shoppingCart = {};
 
-  set userId(String value) {
+  set userId(String? value) {
     _userId = value;
   }
 
-  set tableID(String value) {
+  String? get userId => _userId;
+  String? get tableID => _tableID;
+
+  set tableID(String? value) {
     _tableID = value;
   }
 
@@ -65,9 +68,5 @@ class Order {
       }
     }
     total -= dish.price;
-  }
-
-  getTotal() {
-    return total;
   }
 }

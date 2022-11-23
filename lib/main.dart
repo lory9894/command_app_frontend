@@ -41,10 +41,52 @@ class _MyHomePageState extends State<MyHomePage> {
         course: "panino",
         imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
     order.shoppingCart[Dish(
+        name: "il Petrino",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
+        name: "il Petruzzo",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
+        name: "il Petrazzo",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
         name: "Coppo Divino",
         description: "vino",
         price: 7,
         course: "bevanda")] = 1;
+    order.shoppingCart[Dish(
+        name: "il Petroneeeeeeee",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
+        name: "il Pdfasfetrone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
+        name: "il fadgePetrone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
+        name: "il Petroneoneone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
     print(order.shoppingCart);
     super.initState();
   }

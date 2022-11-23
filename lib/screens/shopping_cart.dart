@@ -1,5 +1,6 @@
 import 'package:command_app_frontend/global.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ShoppingCart extends StatefulWidget {
   const ShoppingCart({Key? key}) : super(key: key);
@@ -34,7 +35,44 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 children: [
                   Text("Totale: FAKEPRICE"),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (order.tableID == null) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SimpleDialog(
+                              insetPadding: EdgeInsets.all(30),
+                              title: Text(
+                                  'Scansiona il QR Code o scegli altre modalità di consumazione'),
+                              children: [
+                                SizedBox(
+                                  height: 300,
+                                  width: 200,
+                                  child: MobileScanner(
+                                      allowDuplicates: false,
+                                      onDetect: (barcode, args) {
+                                        if (barcode.rawValue != null) {
+                                          final String code = barcode.rawValue!;
+                                          debugPrint('Barcode found! $code');
+                                          order.tableID = code;
+                                        }
+                                      }),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('Prenota Tavolo'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text('Asporto'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                      //TODO: schermata di pagamento
+                    },
                     child: Text("Completa ordine"),
                   ),
                 ],
