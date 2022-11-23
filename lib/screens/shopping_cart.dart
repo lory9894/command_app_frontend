@@ -18,7 +18,9 @@ class _ShoppingCartState extends State<ShoppingCart> {
         ),
         body: Column(children: [
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Expanded(child: SizedBox(height: 400, width: 500, child: shoppingCartList())),
+          Expanded(
+              child:
+                  SizedBox(height: 400, width: 500, child: shoppingCartList())),
           const SizedBox(
               height: 100,
               width: 300,
@@ -33,7 +35,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text("Totale: FAKEPRICE"),
+                  Text("Totale: ${order.total}"),
                   ElevatedButton(
                     onPressed: () {
                       if (order.tableID == null) {
@@ -53,18 +55,28 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                       onDetect: (barcode, args) {
                                         if (barcode.rawValue != null) {
                                           final String code = barcode.rawValue!;
-                                          debugPrint('Barcode found! $code');
+                                          debugPrint('Barcode found: $code');
                                           order.tableID = code;
                                         }
                                       }),
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Prenota Tavolo'),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      order.tableID = "Reservation";
+                                    },
+                                    child: Text('Prenota Tavolo'),
+                                  ),
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Asporto'),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      order.tableID = "TakeAway";
+                                    },
+                                    child: Text('Asporto'),
+                                  ),
                                 ),
                               ],
                             );

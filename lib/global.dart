@@ -18,7 +18,7 @@ Order order = Order();
 class Order {
   String? _userId, _tableID;
   late String orderID;
-  double total = 0;
+  double _total = 0;
   Map<Dish, int> shoppingCart = {};
 
   set userId(String? value) {
@@ -54,7 +54,7 @@ class Order {
       shoppingCart[dish] = 1;
     }
 
-    total += dish.price;
+    _total += dish.price;
   }
 
   /// method to remove a dish from the shopping cart, subtotal is automatically updated
@@ -67,6 +67,8 @@ class Order {
         shoppingCart.remove(dish);
       }
     }
-    total -= dish.price;
+    _total -= dish.price;
   }
+
+  double get total => _total;
 }
