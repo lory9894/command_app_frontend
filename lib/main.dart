@@ -1,3 +1,4 @@
+import 'package:command_app_frontend/screens/shopping_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:command_app_frontend/screens/menu.dart';
 
@@ -33,6 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return Menu();
+    return ShoppingCart();
   }
 }

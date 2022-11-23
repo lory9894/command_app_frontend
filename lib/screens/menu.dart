@@ -82,7 +82,7 @@ class _MenuState extends State<Menu> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const shopping_cart()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ShoppingCart()));
                 },
                 icon: Icon(Icons.shopping_cart))
           ],

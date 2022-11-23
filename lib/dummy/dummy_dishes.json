@@ -2,12 +2,12 @@
   {
     "name": "il Petrone",
     "price": 5.50,
-    "description": "panino con prosciutto e mozzarella",
+    "description": "Vabbeh",
     "imageUrl": "http://www.di.unito.it/~giovanna/gioNew1.jpg",
     "course": "Panino"
   },
   {
-    "name": "Coppo di Vino",
+    "name": "Coppo DiVino",
     "price": 100.00,
     "description": "vino rosso",
     "imageUrl": null,
@@ -16,7 +16,7 @@
     {
         "name": "CapecchiCola",
         "price": 100.00,
-        "description": "hoha hoha",
+        "description": "hoha hola",
         "imageUrl": "http://www.di.unito.it/~capecchi/img/me.jpg",
         "course": "Bevanda"
     }
