@@ -1,6 +1,7 @@
 import 'package:command_app_frontend/screens/shopping_cart.dart';
 import 'package:flutter/material.dart';
-import 'package:command_app_frontend/screens/menu.dart';
+
+import 'global.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,10 +31,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //TODO: DEBUG RIMUOVERE
+  @override
+  void initState() {
+    order.shoppingCart[Dish(
+        name: "il Petrone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg")] = 2;
+    order.shoppingCart[Dish(
+        name: "Coppo Divino",
+        description: "vino",
+        price: 7,
+        course: "bevanda")] = 1;
+    print(order.shoppingCart);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return ShoppingCart();
   }
 }

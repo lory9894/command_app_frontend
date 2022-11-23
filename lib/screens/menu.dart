@@ -1,8 +1,9 @@
 import 'dart:convert';
+
+import 'package:command_app_frontend/global.dart';
 import 'package:command_app_frontend/screens/shopping_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:command_app_frontend/global.dart';
 
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);
@@ -63,8 +64,7 @@ class _MenuState extends State<Menu> {
             //find the number of different courses in list dishes
             courses = dishes.map((e) => e.course).toSet();
           }),
-
-      dishes.forEach((element) => print(element.name))
+          dishes.forEach((element) => print(element.name))
         });
   }
 
@@ -77,53 +77,57 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Menù"),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ShoppingCart()));
-                },
-                icon: Icon(Icons.shopping_cart))
-          ],
-        ),
-        body: ListView.builder(
-          itemCount: _dishes_courses().length,
-          itemBuilder: (BuildContext context, int index) {
-            return ExpansionTile(
-              //title : course name white text
-              title: Text(
-                _dishes_courses().elementAt(index),
-              ),
-              //background color of the tile when closed
-              collapsedBackgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        title: Text("Menù"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ShoppingCart()));
+              },
+              icon: Icon(Icons.shopping_cart))
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: _dishes_courses().length,
+        itemBuilder: (BuildContext context, int index) {
+          return ExpansionTile(
+            //title : course name white text
+            title: Text(
+              _dishes_courses().elementAt(index),
+            ),
+            //background color of the tile when closed
+            collapsedBackgroundColor: Theme.of(context).backgroundColor,
 
-              children: dishes
-                  .where(
-                      (dish) => dish.course == _dishes_courses().elementAt(index))
-                  .map((dish) => ListTile(
-                tileColor: Colors.white,
-                leading: CircleAvatar(
-                  backgroundImage: dish.imageUrl != null
-                      ? NetworkImage(dish.imageUrl!)
-                      : null,
-                  child: dish.imageUrl == null ? Text(dish.name[0]) : null,
-                ),
-                title: Text(dish.name),
-                subtitle: Text("${dish.description} - ${dish.price}€"),
-                trailing: IconButton(onPressed: () {if (!globalShoppingCart.containsKey(dish))
-                 {
-                  globalShoppingCart[dish] = 1;
-                }else {
-                  globalShoppingCart[dish] = globalShoppingCart[dish]! + 1;
-                }
-                }, icon: Icon(Icons.add)),
-              ))
-                  .toList(),
-            );
-          },
-
-        ),
+            children: dishes
+                .where(
+                    (dish) => dish.course == _dishes_courses().elementAt(index))
+                .map((dish) => ListTile(
+                      tileColor: Colors.white,
+                      leading: CircleAvatar(
+                        backgroundImage: dish.imageUrl != null
+                            ? NetworkImage(dish.imageUrl!)
+                            : null,
+                        child:
+                            dish.imageUrl == null ? Text(dish.name[0]) : null,
+                      ),
+                      title: Text(dish.name),
+                      subtitle: Text("${dish.description} - ${dish.price}€"),
+                      trailing: IconButton(
+                          onPressed: () {
+                            if (!order.shoppingCart.containsKey(dish)) {
+                              order.shoppingCart[dish] = 1;
+                            } else {
+                              order.shoppingCart[dish] =
+                                  order.shoppingCart[dish]! + 1;
+                            }
+                          },
+                          icon: Icon(Icons.add)),
+                    ))
+                .toList(),
+          );
+        },
+      ),
     );
   }
 }

@@ -1,4 +1,3 @@
-
 class Dish {
   final String name;
   final String description;
@@ -8,22 +7,40 @@ class Dish {
 
   Dish(
       {required this.name,
-        required this.description,
-        required this.price,
-        this.imageUrl,
-        required this.course});
+      required this.description,
+      required this.price,
+      this.imageUrl,
+      required this.course});
 }
-Map<Dish,int> globalShoppingCart = {};
 
-//TODO: Quando avremo capito come settare il tavolo e l'utente al posto della variabile globalShoppingCart avremo una variabile globale order
+Order order = Order();
+
 class Order {
-  String? userId, tableID;
+  String? _userId, _tableID;
   late String orderID;
-  double total= 0;
-  Map<Dish,int> shoppingCart = {};
+  double total = 0;
+  Map<Dish, int> shoppingCart = {};
 
-  //TODO: aggiungere il costruttore, dipende da quando viene chiamato
+  set userId(String value) {
+    _userId = value;
+  }
 
+  set tableID(String value) {
+    _tableID = value;
+  }
+
+  /// Creates a new order, empty.
+  Order({String? userId, String? tableID}) {
+    this._userId = userId;
+    this._tableID = tableID;
+  }
+
+  ///compute orderID from userId, tableID and current time
+  ///returns the orderID
+  String computeOrderID() {
+    orderID = _userId! + _tableID! + DateTime.now().toString();
+    return orderID;
+  }
 
   /// method to add a dish to the shopping cart, subtotal is automatically updated
   /// @param dish the dish to add
@@ -34,7 +51,7 @@ class Order {
       shoppingCart[dish] = 1;
     }
 
-  total += dish.price;
+    total += dish.price;
   }
 
   /// method to remove a dish from the shopping cart, subtotal is automatically updated
@@ -53,5 +70,4 @@ class Order {
   getTotal() {
     return total;
   }
-
 }
