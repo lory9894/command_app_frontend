@@ -76,7 +76,6 @@ class _MenuState extends State<Menu> {
                 .toList();
             courses = dishes.map((e) => e.course).toSet();
           }),
-          dishes.forEach((element) => print(element.name))
         });
   }
 
