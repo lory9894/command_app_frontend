@@ -115,12 +115,7 @@ class _MenuState extends State<Menu> {
                       subtitle: Text("${dish.description} - ${dish.price}€"),
                       trailing: IconButton(
                           onPressed: () {
-                            if (!order.shoppingCart.containsKey(dish)) {
-                              order.shoppingCart[dish] = 1;
-                            } else {
-                              order.shoppingCart[dish] =
-                                  order.shoppingCart[dish]! + 1;
-                            }
+                            order.addDish(dish);
                           },
                           icon: Icon(Icons.add)),
                     ))

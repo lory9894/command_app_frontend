@@ -35,7 +35,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("Totale: ${order.total}"),
+                  Text("Totale: ${order.total} €"),
                   ElevatedButton(
                     onPressed: () {
                       if (order.tableID == null) {
@@ -44,7 +44,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                           builder: (BuildContext context) {
                             return SimpleDialog(
                               insetPadding: EdgeInsets.all(30),
-                              title: Text(
+                              title: const Text(
                                   'Scansiona il QR Code o scegli altre modalità di consumazione'),
                               children: [
                                 SizedBox(
@@ -66,7 +66,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                     onPressed: () {
                                       order.tableID = "Reservation";
                                     },
-                                    child: Text('Prenota Tavolo'),
+                                    child: const Text('Prenota Tavolo'),
                                   ),
                                 ),
                                 Padding(
@@ -75,7 +75,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                     onPressed: () {
                                       order.tableID = "TakeAway";
                                     },
-                                    child: Text('Asporto'),
+                                    child: const Text('Asporto'),
                                   ),
                                 ),
                               ],
@@ -114,29 +114,13 @@ class _ShoppingCartState extends State<ShoppingCart> {
           trailing: Wrap(spacing: 12, children: [
             IconButton(
                 onPressed: () {
-                  if (order.shoppingCart.values.elementAt(index) > 1) {
-                    order.shoppingCart[
-                            order.shoppingCart.keys.elementAt(index)] =
-                        order.shoppingCart.values.elementAt(index) - 1;
-                  } else {
-                    order.shoppingCart
-                        .remove(order.shoppingCart.keys.elementAt(index));
-                  }
+                  order.removeDish(order.shoppingCart.keys.elementAt(index));
                   setState(() {});
                 },
                 icon: const Icon(Icons.remove)),
             IconButton(
                 onPressed: () {
-                  if (!order.shoppingCart
-                      .containsKey(order.shoppingCart.keys.elementAt(index))) {
-                    order.shoppingCart[
-                        order.shoppingCart.keys.elementAt(index)] = 1;
-                  } else {
-                    order.shoppingCart[order.shoppingCart.keys
-                        .elementAt(index)] = order.shoppingCart[
-                            order.shoppingCart.keys.elementAt(index)]! +
-                        1;
-                  }
+                  order.addDish(order.shoppingCart.keys.elementAt(index));
                   setState(() {});
                 },
                 icon: const Icon(Icons.add)),

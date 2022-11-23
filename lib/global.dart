@@ -19,7 +19,9 @@ class Order {
   String? _userId, _tableID;
   late String orderID;
   double _total = 0;
-  Map<Dish, int> shoppingCart = {};
+  Map<Dish, int> _shoppingCart = {};
+
+  Map<Dish, int> get shoppingCart => _shoppingCart;
 
   set userId(String? value) {
     _userId = value;
@@ -48,10 +50,10 @@ class Order {
   /// method to add a dish to the shopping cart, subtotal is automatically updated
   /// @param dish the dish to add
   void addDish(Dish dish) {
-    if (shoppingCart.containsKey(dish)) {
-      shoppingCart[dish] = shoppingCart[dish]! + 1;
+    if (_shoppingCart.containsKey(dish)) {
+      _shoppingCart[dish] = _shoppingCart[dish]! + 1;
     } else {
-      shoppingCart[dish] = 1;
+      _shoppingCart[dish] = 1;
     }
 
     _total += dish.price;
@@ -60,11 +62,11 @@ class Order {
   /// method to remove a dish from the shopping cart, subtotal is automatically updated
   /// @param dish the dish to remove
   void removeDish(Dish dish) {
-    if (shoppingCart.containsKey(dish)) {
-      if (shoppingCart[dish]! > 1) {
-        shoppingCart[dish] = shoppingCart[dish]! - 1;
+    if (_shoppingCart.containsKey(dish)) {
+      if (_shoppingCart[dish]! > 1) {
+        _shoppingCart[dish] = _shoppingCart[dish]! - 1;
       } else {
-        shoppingCart.remove(dish);
+        _shoppingCart.remove(dish);
       }
     }
     _total -= dish.price;
