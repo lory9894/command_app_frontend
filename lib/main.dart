@@ -1,5 +1,7 @@
+import 'package:command_app_frontend/screens/shopping_cart.dart';
 import 'package:flutter/material.dart';
-import 'package:command_app_frontend/screens/menu.dart';
+
+import 'global.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,15 +31,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //TODO: DEBUG RIMUOVERE
+  @override
+  void initState() {
+    order.addDish(Dish(
+        name: "il Petrone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "il Petrino",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "il Petruzzo",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "il Petrazzo",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "Coppo Divino",
+        description: "vino",
+        price: 7,
+        course: "bevanda"));
+    order.addDish(Dish(
+        name: "il Petroneeeeeeee",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "il Pdfasfetrone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "il fadgePetrone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.addDish(Dish(
+        name: "il Petroneoneone",
+        description: "vabbeh",
+        price: 5.50,
+        course: "panino",
+        imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    print(order.shoppingCart);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("title"),
-      ),
-      body: Menu()
-    );
+    return ShoppingCart();
   }
 }
