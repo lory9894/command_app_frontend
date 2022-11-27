@@ -1,4 +1,5 @@
 import 'package:command_app_frontend/global.dart';
+import 'package:command_app_frontend/screens/review_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -64,7 +65,12 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      order.tableID = "Reservation";
+                                        order.tableID = "TakeAway";
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const ReviewPay(),
+                                              settings: RouteSettings(arguments: order.total)),
+                                        );
                                     },
                                     child: const Text('Prenota Tavolo'),
                                   ),
