@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("title"),
       ),
-      body: Menu()
+      body: PreparationsTable()
     );
   }
 }
