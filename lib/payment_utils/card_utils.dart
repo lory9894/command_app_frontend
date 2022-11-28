@@ -74,7 +74,7 @@ class CardUtils {
     Widget? widget;
     if (img.isNotEmpty) {
       widget = Image.asset(
-        'assets/images/$img',
+        'assets/images/credit_cards/$img',
         width: 40.0,
       );
     } else {
