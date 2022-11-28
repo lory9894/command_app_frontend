@@ -1,4 +1,5 @@
 import 'package:command_app_frontend/global.dart';
+import 'package:command_app_frontend/screens/review_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -41,49 +42,9 @@ class _ShoppingCartState extends State<ShoppingCart> {
                       if (order.tableID == null) {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) {
-                            return SimpleDialog(
-                              insetPadding: EdgeInsets.all(30),
-                              title: const Text(
-                                  'Scansiona il QR Code o scegli altre modalità di consumazione'),
-                              children: [
-                                SizedBox(
-                                  height: 300,
-                                  width: 200,
-                                  child: MobileScanner(
-                                      allowDuplicates: false,
-                                      onDetect: (barcode, args) {
-                                        if (barcode.rawValue != null) {
-                                          final String code = barcode.rawValue!;
-                                          debugPrint('Barcode found: $code');
-                                          order.tableID = code;
-                                        }
-                                      }),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      order.tableID = "Reservation";
-                                    },
-                                    child: const Text('Prenota Tavolo'),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      order.tableID = "TakeAway";
-                                    },
-                                    child: const Text('Asporto'),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
+                          builder: finalizationDialog,
                         );
                       }
-                      //TODO: schermata di pagamento
                     },
                     child: const Text("Completa ordine"),
                   ),
@@ -92,7 +53,57 @@ class _ShoppingCartState extends State<ShoppingCart> {
         ]));
   }
 
-  shoppingCartList() {
+  Widget finalizationDialog(BuildContext context) {
+    return SimpleDialog(
+      insetPadding: EdgeInsets.all(30),
+      title: const Text(
+          'Scansiona il QR Code o scegli altre modalità di consumazione'),
+      children: [
+        SizedBox(
+          height: 300,
+          width: 200,
+          child: MobileScanner(
+              allowDuplicates: false,
+              onDetect: (barcode, args) {
+                if (barcode.rawValue != null) {
+                  final String code = barcode.rawValue!;
+                  debugPrint('Barcode found: $code');
+                  order.tableID = code;
+                  Navigator.of(context).pop(context);
+                }
+              }),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: () {
+              order.tableID = "Preordine";
+              Navigator.of(context).pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ReviewPay()),
+              );
+            },
+            child: const Text('Preordina'),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: () {
+              order.tableID = "TakeAway";
+              Navigator.of(context).pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ReviewPay()),
+              );
+            },
+            child: const Text('Asporto'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget shoppingCartList() {
     return ListView.builder(
       itemCount: order.shoppingCart.length,
       itemBuilder: (context, index) {
