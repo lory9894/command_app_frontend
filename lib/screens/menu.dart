@@ -60,9 +60,6 @@ class _PreparationsTableState extends State<PreparationsTable> {
   Widget build(BuildContext context) {
     // TODO rendere le righe una reordable list
     return Container(
-        padding: const EdgeInsets.all(0),
-        width: double.infinity,
-        height: double.infinity,
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -106,114 +103,37 @@ class _PreparationsTableState extends State<PreparationsTable> {
                               Text(preparationsList[index].dish.name)),
                           DataCell(
                               Text(preparationsList[index].tableDeliveryCode)),
-                          DataCell(Text(preparationsList[index].state.str)),
+                          DataCell(
+                              Text(preparationsList[index].state.str)),
                           DataCell(Row(
-                            children: const [
+                            children: [
                               IconButton(
-                                  onPressed: null,
-                                  icon: Icon(Icons.watch_later)),
+                                  onPressed: () => changeState(
+                                      preparationsList[index],
+                                      PreparationState.waiting
+                                  ),
+                                  icon: const Icon(Icons.watch_later)),
                               IconButton(
-                                  onPressed: null,
-                                  icon: Icon(FontAwesomeIcons.briefcase)),
+                                  onPressed: () => changeState(
+                                      preparationsList[index],
+                                      PreparationState.underway
+                                  ),
+                                  icon: const Icon(FontAwesomeIcons.briefcase)),
                               IconButton(
-                                  onPressed: null,
-                                  icon: Icon(Icons.done)),
+                                  onPressed: () => changeState(
+                                      preparationsList[index],
+                                      PreparationState.ready
+                                  ),
+                                  icon: const Icon(Icons.done)),
                             ],
                           )),
                         ]))))
     );
+  }
 
-    // throw UnimplementedError();
-
-    // return Table(
-    //     border: TableBorder.all(),
-    //     columnWidths: const <int, TableColumnWidth>{
-    //       0: FractionColumnWidth(35),
-    //       1: FractionColumnWidth(10),
-    //       2: FractionColumnWidth(20),
-    //       3: FractionColumnWidth(35),
-    //       // continua da qui, devi mettere i dati ma le dimensioni delle colonne sono giuste (credo)
-    //     },
-    //     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-    //     children: <TableRow>[
-    //       TableRow(
-    //         children: <Widget>[
-    //           Container(
-    //             height: double.infinity,
-    //             color: Colors.green,
-    //           ),
-    //           TableCell(
-    //             verticalAlignment: TableCellVerticalAlignment.top,
-    //             child: Container(
-    //               height: double.infinity,
-    //               color: Colors.red,
-    //             ),
-    //           ),
-    //           Container(
-    //             height: double.infinity,
-    //             color: Colors.blue,
-    //           ),
-    //           Container(
-    //             color: Colors.blue,
-    //           ),
-    //         ],
-    //       ),
-    //       TableRow(
-    //         decoration: const BoxDecoration(
-    //           color: Colors.grey,
-    //         ),
-    //         children: <Widget>[
-    //           Container(
-    //             color: Colors.purple,
-    //           ),
-    //           Container(
-    //             color: Colors.yellow,
-    //           ),
-    //           Container(
-    //             color: Colors.yellow,
-    //           ),
-    //           Center(
-    //             child: Container(
-    //               color: Colors.orange,
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ],
-    //   );
-
-    // return ListView.builder(
-    //   //find the number of different courses in list dishes
-    //
-    //   itemCount: _dishes_courses().length,
-    //   itemBuilder: (BuildContext context, int index) {
-    //     return ExpansionTile(
-    //       //title : course name white text
-    //       title: Text(
-    //         _dishes_courses().elementAt(index),
-    //       ),
-    //       //background color of the tile when closed
-    //       collapsedBackgroundColor: Theme.of(context).backgroundColor,
-    //
-    //       children: dishes
-    //           .where(
-    //               (dish) => dish.course == _dishes_courses().elementAt(index))
-    //           .map((dish) => ListTile(
-    //                 tileColor: Colors.white,
-    //                 leading: CircleAvatar(
-    //                   backgroundImage: dish.imageUrl != null
-    //                       ? NetworkImage(dish.imageUrl!)
-    //                       : null,
-    //                   child: dish.imageUrl == null ? Text(dish.name[0]) : null,
-    //                 ),
-    //                 title: Text(dish.name),
-    //                 subtitle: Text("${dish.description} - ${dish.price}€"),
-    //                 trailing: const Icon(Icons.add),
-    //               ))
-    //           .toList(),
-    //     );
-    //   },
-    // );
+  /// change state of 'prep' to 'state', renders to UI
+  void changeState(Preparation prep, PreparationState state){
+    setState(() => prep.state = state);
   }
 
   /// returns list of preparations to show on screen
