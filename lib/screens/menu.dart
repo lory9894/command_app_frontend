@@ -1,5 +1,36 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:convert';
+import 'dart:io';
+
+const String jsonPreparations = """[
+{
+    "dish": {
+      "name": "il Petrone",
+      "price": 5.50,
+      "description": "panino con prosciutto e mozzarella",
+      "imageUrl": "http://www.di.unito.it/~giovanna/gioNew1.jpg",
+      "course": "Panino"
+    },
+    "tableDeliveryCode": "12",
+    "state": "ready"
+  },
+  {
+    "dish": {
+      "name": "Risotto alla CMRO",
+      "price": 5.22,
+      "description": "Gvosso risotto per gvossi intenditori (Fakemuscles approves)",
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FAndrea_Grosso%2F4&psig=AOvVaw3sNpMqQxN08jGPGKzd70v8&ust=1669741417373000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNjr89Gt0fsCFQAAAAAdAAAAABAE",
+      "course": "primo"
+    },
+    "tableDeliveryCode": "A46",
+    "state": "underway"
+  }
+]
+""";
+
 
 class Dish {
   final String name;
@@ -52,8 +83,10 @@ class _PreparationsTableState extends State<PreparationsTable> {
 
   @override
   void initState() {
-    preparationsList += getPreparations();
-    super.initState();
+    print(getPreparations());
+    exit(0);
+    // preparationsList += getPreparations();
+    // super.initState();
   }
 
   @override
@@ -139,20 +172,26 @@ class _PreparationsTableState extends State<PreparationsTable> {
   /// returns list of preparations to show on screen
   List<Preparation> getPreparations() {
     // TODO implement reading json and parsing to preparations
-    // dummy implementation
-    Dish dish1 = Dish(
-        name: "Il Petrone",
-        description: "mi piace il panino di Baldoni gnam",
-        price: 6.66,
-        course: "panino");
-    Dish dish2 = Dish(
-        name: "Risotto alla CMRO",
-        description: "Gvosso risotto per buongustai (Fakemuscles approves)",
-        price: 1.25,
-        course: "primo");
-    Preparation preparation1 = Preparation(dish1, "1");
-    Preparation preparation2 =
-        Preparation(dish2, "A46", state: PreparationState.waiting);
-    return [preparation1, preparation2];
+    List map = jsonDecode(jsonPreparations);
+    print(map);
+    for (var element in map) {
+      print(element);
+      var dishMap = element['dish'];
+      Dish dish = Dish(
+          name: dishMap['name'],
+          description: dishMap['description'],
+          price: dishMap['price'],
+          course: dishMap['course']
+      );
+      // TODO course should be converted in enum before assigning to dish
+      Preparation prep = Preparation(
+          dish,
+          element['tableDeliveryCode'],
+          state: element['state']
+      );
+      print(prep);
+      exit(0);
+    }
+    return List.empty();
   }
 }
