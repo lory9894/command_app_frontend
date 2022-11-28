@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Dish {
   final String name;
@@ -112,13 +111,13 @@ class _PreparationsTableState extends State<PreparationsTable> {
                             children: const [
                               IconButton(
                                   onPressed: null,
-                                  icon: Icon(Icons.account_balance)),
+                                  icon: Icon(Icons.watch_later)),
                               IconButton(
                                   onPressed: null,
-                                  icon: Icon(Icons.account_balance)),
+                                  icon: Icon(FontAwesomeIcons.briefcase)),
                               IconButton(
                                   onPressed: null,
-                                  icon: Icon(Icons.account_balance)),
+                                  icon: Icon(Icons.done)),
                             ],
                           )),
                         ]))))
