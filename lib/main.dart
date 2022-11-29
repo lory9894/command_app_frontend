@@ -1,8 +1,6 @@
 import 'package:command_app_frontend/screens/login.dart';
 import 'package:flutter/material.dart';
 
-import 'global.dart';
-
 void main() {
   runApp(const MyApp());
 }
