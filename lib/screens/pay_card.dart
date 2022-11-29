@@ -116,7 +116,7 @@ class _PayCardState extends State<PayCard> {
                 child: ElevatedButton(
                   child: const Text("Paga"),
                   onPressed: () {
-                    /*TODO: distinguere il caso in cui è un preordine e inviare richiesta per la scelta del tavolo
+                    /*TODO: distinguere il caso in cui è un preordine/prenotazione e inviare richiesta per la scelta del tavolo
                     altrimenti inviare direttamente l'ordine in cucina
                      */
                   },
