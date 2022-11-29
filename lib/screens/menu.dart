@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
 
 const String jsonPreparations = """[
@@ -13,7 +12,7 @@ const String jsonPreparations = """[
       "course": "Panino"
     },
     "tableDeliveryCode": "12",
-    "state": "ready"
+    "state": "brought"
   },
   {
     "dish": {
@@ -24,7 +23,7 @@ const String jsonPreparations = """[
       "course": "primo"
     },
     "tableDeliveryCode": "A46",
-    "state": "underway"
+    "state": "toBring"
   }
 ]
 """;
@@ -45,17 +44,15 @@ class Dish {
       required this.course});
 }
 
-enum PreparationState { ready, underway, waiting }
+enum PreparationState { brought, toBring }
 
 extension PreparationStateStrings on PreparationState {
   String get str {
     switch (this) {
-      case PreparationState.waiting:
-        return "In attesa";
-      case PreparationState.ready:
-        return "Pronta";
-      case PreparationState.underway:
-        return "In preparazione";
+      case PreparationState.toBring:
+        return "Da servire";
+      case PreparationState.brought:
+        return "Servito";
     }
   }
 }
@@ -66,7 +63,7 @@ class Preparation {
   PreparationState state;
 
   Preparation(this.dish, this.tableDeliveryCode,
-      {this.state = PreparationState.underway});
+      {this.state = PreparationState.toBring});
 }
 
 class PreparationsTable extends StatefulWidget {
@@ -139,21 +136,17 @@ class _PreparationsTableState extends State<PreparationsTable> {
                               IconButton(
                                   onPressed: () => changeState(
                                       preparationsList[index],
-                                      PreparationState.waiting
+                                      PreparationState.toBring
                                   ),
-                                  icon: const Icon(Icons.watch_later)),
+                                  icon: const Icon(Icons.watch_later)
+                              ),
                               IconButton(
                                   onPressed: () => changeState(
                                       preparationsList[index],
-                                      PreparationState.underway
+                                      PreparationState.brought
                                   ),
-                                  icon: const Icon(FontAwesomeIcons.briefcase)),
-                              IconButton(
-                                  onPressed: () => changeState(
-                                      preparationsList[index],
-                                      PreparationState.ready
-                                  ),
-                                  icon: const Icon(Icons.done)),
+                                  icon: const Icon(Icons.done)
+                              ),
                             ],
                           )),
                         ]))))
