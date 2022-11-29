@@ -4,6 +4,7 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../global.dart';
+import 'Profile.dart';
 import 'menu.dart';
 
 class LoginPage extends StatefulWidget {
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   //TODO: Autenticazione con google
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const Menu()),
+                    MaterialPageRoute(builder: (context) => const Profile()),
                   );
                 },
               ),
