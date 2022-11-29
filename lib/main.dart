@@ -87,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         price: 5.50,
         course: "panino",
         imageUrl: "http://www.di.unito.it/~giovanna/gioNew1.jpg"));
+    order.tableID = "T1";
     print(order.shoppingCart);
     super.initState();
   }

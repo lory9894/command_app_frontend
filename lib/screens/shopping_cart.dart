@@ -39,12 +39,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   Text("Totale: ${order.total} €"),
                   ElevatedButton(
                     onPressed: () {
-                      if (order.tableID == null) {
-                        showDialog(
-                          context: context,
-                          builder: finalizationDialog,
-                        );
-                      }
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const ReviewPay()),
+                      );
                     },
                     child: const Text("Completa ordine"),
                   ),
@@ -79,9 +77,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
             onPressed: () {
               order.tableID = "Preordine";
               Navigator.of(context).pop(context);
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ReviewPay()),
-              );
             },
             child: const Text('Preordina'),
           ),
