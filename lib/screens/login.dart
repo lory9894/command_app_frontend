@@ -51,8 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                         final String code = barcode.rawValue!;
                         debugPrint('Barcode found: $code');
                         order.tableID = code;
-                        Navigator.of(context).pop(context);
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => const Menu()),
                         );
                       }
