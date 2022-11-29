@@ -39,10 +39,33 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   Text("Totale: ${order.total} €"),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const ReviewPay()),
-                      );
+                      if (order.tableID != null) {
+                        if (order.tableID!.startsWith("T")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ReviewPay()),
+                          );
+                        } else if (order.tableID!.startsWith("A")) {
+                          /* TODO: schermata scelta asporto
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TakeAway()),
+                          );
+                           */
+                        }
+                      } else if (order.tableID!.startsWith("D")) {
+                        /* TODO: Schermata scelta indirizzo
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const Delivery()),
+                          );
+                           */
+                      } else if (order.tableID!.startsWith("P")) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const ReviewPay()),
+                        );
+                      }
                     },
                     child: const Text("Completa ordine"),
                   ),

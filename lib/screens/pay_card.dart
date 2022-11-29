@@ -1,11 +1,6 @@
-import 'dart:convert';
-
-import 'package:command_app_frontend/global.dart';
 import 'package:command_app_frontend/payment_utils/card_month_input_formatter.dart';
-import 'package:command_app_frontend/screens/shopping_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 import '../payment_utils/card_number_input_formatter.dart';
 import '../payment_utils/card_type_enum.dart';
@@ -16,8 +11,6 @@ class PayCard extends StatefulWidget {
 
   @override
   State<PayCard> createState() => _PayCardState();
-
-
 }
 
 class _PayCardState extends State<PayCard> {
@@ -27,7 +20,8 @@ class _PayCardState extends State<PayCard> {
 
   @override
   void initState() {
-    cardNumberController.addListener(() {
+    cardNumberController.addListener(
+      () {
         getCardTypeFrmNumber();
       },
     );
@@ -55,9 +49,7 @@ class _PayCardState extends State<PayCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Pagamento")
-      ),
+      appBar: AppBar(title: Text("Pagamento")),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -84,7 +76,7 @@ class _PayCardState extends State<PayCard> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: TextFormField(
                         decoration:
-                        const InputDecoration(hintText: "Nome e cognome"),
+                            const InputDecoration(hintText: "Nome e cognome"),
                       ),
                     ),
                     Row(
@@ -110,7 +102,7 @@ class _PayCardState extends State<PayCard> {
                               CardMonthInputFormatter(),
                             ],
                             decoration:
-                            const InputDecoration(hintText: "MM/AA"),
+                                const InputDecoration(hintText: "MM/AA"),
                           ),
                         ),
                       ],
@@ -123,7 +115,11 @@ class _PayCardState extends State<PayCard> {
                 padding: const EdgeInsets.only(top: 16),
                 child: ElevatedButton(
                   child: const Text("Paga"),
-                  onPressed: () {},
+                  onPressed: () {
+                    /*TODO: distinguere il caso in cui è un preordine e inviare richiesta per la scelta del tavolo
+                    altrimenti inviare direttamente l'ordine in cucina
+                     */
+                  },
                 ),
               ),
               const Spacer(),
