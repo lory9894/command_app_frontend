@@ -70,6 +70,9 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   debugPrint('Barcode found: $code');
                   order.tableID = code;
                   Navigator.of(context).pop(context);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const ReviewPay()),
+                  );
                 }
               }),
         ),

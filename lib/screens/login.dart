@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+
+import '../global.dart';
+import 'menu.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(padding: const EdgeInsets.symmetric(vertical: 60)),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 60.0),
               child: Center(
@@ -34,6 +37,26 @@ class _LoginPageState extends State<LoginPage> {
                     height: 150,
                     child: Image.asset(
                         'assets/image/commandApp_logo.png')), //TODO: Sistemare immagine
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Container(
+                height: 400,
+                width: 400,
+                child: MobileScanner(
+                    allowDuplicates: false,
+                    onDetect: (barcode, args) {
+                      if (barcode.rawValue != null) {
+                        final String code = barcode.rawValue!;
+                        debugPrint('Barcode found: $code');
+                        order.tableID = code;
+                        Navigator.of(context).pop(context);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => const Menu()),
+                        );
+                      }
+                    }),
               ),
             ),
             /*
@@ -133,10 +156,15 @@ class _LoginPageState extends State<LoginPage> {
                 text: "Log in con Google",
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
-                onPressed: () async {},
+                onPressed: () async {
+                  //TODO: Autenticazione con google
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const Menu()),
+                  );
+                },
               ),
             ),
-            const Padding(padding: EdgeInsets.only(top: 60)),
+            const Padding(padding: EdgeInsets.only(top: 30)),
             const Text('vuoi registrarti?'),
             TextButton(
               onPressed: () {},
