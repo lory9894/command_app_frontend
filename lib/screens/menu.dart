@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -83,10 +82,8 @@ class _PreparationsTableState extends State<PreparationsTable> {
 
   @override
   void initState() {
-    print(getPreparations());
-    exit(0);
-    // preparationsList += getPreparations();
-    // super.initState();
+    preparationsList += getPreparationsFromJson(jsonPreparations);
+    super.initState();
   }
 
   @override
@@ -170,27 +167,32 @@ class _PreparationsTableState extends State<PreparationsTable> {
   }
 
   /// returns list of preparations to show on screen
-  List<Preparation> getPreparations() {
+  List<Preparation> getPreparationsFromJson(String json) {
     // TODO implement reading json and parsing to preparations
-    List map = jsonDecode(jsonPreparations);
+    List map = jsonDecode(json);
     print(map);
-    for (var element in map) {
-      print(element);
-      var dishMap = element['dish'];
+    for (var prepMap in map) {
+      print(prepMap);
+      var dishMap = prepMap['dish'];
       Dish dish = Dish(
           name: dishMap['name'],
           description: dishMap['description'],
           price: dishMap['price'],
           course: dishMap['course']
       );
+
+      String prepStateString = prepMap['state'];
+      /// preparation state converted from String to Enum
+      PreparationState prepState = PreparationState.values.firstWhere(
+              (e) => e.toString() == "PreparationState.$prepStateString"
+      );
       // TODO course should be converted in enum before assigning to dish
       Preparation prep = Preparation(
           dish,
-          element['tableDeliveryCode'],
-          state: element['state']
+          prepMap['tableDeliveryCode'],
+          state: prepState
       );
-      print(prep);
-      exit(0);
+      preparationsList.add(prep);
     }
     return List.empty();
   }
