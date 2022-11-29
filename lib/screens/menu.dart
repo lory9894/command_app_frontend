@@ -2,10 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
-import 'dart:io';
 
 const String jsonPreparations = """[
-{
+  {
     "dish": {
       "name": "il Petrone",
       "price": 5.50,
@@ -170,9 +169,7 @@ class _PreparationsTableState extends State<PreparationsTable> {
   List<Preparation> getPreparationsFromJson(String json) {
     // TODO implement reading json and parsing to preparations
     List map = jsonDecode(json);
-    print(map);
     for (var prepMap in map) {
-      print(prepMap);
       var dishMap = prepMap['dish'];
       Dish dish = Dish(
           name: dishMap['name'],
