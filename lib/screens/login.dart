@@ -22,13 +22,17 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 60.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Center(
                 child: SizedBox(
-                    width: 200,
-                    height: 150,
+                    width: 300,
+                    height: 250,
                     child: Image.asset(
-                        'assets/image/commandApp_logo.png')), //TODO: Sistemare immagine
+                      'assets/images/ComandApp-circle-noslogan.png',
+                      height: 400,
+                      width: 400,
+                      fit: BoxFit.fitWidth,
+                    )), //TODO: Sistemare immagine
               ),
             ),
             Padding(
