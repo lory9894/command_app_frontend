@@ -3,6 +3,8 @@ import 'package:command_app_frontend/screens/review_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import 'delivery.dart';
+
 class ShoppingCart extends StatefulWidget {
   const ShoppingCart({Key? key}) : super(key: key);
 
@@ -39,10 +41,31 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   Text("Totale: ${order.total} €"),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => const ReviewPay()),
-                      );
+                      if (order.tableID != null) {
+                        if (order.tableID!.startsWith("T")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ReviewPay()),
+                          );
+                        } else if (order.tableID!.startsWith("A")) {
+                          /* TODO: schermata scelta asporto
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const TakeAway()),
+                          );
+                           */
+                        } else if (order.tableID!.startsWith("D")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const Delivery()),
+                          );
+                        } else if (order.tableID!.startsWith("P")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ReviewPay()),
+                          );
+                        }
+                      }
                     },
                     child: const Text("Completa ordine"),
                   ),
