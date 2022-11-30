@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class ReviewPay extends StatelessWidget {
   const ReviewPay({Key? key}) : super(key: key);
 
+  //TODO: decentrato è una merda, rivedere
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +33,9 @@ class ReviewPay extends StatelessWidget {
                 },
                 child: const Text('Paga con carta'),
               ),
+              if (order.tableID != null && order.tableID!.startsWith("T"))
+                ElevatedButton(
+                    onPressed: () {}, child: const Text('Paga alla cassa')),
               ElevatedButton(
                 onPressed:
                     () {}, //TODO: implement, or maybe not, fuck it, mock it
