@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
+import '../res/dish.dart';
+import '../res/preparation.dart';
+
 const String jsonPreparations = """[
   {
     "dish": {
@@ -28,24 +31,7 @@ const String jsonPreparations = """[
 ]
 """;
 
-
-class Dish {
-  final String name;
-  final String description;
-  final double price;
-  final String? imageUrl;
-  final String course;
-
-  Dish(
-      {required this.name,
-      required this.description,
-      required this.price,
-      this.imageUrl,
-      required this.course});
-}
-
-enum PreparationState { brought, toBring }
-
+/// preparations states are displayed to user as follows
 extension PreparationStateStrings on PreparationState {
   String get str {
     switch (this) {
@@ -55,15 +41,6 @@ extension PreparationStateStrings on PreparationState {
         return "Servito";
     }
   }
-}
-
-class Preparation {
-  final Dish dish;
-  final String tableDeliveryCode;
-  PreparationState state;
-
-  Preparation(this.dish, this.tableDeliveryCode,
-      {this.state = PreparationState.toBring});
 }
 
 class PreparationsTable extends StatefulWidget {
