@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class MultipleButtonsPage extends StatefulWidget{
-  const MultipleButtonsPage(this.buttonsTextList, {super.key});
-  //TODO instead of buttons text and buttons link use 1 list where each element is an array of the buttons properties
+class ButtonData {
+  ///text to show to user
+  final String buttonText;
+  /// widget to push on stack when button clicked
+  final Widget buttonLink;
 
-  final List<String> buttonsTextList;
-  // final List<Widget> buttonsLinks;
+  const ButtonData(this.buttonText, this.buttonLink);
+}
+
+class MultipleButtonsPage extends StatefulWidget{
+  const MultipleButtonsPage(this.buttonsData, {super.key});
+
+  final List<ButtonData> buttonsData;
 
   @override
   _MultipleButtonsPageState createState() => _MultipleButtonsPageState();
@@ -33,14 +40,20 @@ class _MultipleButtonsPageState extends State<MultipleButtonsPage> {
 
   List<Widget> getButtonsWidgets(){
     List<Widget> buttonsWidgets = List.empty(growable: true);
-    for (String buttonText in widget.buttonsTextList) {
+    for (ButtonData buttonData in widget.buttonsData) {
       Widget buttonWidget = SizedBox(
         width: 300,
         height: 150,
         child: ElevatedButton(
-          onPressed: null,
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => buttonData.buttonLink,
+              ),
+            );
+          },
           child: Text(
-            buttonText,
+            buttonData.buttonText,
             style: const TextStyle(fontSize: 30),
           ),
         ),

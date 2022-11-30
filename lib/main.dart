@@ -1,3 +1,4 @@
+import 'package:command_app_frontend/screens/home_page.dart';
 import 'package:command_app_frontend/widgets/multiple_buttons_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,19 +19,5 @@ class MyApp extends StatelessWidget {
       ),
       home: const AdminHomePage(),
     );
-  }
-}
-
-class AdminHomePage extends StatelessWidget {
-  const AdminHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MultipleButtonsPage([
-      "Area prenotazioni",
-      "Area cucina",
-      "Area servizio",
-      "Area pinocchio"
-    ]);
   }
 }
