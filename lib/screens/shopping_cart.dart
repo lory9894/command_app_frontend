@@ -3,6 +3,8 @@ import 'package:command_app_frontend/screens/review_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import 'delivery.dart';
+
 class ShoppingCart extends StatefulWidget {
   const ShoppingCart({Key? key}) : super(key: key);
 
@@ -54,12 +56,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                            */
                         }
                       } else if (order.tableID!.startsWith("D")) {
-                        /* TODO: Schermata scelta indirizzo
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const Delivery()),
-                          );
-                           */
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => const Delivery()),
+                        );
                       } else if (order.tableID!.startsWith("P")) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
