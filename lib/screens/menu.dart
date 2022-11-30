@@ -77,7 +77,14 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Menù"),
+        title: order.tableID != null && order.tableID!.startsWith("T")
+            ? Center(
+                child: Text(
+                    "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
+            : order.tableID!.startsWith("A")
+                ? Text(
+                    "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
+                : const Center(child: Text("Menu")),
         actions: [
           IconButton(
               onPressed: () {
