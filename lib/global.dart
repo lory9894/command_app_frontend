@@ -19,9 +19,7 @@ TakeAway? takeAway;
 class TakeAway {
   String? _address, _notes;
   late final Order _order;
-  TakeAway(this._address, this._notes) {
-    _order = order;
-  }
+  TakeAway(this._address, this._notes, this._order);
 
   Order get order => _order;
 

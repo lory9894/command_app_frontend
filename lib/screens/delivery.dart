@@ -1,5 +1,5 @@
 import 'package:command_app_frontend/global.dart';
-import 'package:command_app_frontend/screens/pay_card.dart';
+import 'package:command_app_frontend/screens/review_pay.dart';
 import "package:flutter/material.dart";
 
 class Delivery extends StatefulWidget {
@@ -73,10 +73,11 @@ class _DeliveryState extends State<Delivery> {
                             send_pressed = true;
                           });
                         } else {
-                          takeAway = TakeAway(_address.text, _notes.text);
+                          takeAway =
+                              TakeAway(_address.text, _notes.text, order);
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => const PayCard()),
+                                builder: (context) => const ReviewPay()),
                           );
                         }
                       },

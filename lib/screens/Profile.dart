@@ -67,7 +67,7 @@ class _ProfileState extends State<Profile> {
               child: ElevatedButton(
                 onPressed: () {
                   //TODO: chiedi al backend l'id di consegna
-                  order.tableID = "C1";
+                  order.tableID = "D1";
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const Menu()),
                   );

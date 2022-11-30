@@ -54,17 +54,17 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                 builder: (context) => const TakeAway()),
                           );
                            */
+                        } else if (order.tableID!.startsWith("D")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const Delivery()),
+                          );
+                        } else if (order.tableID!.startsWith("P")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ReviewPay()),
+                          );
                         }
-                      } else if (order.tableID!.startsWith("D")) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const Delivery()),
-                        );
-                      } else if (order.tableID!.startsWith("P")) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const ReviewPay()),
-                        );
                       }
                     },
                     child: const Text("Completa ordine"),
