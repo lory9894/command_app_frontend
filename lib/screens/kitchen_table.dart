@@ -122,6 +122,17 @@ class _KitchenTableState extends State<KitchenTable> {
 
   /// change state of 'prep' to 'state', renders to UI
   void changeState(Preparation prep, PreparationState state){
-    setState(() => prep.state = state);
+    if (state == PreparationState.ready){
+      // preparation state set to ready, remove from preparation table
+      prep.state = state;
+      setState(() {
+        preparationsList.remove(prep);
+      });
+    }else{
+      // show new preparation state
+      setState(() {
+        prep.state = state;
+      });
+    }
   }
 }

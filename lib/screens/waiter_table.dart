@@ -60,38 +60,36 @@ class _ServiceTableState extends State<ServiceTable> {
                 ],
                 rows: List<DataRow>.generate(
                     preparationsList.length,
-                    (index) => DataRow(cells: [
-                          DataCell(
-                              Text(preparationsList[index].dish.name)),
-                          DataCell(
-                              Text(preparationsList[index].tableDeliveryCode)),
-                          DataCell(
-                              Text(preparationsList[index].state.str)),
-                          // TODO when changing preparation state to "brought" it should be removed after animation. No preparations with served state "brought" be displayed in this table.
-                          DataCell(Row(
-                            children: [
+                    (index) => DataRow(
+                          cells: [
+                            DataCell(Text(preparationsList[index].dish.name)),
+                            DataCell(Text(
+                                preparationsList[index].tableDeliveryCode)),
+                            DataCell(Text(preparationsList[index].state.str)),
+                            DataCell(
                               IconButton(
                                   onPressed: () => changeState(
                                       preparationsList[index],
-                                      PreparationState.toBring
-                                  ),
-                                  icon: const Icon(Icons.watch_later)
-                              ),
-                              IconButton(
-                                  onPressed: () => changeState(
-                                      preparationsList[index],
-                                      PreparationState.brought
-                                  ),
-                                  icon: const Icon(Icons.done)
-                              ),
-                            ],
-                          )),
-                        ]))))
-    );
+                                      PreparationState.brought),
+                                  icon: const Icon(Icons.done)),
+                            )
+                          ],
+                        )))));
   }
 
   /// change state of 'prep' to 'state', renders to UI
-  void changeState(Preparation prep, PreparationState state){
-    setState(() => prep.state = state);
+  void changeState(Preparation prep, PreparationState state) {
+    if (state == PreparationState.brought) {
+      // preparation state set to brought, remove from preparation table
+      prep.state = state;
+      setState(() {
+        preparationsList.remove(prep);
+      });
+    } else {
+      // show new preparation state
+      setState(() {
+        prep.state = state;
+      });
+    }
   }
 }
