@@ -14,6 +14,7 @@ class _BookingsTableState extends State<BookingsTable> {
   @override
   void initState() {
     bookingsList += getSampleBookings();
+    print(bookingsList);
     super.initState();
   }
 
@@ -30,66 +31,64 @@ class _BookingsTableState extends State<BookingsTable> {
                 columns: const <DataColumn>[
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Data e ora',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Data e ora',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Posti',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Posti',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Nome',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Nome',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Conferma / Rifiuta',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
-                ], rows: [],
-                // rows: List<DataRow>.generate(
-                //     preparationsList.length,
-                //         (index) => DataRow(cells: [
-                //       DataCell(
-                //           Text(preparationsList[index].dish.name)),
-                //       DataCell(
-                //           Text(preparationsList[index].tableDeliveryCode)),
-                //       DataCell(
-                //           Text(preparationsList[index].state.str)),
-                //       DataCell(Row(
-                //         children: [
-                //           IconButton(
-                //               onPressed: () => changeState(
-                //                   preparationsList[index],
-                //                   PreparationState.waiting
-                //               ),
-                //               icon: const Icon(Icons.watch_later)),
-                //           IconButton(
-                //               onPressed: () => changeState(
-                //                   preparationsList[index],
-                //                   PreparationState.underway
-                //               ),
-                //               icon: const Icon(FontAwesomeIcons.briefcase)),
-                //           IconButton(
-                //               onPressed: () => changeState(
-                //                   preparationsList[index],
-                //                   PreparationState.ready
-                //               ),
-                //               icon: const Icon(Icons.done)),
-                //         ],
-                //       )),
-                //     ]))))
-    )));
+                    child: Text(
+                      'Conferma / Rifiuta',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
+                ],
+                rows: bookingsList
+                    .map(((booking) => DataRow(cells: <DataCell>[
+                          DataCell(Text(booking.getStringDate())),
+                          DataCell(Text(booking.seats.toString())),
+                          DataCell(Text(booking.userName)),
+                          DataCell(Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () => acceptBooking(booking),
+                                  icon: const Icon(Icons.check)),
+                              IconButton(
+                                  onPressed: () => refuseBooking(booking),
+                                  icon: const Icon(Icons.close)),
+                            ],
+                          ))
+                        ])))
+                    .toList())));
+  }
+
+  void acceptBooking(Booking booking) {
+    // should send API request to accept booking
+    setState(() {
+      bookingsList.remove(booking);
+    });
+  }
+
+  void refuseBooking(Booking booking) {
+    // should send API request to refuse booking
+    setState(() {
+      bookingsList.remove(booking);
+    });
   }
 
   // /// change state of 'prep' to 'state', renders to UI
