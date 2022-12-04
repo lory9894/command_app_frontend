@@ -1,12 +1,14 @@
+import 'package:command_app_frontend/screens/kitchen_table.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/multiple_buttons_page.dart';
-import 'kitchen_management.dart';
+import 'waiter_table.dart';
 
 class AdminHomePage extends StatelessWidget {
   const AdminHomePage({super.key});
   static const List<ButtonData> adminPages = [
-    ButtonData("Area prenotazioni", PreparationsTable()),
+    ButtonData("Area servizio", ServiceTable()),
+    ButtonData("Area cucina", KitchenTable()),
   ];
 
   @override

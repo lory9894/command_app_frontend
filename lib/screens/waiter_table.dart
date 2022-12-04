@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -31,26 +30,14 @@ const String jsonPreparations = """[
 ]
 """;
 
-/// preparations states are displayed to user as follows
-extension PreparationStateStrings on PreparationState {
-  String get str {
-    switch (this) {
-      case PreparationState.toBring:
-        return "Da servire";
-      case PreparationState.brought:
-        return "Servito";
-    }
-  }
-}
-
-class PreparationsTable extends StatefulWidget {
-  const PreparationsTable({Key? key}) : super(key: key);
+class ServiceTable extends StatefulWidget {
+  const ServiceTable({Key? key}) : super(key: key);
 
   @override
-  _PreparationsTableState createState() => _PreparationsTableState();
+  _ServiceTableState createState() => _ServiceTableState();
 }
 
-class _PreparationsTableState extends State<PreparationsTable> {
+class _ServiceTableState extends State<ServiceTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
 
   @override
@@ -108,6 +95,7 @@ class _PreparationsTableState extends State<PreparationsTable> {
                               Text(preparationsList[index].tableDeliveryCode)),
                           DataCell(
                               Text(preparationsList[index].state.str)),
+                          // TODO when changing preparation state to "brought" it should be removed after animation. No preparations with served state "brought" be displayed in this table.
                           DataCell(Row(
                             children: [
                               IconButton(
