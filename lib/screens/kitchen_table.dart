@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:convert';
 
-import '../res/dish.dart';
 import '../res/preparation.dart';
 
 const String jsonPreparations = """[
@@ -43,7 +41,7 @@ class _KitchenTableState extends State<KitchenTable> {
 
   @override
   void initState() {
-    preparationsList += getPreparationsFromJson(jsonPreparations);
+    preparationsList += getSamplePreparations();
     super.initState();
   }
 
@@ -125,34 +123,5 @@ class _KitchenTableState extends State<KitchenTable> {
   /// change state of 'prep' to 'state', renders to UI
   void changeState(Preparation prep, PreparationState state){
     setState(() => prep.state = state);
-  }
-
-  /// returns list of preparations to show on screen
-  List<Preparation> getPreparationsFromJson(String json) {
-    // TODO implement reading json and parsing to preparations
-    List map = jsonDecode(json);
-    for (var prepMap in map) {
-      var dishMap = prepMap['dish'];
-      Dish dish = Dish(
-          name: dishMap['name'],
-          description: dishMap['description'],
-          price: dishMap['price'],
-          course: dishMap['course']
-      );
-
-      String prepStateString = prepMap['state'];
-      /// preparation state converted from String to Enum
-      PreparationState prepState = PreparationState.values.firstWhere(
-              (e) => e.toString() == "PreparationState.$prepStateString"
-      );
-      // TODO course should be converted in enum before assigning to dish
-      Preparation prep = Preparation(
-          dish,
-          prepMap['tableDeliveryCode'],
-          state: prepState
-      );
-      preparationsList.add(prep);
-    }
-    return List.empty();
   }
 }
