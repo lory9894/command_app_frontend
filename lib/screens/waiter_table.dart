@@ -125,7 +125,6 @@ class _ServiceTableState extends State<ServiceTable> {
 
   /// returns list of preparations to show on screen
   List<Preparation> getPreparationsFromJson(String json) {
-    // TODO implement reading json and parsing to preparations
     List map = jsonDecode(json);
     for (var prepMap in map) {
       var dishMap = prepMap['dish'];
