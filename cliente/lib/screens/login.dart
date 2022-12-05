@@ -4,8 +4,8 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../global.dart';
-import 'Profile.dart';
 import 'menu.dart';
+import 'profile.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
