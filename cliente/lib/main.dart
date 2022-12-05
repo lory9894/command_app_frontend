@@ -1,5 +1,4 @@
-import 'package:command_app_frontend/screens/home_page.dart';
-import 'package:command_app_frontend/widgets/multiple_buttons_page.dart';
+import 'package:command_app_frontend/screens/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +16,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AdminHomePage(),
+      home: const MyHomePage(),
     );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return LoginPage();
   }
 }

@@ -67,11 +67,13 @@ class _ServiceTableState extends State<ServiceTable> {
                                 preparationsList[index].tableDeliveryCode)),
                             DataCell(Text(preparationsList[index].state.str)),
                             DataCell(
-                              IconButton(
-                                  onPressed: () => changeState(
-                                      preparationsList[index],
-                                      PreparationState.brought),
-                                  icon: const Icon(Icons.done)),
+                              Center(
+                                child: IconButton(
+                                    onPressed: () => changeState(
+                                        preparationsList[index],
+                                        PreparationState.brought),
+                                    icon: const Icon(Icons.done)),
+                              ),
                             )
                           ],
                         )))));

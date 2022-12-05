@@ -58,77 +58,72 @@ class _KitchenTableState extends State<KitchenTable> {
                 columns: const <DataColumn>[
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Preparazione',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Preparazione',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Codice',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Codice',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Stato',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Stato',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                   DataColumn(
                       label: Expanded(
-                        child: Text(
-                          'Cambia Stato',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      )),
+                    child: Text(
+                      'Cambia Stato',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
                 ],
                 rows: List<DataRow>.generate(
                     preparationsList.length,
-                        (index) => DataRow(cells: [
-                      DataCell(
-                          Text(preparationsList[index].dish.name)),
-                      DataCell(
-                          Text(preparationsList[index].tableDeliveryCode)),
-                      DataCell(
-                          Text(preparationsList[index].state.str)),
-                      DataCell(Row(
-                        children: [
-                          IconButton(
-                              onPressed: () => changeState(
-                                  preparationsList[index],
-                                  PreparationState.waiting
-                              ),
-                              icon: const Icon(Icons.watch_later)),
-                          IconButton(
-                              onPressed: () => changeState(
-                                  preparationsList[index],
-                                  PreparationState.underway
-                              ),
-                              icon: const Icon(FontAwesomeIcons.briefcase)),
-                          IconButton(
-                              onPressed: () => changeState(
-                                  preparationsList[index],
-                                  PreparationState.ready
-                              ),
-                              icon: const Icon(Icons.done)),
-                        ],
-                      )),
-                    ]))))
-    );
+                    (index) => DataRow(cells: [
+                          DataCell(Text(preparationsList[index].dish.name)),
+                          DataCell(
+                              Text(preparationsList[index].tableDeliveryCode)),
+                          DataCell(Text(preparationsList[index].state.str)),
+                          DataCell(Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  onPressed: () => changeState(
+                                      preparationsList[index],
+                                      PreparationState.waiting),
+                                  icon: const Icon(Icons.watch_later)),
+                              IconButton(
+                                  onPressed: () => changeState(
+                                      preparationsList[index],
+                                      PreparationState.underway),
+                                  icon: const Icon(FontAwesomeIcons.briefcase)),
+                              IconButton(
+                                  onPressed: () => changeState(
+                                      preparationsList[index],
+                                      PreparationState.ready),
+                                  icon: const Icon(Icons.done)),
+                            ],
+                          )),
+                        ])))));
   }
 
   /// change state of 'prep' to 'state', renders to UI
-  void changeState(Preparation prep, PreparationState state){
-    if (state == PreparationState.ready){
+  void changeState(Preparation prep, PreparationState state) {
+    if (state == PreparationState.ready) {
       // preparation state set to ready, remove from preparation table
       prep.state = state;
       setState(() {
         preparationsList.remove(prep);
       });
-    }else{
+    } else {
       // show new preparation state
       setState(() {
         prep.state = state;

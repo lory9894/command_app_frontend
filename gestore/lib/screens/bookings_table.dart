@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:command_app_frontend/res/booking.dart';
+import 'package:flutter/material.dart';
 
 class BookingsTable extends StatefulWidget {
   const BookingsTable({super.key});
@@ -64,6 +64,7 @@ class _BookingsTableState extends State<BookingsTable> {
                           DataCell(Text(booking.seats.toString())),
                           DataCell(Text(booking.userName)),
                           DataCell(Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton(
                                   onPressed: () => acceptBooking(booking),
