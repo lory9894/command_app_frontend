@@ -19,14 +19,21 @@ class _AppBarLoginState extends State<AppBarLogin> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: order.tableID != null && order.tableID!.startsWith("T")
-          ? Center(
-              child: Text(
-                  "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
-          : order.tableID!.startsWith("A")
-              ? Text(
-                  "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
-              : const Center(child: Text("Menu")),
+      title: Center(
+        child: order.tableID == null
+            ? const Text('Menu')
+            : order.tableID!.startsWith('T')
+            ? Text('Tavolo ${order.tableID!.substring(1, order.tableID!.length)}')
+            : Text('Asporto ${order.tableID!.substring(1, order.tableID!.length)}'),
+      ),
+      // title: order.tableID != null && order.tableID!.startsWith("T")
+      //     ? Center(
+      //         child: Text(
+      //             "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
+      //     : order.tableID!.startsWith("A")
+      //         ? Text(
+      //             "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
+      //         : const Center(child: Text("Menu")),
       actions: [
         Padding(
           padding: const EdgeInsets.only(left: 8),

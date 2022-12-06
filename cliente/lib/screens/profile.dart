@@ -1,4 +1,5 @@
 import 'package:command_app_frontend/screens/menu.dart';
+import 'package:command_app_frontend/widgets/app_bar_login.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -15,9 +16,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text("NOME COGNOME")),
-      ),
+      appBar: const AppBarLogin(),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
