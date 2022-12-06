@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+import '../session.dart';
+import '../screens/shopping_cart.dart';
+import 'button_login.dart';
+
+class AppBarLogin extends StatefulWidget implements PreferredSizeWidget {
+  const AppBarLogin({super.key});
+
+  @override
+  State<AppBarLogin> createState() => _AppBarLoginState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _AppBarLoginState extends State<AppBarLogin> {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: order.tableID != null && order.tableID!.startsWith("T")
+          ? Center(
+          child: Text(
+              "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
+          : order.tableID!.startsWith("A")
+          ? Text(
+          "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
+          : const Center(child: Text("Menu")),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ShoppingCart()));
+              },
+              icon: const Icon(Icons.shopping_cart)),
+        ),
+
+        const ButtonLogin()
+      ],
+    );
+  }
+}

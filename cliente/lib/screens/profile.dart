@@ -2,7 +2,7 @@ import 'package:command_app_frontend/screens/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../global.dart';
+import '../session.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:command_app_frontend/global.dart';
-import 'package:command_app_frontend/screens/shopping_cart.dart';
+import 'package:command_app_frontend/session.dart';
+import 'package:command_app_frontend/widgets/app_bar_login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../widgets/button_login.dart';
+import '../custom_classes/dish.dart';
 
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);
@@ -78,25 +78,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: order.tableID != null && order.tableID!.startsWith("T")
-            ? Center(
-                child: Text(
-                    "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
-            : order.tableID!.startsWith("A")
-                ? Text(
-                    "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
-                : const Center(child: Text("Menu")),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ShoppingCart()));
-              },
-              icon: const Icon(Icons.shopping_cart)),
-          const ButtonLogin()
-        ],
-      ),
+      appBar: const AppBarLogin(),
       body: ListView.builder(
         itemCount: _dishesCourses().length,
         itemBuilder: (BuildContext context, int index) {

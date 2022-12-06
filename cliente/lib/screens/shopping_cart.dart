@@ -1,4 +1,4 @@
-import 'package:command_app_frontend/global.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:command_app_frontend/screens/review_pay.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

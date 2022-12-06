@@ -1,46 +1,10 @@
-class Dish {
-  final String name;
-  final String description;
-  final double price;
-  final String? imageUrl;
-  final String course;
-
-  Dish(
-      {required this.name,
-      required this.description,
-      required this.price,
-      this.imageUrl,
-      required this.course});
-}
-
-Order order = Order();
-TakeAway? takeAway;
-
-class TakeAway {
-  String? _address, _notes;
-  late final Order _order;
-  TakeAway(this._address, this._notes, this._order);
-
-  Order get order => _order;
-
-  get notes => _notes;
-
-  set notes(value) {
-    _notes = value;
-  }
-
-  String get address => _address!;
-
-  set address(String value) {
-    _address = value;
-  }
-}
+import 'dish.dart';
 
 class Order {
   String? _userId, _tableID;
   late String orderID;
   double _total = 0;
-  Map<Dish, int> _shoppingCart = {};
+  final Map<Dish, int> _shoppingCart = {};
 
   Map<Dish, int> get shoppingCart => _shoppingCart;
 
@@ -57,8 +21,8 @@ class Order {
 
   /// Creates a new order, empty.
   Order({String? userId, String? tableID}) {
-    this._userId = userId;
-    this._tableID = tableID;
+    _userId = userId;
+    _tableID = tableID;
   }
 
   ///compute orderID from userId, tableID and current time

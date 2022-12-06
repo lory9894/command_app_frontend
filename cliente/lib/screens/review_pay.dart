@@ -1,4 +1,4 @@
-import 'package:command_app_frontend/global.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:command_app_frontend/screens/pay_card.dart';
 import 'package:flutter/material.dart';
 
