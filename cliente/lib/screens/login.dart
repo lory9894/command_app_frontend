@@ -18,6 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Row(
@@ -28,8 +31,8 @@ class _LoginPageState extends State<LoginPage> {
                 Flex(direction: Axis.vertical, children: [
                   Image.asset(
                     'assets/images/ComandApp-circle-noslogan.png',
-                    height: 200,
-                    width: 200,
+                    height: 300,
+                    width: 300,
                     fit: BoxFit.fitWidth,
                   )
                 ]),
