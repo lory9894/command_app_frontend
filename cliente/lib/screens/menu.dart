@@ -5,11 +5,13 @@ import 'package:command_app_frontend/screens/shopping_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../widgets/button_login.dart';
+
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);
 
   @override
-  _MenuState createState() => _MenuState();
+  State<Menu> createState() => _MenuState();
 }
 
 class _MenuState extends State<Menu> {
@@ -68,7 +70,7 @@ class _MenuState extends State<Menu> {
   }
 
   //if the list of courses is not provided, it will be generated from the list of dishes
-  Set<String> _dishes_courses() {
+  Set<String> _dishesCourses() {
     courses ??= dishes.map((dish) => dish.course).toSet();
     return courses!;
   }
@@ -91,23 +93,24 @@ class _MenuState extends State<Menu> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const ShoppingCart()));
               },
-              icon: Icon(Icons.shopping_cart))
+              icon: const Icon(Icons.shopping_cart)),
+          const ButtonLogin()
         ],
       ),
       body: ListView.builder(
-        itemCount: _dishes_courses().length,
+        itemCount: _dishesCourses().length,
         itemBuilder: (BuildContext context, int index) {
           return ExpansionTile(
             //title : course name white text
             title: Text(
-              _dishes_courses().elementAt(index),
+              _dishesCourses().elementAt(index),
             ),
             //background color of the tile when closed
             collapsedBackgroundColor: Theme.of(context).backgroundColor,
 
             children: dishes
                 .where(
-                    (dish) => dish.course == _dishes_courses().elementAt(index))
+                    (dish) => dish.course == _dishesCourses().elementAt(index))
                 .map((dish) => ListTile(
                       tileColor: Colors.white,
                       leading: CircleAvatar(
@@ -123,7 +126,7 @@ class _MenuState extends State<Menu> {
                           onPressed: () {
                             order.addDish(dish);
                           },
-                          icon: Icon(Icons.add)),
+                          icon: const Icon(Icons.add)),
                     ))
                 .toList(),
           );

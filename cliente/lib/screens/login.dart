@@ -4,7 +4,7 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../global.dart';
-import 'Profile.dart';
+import 'profile.dart';
 import 'menu.dart';
 
 class LoginPage extends StatefulWidget {
