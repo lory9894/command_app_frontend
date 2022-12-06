@@ -5,6 +5,6 @@ import 'custom_classes/take_away.dart';
 
 Order order = Order();
 TakeAway? takeAway;
-String? userId;
+int? userId = 3;
 
 

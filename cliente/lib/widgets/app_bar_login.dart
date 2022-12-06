@@ -1,3 +1,4 @@
+import 'package:command_app_frontend/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 import '../session.dart';
@@ -20,12 +21,12 @@ class _AppBarLoginState extends State<AppBarLogin> {
     return AppBar(
       title: order.tableID != null && order.tableID!.startsWith("T")
           ? Center(
-          child: Text(
-              "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
+              child: Text(
+                  "Tavolo ${order.tableID!.substring(1, order.tableID!.length)}"))
           : order.tableID!.startsWith("A")
-          ? Text(
-          "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
-          : const Center(child: Text("Menu")),
+              ? Text(
+                  "Asporto ${order.tableID!.substring(1, order.tableID!.length)}")
+              : const Center(child: Text("Menu")),
       actions: [
         Padding(
           padding: const EdgeInsets.only(left: 8),
@@ -36,8 +37,18 @@ class _AppBarLoginState extends State<AppBarLogin> {
               },
               icon: const Icon(Icons.shopping_cart)),
         ),
-
-        const ButtonLogin()
+        Padding(
+            padding: const EdgeInsets.only(left: 8, right: 20),
+            child: userId != null
+                ? IconButton(
+                    onPressed: () {
+                      userId = null;
+                      order.tableID = null;
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => const Profile()));
+                    },
+                    icon: const Icon(Icons.logout))
+                : const ButtonLogin())
       ],
     );
   }
