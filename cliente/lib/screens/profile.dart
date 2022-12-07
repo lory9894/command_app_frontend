@@ -38,7 +38,7 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 1),
+                      minimumSize: const Size.fromHeight(20),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -76,7 +76,13 @@ class _ProfileState extends State<Profile> {
                         },
                       );
                     },
-                    child: const Text("Ordina al tavolo"),
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Ordina al tavolo",
+                        style: TextStyle(fontSize: 60),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -85,7 +91,7 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 1),
+                      minimumSize: const Size.fromHeight(40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -97,7 +103,13 @@ class _ProfileState extends State<Profile> {
                         MaterialPageRoute(builder: (context) => const Menu()),
                       );
                     },
-                    child: const Text("Ordina a casa"),
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Ordina a casa",
+                        style: TextStyle(fontSize: 60),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -106,7 +118,7 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 1),
+                      minimumSize: const Size.fromHeight(40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -118,7 +130,13 @@ class _ProfileState extends State<Profile> {
                         MaterialPageRoute(builder: (context) => const Menu()),
                       );
                     },
-                    child: const Text("Ordina da asporto"),
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Ordina asporto",
+                        style: TextStyle(fontSize: 60),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -127,7 +145,7 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 1),
+                      minimumSize: const Size.fromHeight(40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -139,7 +157,13 @@ class _ProfileState extends State<Profile> {
                       );
                        */
                     },
-                    child: const Text("Pre-ordina"),
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Pre-ordina",
+                        style: TextStyle(fontSize: 60),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -148,7 +172,7 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(200, 1),
+                      minimumSize: const Size.fromHeight(40),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -160,7 +184,13 @@ class _ProfileState extends State<Profile> {
                     );
                      */
                     },
-                    child: const Text("Prenota"),
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Prenota",
+                        style: TextStyle(fontSize: 60),
+                      ),
+                    ),
                   ),
                 ),
               ),
