@@ -1,4 +1,5 @@
 import 'package:command_app_frontend/screens/menu.dart';
+import 'package:command_app_frontend/screens/prenota_tavolo.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -124,7 +125,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     onPressed: () {
-                      //TODO: chiedi al backend l'id da asporto
+                      //TODO: chiedi al backend l'id da asporto. Oltretutto bisogna tenere traccia del fatto che è un asporto, quindi il menù deve andare
+                      //alla pagina PrenotaAsporto dopo aver scelto i piatti
                       order.tableID = "A1";
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Menu()),
@@ -151,11 +153,10 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     onPressed: () {
-                      /* TODO: schermata di pre ordine
+                      //TODO: AIUTO rivedere routing, bisogna tenere in memoria che questo è un preordine, in modo che dopo aver scelto i piatti si vada alla pagina PrenotaTavolo
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Menu()),
                       );
-                       */
                     },
                     child: const FittedBox(
                       fit: BoxFit.fitHeight,
@@ -178,11 +179,10 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     onPressed: () {
-                      /* TODO: schermata di prenotazione
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Menu()),
-                    );
-                     */
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const PrenotaTavolo()),
+                      );
                     },
                     child: const FittedBox(
                       fit: BoxFit.fitHeight,
