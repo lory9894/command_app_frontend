@@ -3,7 +3,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../global.dart';
+import '../session.dart';
 import 'menu.dart';
 import 'profile.dart';
 
