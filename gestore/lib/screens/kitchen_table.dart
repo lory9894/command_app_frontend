@@ -16,7 +16,7 @@ class KitchenTable extends StatefulWidget {
 
 class _KitchenTableState extends State<KitchenTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
-  static String BASE_URL = 'http://localhost:8080/kitchen/preparations';
+  static String BASE_URL = 'http://api_gateway:8080/kitchen/preparations';
   late Timer timer;
 
   @override
