@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../res/preparation.dart';
 
@@ -11,11 +15,23 @@ class ServiceTable extends StatefulWidget {
 
 class _ServiceTableState extends State<ServiceTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
+  static String BASE_URL = 'http://localhost:8080/waiter/preparations';
+  late Timer timer;
 
   @override
   void initState() {
-    preparationsList += getSamplePreparations();
     super.initState();
+    //run once before loading the page
+    fetchPreparations();
+    //then run every second
+    timer =
+        Timer.periodic(Duration(seconds: 1), (Timer t) => fetchPreparations());
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -62,16 +78,15 @@ class _ServiceTableState extends State<ServiceTable> {
                     preparationsList.length,
                     (index) => DataRow(
                           cells: [
-                            DataCell(Text(preparationsList[index].dish.name)),
-                            DataCell(Text(
-                                preparationsList[index].tableDeliveryCode)),
+                            DataCell(Text(preparationsList[index].name)),
+                            DataCell(Text(preparationsList[index].table)),
                             DataCell(Text(preparationsList[index].state.str)),
                             DataCell(
                               Center(
                                 child: IconButton(
                                     onPressed: () => changeState(
                                         preparationsList[index],
-                                        PreparationState.brought),
+                                        PreparationState.DELIVERED),
                                     icon: const Icon(Icons.done)),
                               ),
                             )
@@ -79,19 +94,34 @@ class _ServiceTableState extends State<ServiceTable> {
                         )))));
   }
 
-  /// change state of 'prep' to 'state', renders to UI
-  void changeState(Preparation prep, PreparationState state) {
-    if (state == PreparationState.brought) {
-      // preparation state set to brought, remove from preparation table
-      prep.state = state;
+  void fetchPreparations() async {
+    final response = await http.get(Uri.parse(BASE_URL));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      final prepList = jsonDecode(response.body);
       setState(() {
-        preparationsList.remove(prep);
+        preparationsList = prepList
+            .map<Preparation>((prep) => Preparation.fromJson(prep))
+            .toList();
       });
     } else {
-      // show new preparation state
-      setState(() {
-        prep.state = state;
-      });
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load preparations');
+    }
+  }
+
+  /// change state of 'prep' to 'state', renders to UI
+  void changeState(Preparation prep, PreparationState state) async {
+    final response = await http.put(
+        Uri.parse("$BASE_URL/state/${state.name.toLowerCase()}/${prep.id}"));
+
+    if (response.statusCode == 200) {
+      fetchPreparations();
+    } else {
+      print(response.body);
+      throw Exception('Failed to change state');
     }
   }
 }

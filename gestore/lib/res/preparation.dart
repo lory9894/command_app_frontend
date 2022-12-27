@@ -1,92 +1,43 @@
-import 'dart:convert';
-
-import 'dish.dart';
-
-enum PreparationState { brought, toBring, ready, underway, waiting }
-
+enum PreparationState { DELIVERED, TO_DELIVER, READY, UNDERWAY, WAITING }
 
 /// preparations states are displayed to user as follows
 extension PreparationStateStrings on PreparationState {
   String get str {
     switch (this) {
-      case PreparationState.toBring:
+      case PreparationState.TO_DELIVER:
         return "Da servire";
-      case PreparationState.brought:
+      case PreparationState.DELIVERED:
         return "Servito";
-      case PreparationState.ready:
+      case PreparationState.READY:
         return "Pronto";
-      case PreparationState.underway:
+      case PreparationState.UNDERWAY:
         return "In preparazione";
-      case PreparationState.waiting:
+      case PreparationState.WAITING:
         return "In attesa";
     }
   }
 }
 
 class Preparation {
-  final Dish dish;
-  final String tableDeliveryCode;
+  final int id;
+  final String name;
+  final String table;
   PreparationState state;
 
-  Preparation(this.dish, this.tableDeliveryCode,
-      {this.state = PreparationState.toBring});
-}
+  Preparation(
+      {required this.id,
+      required this.name,
+      required this.table,
+      required this.state});
 
-const String sampleJsonPreparations = """[
-  {
-    "dish": {
-      "name": "il Petrone",
-      "price": 5.50,
-      "description": "panino con prosciutto e mozzarella",
-      "imageUrl": "http://www.di.unito.it/~giovanna/gioNew1.jpg",
-      "course": "Panino"
-    },
-    "tableDeliveryCode": "12",
-    "state": "brought"
-  },
-  {
-    "dish": {
-      "name": "Risotto alla CMRO",
-      "price": 5.22,
-      "description": "Gvosso risotto per gvossi intenditori (Fakemuscles approves)",
-      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FAndrea_Grosso%2F4&psig=AOvVaw3sNpMqQxN08jGPGKzd70v8&ust=1669741417373000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNjr89Gt0fsCFQAAAAAdAAAAABAE",
-      "course": "primo"
-    },
-    "tableDeliveryCode": "A46",
-    "state": "toBring"
+  factory Preparation.fromJson(Map<String, dynamic> json) {
+    return Preparation(
+      id: json['id'],
+      name: json['name'],
+      table: json['table'],
+      state: PreparationState.values.byName(json['state']),
+    );
   }
-]
-""";
-
-
-/// returns list of preparations to show on screen
-List<Preparation> getPreparationsFromJson(String json) {
-  List<Preparation> preparationsList = List.empty(growable: true);
-  List map = jsonDecode(json);
-  for (var prepMap in map) {
-    var dishMap = prepMap['dish'];
-    Dish dish = Dish(
-        name: dishMap['name'],
-        description: dishMap['description'],
-        price: dishMap['price'],
-        course: dishMap['course']
-    );
-
-    String prepStateString = prepMap['state'];
-    /// preparation state converted from String to Enum
-    PreparationState prepState = PreparationState.values.firstWhere(
-            (e) => e.toString() == "PreparationState.$prepStateString"
-    );
-    Preparation prep = Preparation(
-        dish,
-        prepMap['tableDeliveryCode'],
-        state: prepState
-    );
-    preparationsList.add(prep);
-  }
-  return preparationsList;
-}
-
-List<Preparation> getSamplePreparations() {
-  return getPreparationsFromJson(sampleJsonPreparations);
+  toString() =>
+      "Preparation(id: $id, name: $name, table: $table, state: $state)";
 }

@@ -1,33 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 
-import '../res/preparation.dart';
-
-const String jsonPreparations = """[
-  {
-    "dish": {
-      "name": "il Petrone",
-      "price": 5.50,
-      "description": "panino con prosciutto e mozzarella",
-      "imageUrl": "http://www.di.unito.it/~giovanna/gioNew1.jpg",
-      "course": "Panino"
-    },
-    "tableDeliveryCode": "12",
-    "state": "ready"
-  },
-  {
-    "dish": {
-      "name": "Risotto alla CMRO",
-      "price": 5.22,
-      "description": "Gvosso risotto per gvossi intenditori (Fakemuscles approves)",
-      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.researchgate.net%2Fprofile%2FAndrea_Grosso%2F4&psig=AOvVaw3sNpMqQxN08jGPGKzd70v8&ust=1669741417373000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNjr89Gt0fsCFQAAAAAdAAAAABAE",
-      "course": "primo"
-    },
-    "tableDeliveryCode": "A46",
-    "state": "underway"
-  }
-]
-""";
+import '../res/preparation.dart' '';
 
 class KitchenTable extends StatefulWidget {
   const KitchenTable({super.key});
@@ -38,11 +16,23 @@ class KitchenTable extends StatefulWidget {
 
 class _KitchenTableState extends State<KitchenTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
+  static String BASE_URL = 'http://localhost:8080/kitchen/preparations';
+  late Timer timer;
 
   @override
   void initState() {
-    preparationsList += getSamplePreparations();
     super.initState();
+    //run once before loading the page
+    fetchPreparations();
+    //then run every second
+    timer =
+        Timer.periodic(Duration(seconds: 1), (Timer t) => fetchPreparations());
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -88,9 +78,8 @@ class _KitchenTableState extends State<KitchenTable> {
                 rows: List<DataRow>.generate(
                     preparationsList.length,
                     (index) => DataRow(cells: [
-                          DataCell(Text(preparationsList[index].dish.name)),
-                          DataCell(
-                              Text(preparationsList[index].tableDeliveryCode)),
+                          DataCell(Text(preparationsList[index].name)),
+                          DataCell(Text(preparationsList[index].table)),
                           DataCell(Text(preparationsList[index].state.str)),
                           DataCell(Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -98,36 +87,55 @@ class _KitchenTableState extends State<KitchenTable> {
                               IconButton(
                                   onPressed: () => changeState(
                                       preparationsList[index],
-                                      PreparationState.waiting),
+                                      PreparationState.WAITING),
                                   icon: const Icon(Icons.watch_later)),
                               IconButton(
                                   onPressed: () => changeState(
                                       preparationsList[index],
-                                      PreparationState.underway),
+                                      PreparationState.UNDERWAY),
                                   icon: const Icon(FontAwesomeIcons.briefcase)),
                               IconButton(
                                   onPressed: () => changeState(
                                       preparationsList[index],
-                                      PreparationState.ready),
+                                      PreparationState.READY),
                                   icon: const Icon(Icons.done)),
                             ],
                           )),
                         ])))));
   }
 
-  /// change state of 'prep' to 'state', renders to UI
-  void changeState(Preparation prep, PreparationState state) {
-    if (state == PreparationState.ready) {
-      // preparation state set to ready, remove from preparation table
-      prep.state = state;
+  void fetchPreparations() async {
+    final response = await http.get(Uri.parse(BASE_URL));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      final prepList = jsonDecode(response.body);
       setState(() {
-        preparationsList.remove(prep);
+        preparationsList = prepList
+            .map<Preparation>((prep) => Preparation.fromJson(prep))
+            .toList();
+      });
+      setState(() {});
+      preparationsList.forEach((element) {
+        print(element);
       });
     } else {
-      // show new preparation state
-      setState(() {
-        prep.state = state;
-      });
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load preparations');
+    }
+  }
+
+  /// change state of 'prep' to 'state', renders to UI
+  void changeState(Preparation prep, PreparationState state) async {
+    final response = await http.put(
+        Uri.parse("$BASE_URL/state/${state.name.toLowerCase()}/${prep.id}"));
+
+    if (response.statusCode == 200) {
+      fetchPreparations();
+    } else {
+      print(response.body);
+      throw Exception('Failed to change state');
     }
   }
 }
