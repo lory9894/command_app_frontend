@@ -17,43 +17,34 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   List<Dish> dishes = List.empty(growable: true);
   Set<String>? courses;
+  static String BASE_URL =
+      'http://localhost:8080/menu'; //TODO: add the correct url, not localhost
 
   @override
   void initState() {
-    readJson();
+    fetchDishes();
     super.initState();
   }
 
-  void readJson() async {
-    var json = """ 
-    [
-  {
-    "name": "il Petrone",
-    "price": 5.50,
-    "description": "panino con prosciutto e mozzarella",
-    "imageUrl": "faioeghd",
-    "course": "Panino"
-  },
-  {
-    "name": "Coppo di Vino",
-    "price": 100.00,
-    "description": "vino rosso",
-    "imageUrl": "faioeghd",
-    "course": "Bevanda"
-  },
-    {
-        "name": "CapecchiCola",
-        "price": 100.00,
-        "description": "hoha hola",
-        "imageUrl": null,
-        "course": "Bevanda"
+  void fetchDishes() async {
+    var response = await http.get(Uri.parse("$BASE_URL/getDishes"));
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      //from the response body, get the list of dishes
+      dishes = jsonResponse.map<Dish>((json) => Dish.fromJson(json)).toList();
+      //find the number of different courses in list dishes
+      courses = dishes.map((e) => e.course).toSet();
+      setState(() {});
+      dishes.forEach((element) {
+        print(element);
+      }); //TODO: remove this
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
     }
+  }
 
-]
-""";
-    // to make it work https://stackoverflow.com/questions/65630743/how-to-solve-flutter-web-api-cors-error-only-with-dart-code
-    // then python -m http.server 8080 in the folder that contains dummy_dishes.json
-    http.get(Uri.http("localhost:8080", "dummy_dishes.json")).then((value) => {
+  void readJson() async {
+    http.get(Uri.http("$BASE_URL/getDishes")).then((value) => {
           setState(() {
             dishes = (jsonDecode(value.body) as List)
                 .map((e) => Dish(
@@ -63,7 +54,6 @@ class _MenuState extends State<Menu> {
                     imageUrl: e["imageUrl"],
                     course: e["course"]))
                 .toList();
-            //find the number of different courses in list dishes
             courses = dishes.map((e) => e.course).toSet();
           }),
         });
