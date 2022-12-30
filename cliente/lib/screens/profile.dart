@@ -153,32 +153,6 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     onPressed: () {
-                      //TODO: AIUTO rivedere routing, bisogna tenere in memoria che questo è un preordine, in modo che dopo aver scelto i piatti si vada alla pagina PrenotaTavolo
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Menu()),
-                      );
-                    },
-                    child: const FittedBox(
-                      fit: BoxFit.fitHeight,
-                      child: Text(
-                        "Pre-ordina",
-                        style: TextStyle(fontSize: 60),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const PrenotaTavolo()),
