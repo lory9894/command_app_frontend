@@ -153,6 +153,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     onPressed: () {
+                      //TODO: chiedi al backend l'id di prenotazione
+                      order.tableID = "P1";
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => const PrenotaTavolo()),
