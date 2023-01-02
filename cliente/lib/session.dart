@@ -5,6 +5,4 @@ import 'custom_classes/take_away.dart';
 
 Order order = Order();
 TakeAway? takeAway;
-int? userId = 3;
-
-
+int? userId = null;

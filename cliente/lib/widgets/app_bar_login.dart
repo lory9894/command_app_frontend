@@ -1,9 +1,8 @@
-import 'package:command_app_frontend/screens/profile.dart';
+import 'package:command_app_frontend/screens/login.dart';
 import 'package:flutter/material.dart';
 
-import '../session.dart';
 import '../screens/shopping_cart.dart';
-import 'button_login.dart';
+import '../session.dart';
 
 class AppBarLogin extends StatefulWidget implements PreferredSizeWidget {
   const AppBarLogin({super.key});
@@ -23,8 +22,9 @@ class _AppBarLoginState extends State<AppBarLogin> {
         child: order.tableID == null
             ? const Text('Menu')
             : order.tableID!.startsWith('T')
-            ? Text('Tavolo ${order.tableID!.substring(1, order.tableID!.length)}')
-            : Text('Asporto ${order.tableID!.substring(1, order.tableID!.length)}'),
+                ? Text(
+                    'Tavolo ${order.tableID!.substring(1, order.tableID!.length)}')
+                : const Text(''),
       ),
       // title: order.tableID != null && order.tableID!.startsWith("T")
       //     ? Center(
@@ -51,11 +51,12 @@ class _AppBarLoginState extends State<AppBarLogin> {
                     onPressed: () {
                       userId = null;
                       order.tableID = null;
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const Profile()));
+                      //TODO: insert firebase logout
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
                     },
                     icon: const Icon(Icons.logout))
-                : const ButtonLogin())
+                : null)
       ],
     );
   }
