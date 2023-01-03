@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'custom_classes/order.dart';
 import 'custom_classes/take_away.dart';
 
@@ -5,6 +7,6 @@ import 'custom_classes/take_away.dart';
 
 Order order = Order();
 TakeAway? takeAway;
-int? userId = 3;
+UserCredential? userCredential;
 
 

@@ -3,6 +3,7 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../auth/auth_methods.dart';
 import '../session.dart';
 import 'menu.dart';
 import 'profile.dart';
@@ -69,11 +70,18 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     onPressed: () async {
-                      //TODO: Autenticazione con google
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                            builder: (context) => const Profile()),
-                      );
+                      try {
+                        await signInWithGoogle(context, () {
+                          // callback function when login is successful
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()));
+                        });
+                      } catch (e) {
+                        // TODO messaggio di errore quando il login fallisce
+                        print(e);
+                      }
                     },
                   ),
                 ),

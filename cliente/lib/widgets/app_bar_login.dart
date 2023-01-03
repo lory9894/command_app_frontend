@@ -1,6 +1,7 @@
 import 'package:command_app_frontend/screens/profile.dart';
 import 'package:flutter/material.dart';
 
+import '../auth/auth_methods.dart';
 import '../session.dart';
 import '../screens/shopping_cart.dart';
 import 'button_login.dart';
@@ -46,10 +47,10 @@ class _AppBarLoginState extends State<AppBarLogin> {
         ),
         Padding(
             padding: const EdgeInsets.only(left: 8, right: 20),
-            child: userId != null
+            child: userCredential != null
                 ? IconButton(
                     onPressed: () {
-                      userId = null;
+                      signOutFromGoogle();
                       order.tableID = null;
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => const Profile()));
