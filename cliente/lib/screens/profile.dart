@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("NOME COGNOME")),
+        title: Center(child: Text("Benvenuto ${userCredential?.user?.displayName}")),
       ),
       body: Row(children: [
         Expanded(
