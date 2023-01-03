@@ -78,9 +78,10 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialPageRoute(
                                   builder: (context) => const Profile()));
                         });
-                      } catch (e) {
+                      } catch (e, s) {
                         // TODO messaggio di errore quando il login fallisce
-                        print(e);
+                        debugPrint(e.toString());
+                        debugPrint(s.toString());
                       }
                     },
                   ),
