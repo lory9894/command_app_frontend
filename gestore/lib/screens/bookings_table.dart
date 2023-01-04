@@ -23,6 +23,7 @@ class _BookingsTableState extends State<BookingsTable> {
   void initState() {
     super.initState();
     fetchBookings();
+
     timer = Timer.periodic(Duration(seconds: 10), (Timer t) => fetchBookings());
   }
 
@@ -135,7 +136,6 @@ class _BookingsTableState extends State<BookingsTable> {
     final response = await http.get(Uri.parse("$BASE_URL/all/waiting"));
     if (response.statusCode == 200) {
       final bookingJson = jsonDecode(response.body);
-      print(bookingJson);
       setState(() {
         bookingsList =
             bookingJson.map<Booking>((json) => Booking.fromJson(json)).toList();
@@ -143,9 +143,6 @@ class _BookingsTableState extends State<BookingsTable> {
         for (var i = 0; i < bookingsList.length; i++) {
           _tableControllerList.add(TextEditingController());
         }
-      });
-      bookingsList.forEach((element) {
-        print(element);
       });
     } else {
       throw Exception('Failed to load bookings');
