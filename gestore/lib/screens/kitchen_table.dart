@@ -115,7 +115,6 @@ class _KitchenTableState extends State<KitchenTable> {
             .map<Preparation>((prep) => Preparation.fromJson(prep))
             .toList();
       });
-      setState(() {});
       preparationsList.forEach((element) {
         print(element);
       });

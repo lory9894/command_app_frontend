@@ -1,64 +1,32 @@
-import 'dart:convert';
 import 'package:intl/intl.dart';
 
 class Booking {
-  DateTime dateTime;
-  int seats;
-  String userName;
+  final int id;
+  final DateTime dateTime;
+  final int seats;
+  final String userName;
 
-  Booking(this.dateTime, this.seats, this.userName);
+  static final DateFormat formatter = DateFormat('dd-MM-yyyy HH:mm');
 
-  String getStringDate(){
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    final String formatted = formatter.format(dateTime);
-    return formatted;
-  }
-}
+  Booking(
+      {required this.id,
+      required this.dateTime,
+      required this.seats,
+      required this.userName});
 
-
-const String sampleJsonBookings = """
-[
-  {
-    "timestamp": 1666110600,
-    "seats": 8,
-    "userName": "pinocchio12"
-  },
-  {
-    "timestamp": 1666196400,
-    "seats": 2,
-    "userName": "dark_liliana69"
-  },
-  {
-    "timestamp": 1666203600,
-    "seats": 6,
-    "userName": "lil_rossano666"
-  },
-  {
-    "timestamp": 1666207200,
-    "seats": 3,
-    "userName": "coppo_zacchi<3"
-  }
-]
-""";
-
-
-/// returns list of preparations to show on screen
-List<Booking> getBookingsFromJson(String json) {
-  List<Booking> bookingsList = List.empty(growable: true);
-  List map = jsonDecode(json);
-  for (var bookingMap in map) {
-    // convert timestamp to date time in seconds
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(bookingMap['timestamp'] * 1000);
-    Booking booking = Booking(
-        dateTime,
-        bookingMap['seats'],
-        bookingMap['userName']
+  factory Booking.fromJson(Map<String, dynamic> json) {
+    return Booking(
+      id: json['id'],
+      dateTime: formatter.parse(json['dateTime']),
+      seats: json['peopleNum'],
+      userName: json['reservationName'],
     );
-    bookingsList.add(booking);
   }
-  return bookingsList;
-}
 
-List<Booking> getSampleBookings() {
-  return getBookingsFromJson(sampleJsonBookings);
+  toString() =>
+      "Booking(dateTime: $dateTime, seats: $seats, userName: $userName)";
+
+  String getStringDate() {
+    return dateTime.toString().substring(0, 16);
+  }
 }
