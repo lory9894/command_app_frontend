@@ -10,10 +10,14 @@ class BookingsTable extends StatefulWidget {
 
 class _BookingsTableState extends State<BookingsTable> {
   List<Booking> bookingsList = List.empty(growable: true);
+  List<TextEditingController> _tableControllerList = List.empty(growable: true);
 
   @override
   void initState() {
     bookingsList += getSampleBookings();
+    for (var i = 0; i < bookingsList.length; i++) {
+      _tableControllerList.add(TextEditingController());
+    }
     print(bookingsList);
     super.initState();
   }
@@ -46,6 +50,13 @@ class _BookingsTableState extends State<BookingsTable> {
                   DataColumn(
                       label: Expanded(
                     child: Text(
+                      'Tavolo',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )),
+                  DataColumn(
+                      label: Expanded(
+                    child: Text(
                       'Nome',
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
@@ -62,6 +73,10 @@ class _BookingsTableState extends State<BookingsTable> {
                     .map(((booking) => DataRow(cells: <DataCell>[
                           DataCell(Text(booking.getStringDate())),
                           DataCell(Text(booking.seats.toString())),
+                          DataCell(TextField(
+                            controller: _tableControllerList[
+                                bookingsList.indexOf(booking)],
+                          )),
                           DataCell(Text(booking.userName)),
                           DataCell(Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -79,10 +94,18 @@ class _BookingsTableState extends State<BookingsTable> {
   }
 
   void acceptBooking(Booking booking) {
-    // should send API request to accept booking
-    setState(() {
-      bookingsList.remove(booking);
-    });
+    String table = _tableControllerList[bookingsList.indexOf(booking)].text;
+    if (table == "") {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Inserisci il numero del tavolo prima di confermare")));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Prenotazione confermata per il tavolo $table")));
+      setState(() {
+        // should send API request to accept booking
+        bookingsList.remove(booking);
+      });
+    }
   }
 
   void refuseBooking(Booking booking) {
