@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "394246724047",
+    "project_id": "comandapp-466f3",
+    "storage_bucket": "comandapp-466f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394246724047:android:c91ee9a27af5b4d2229aba",
+        "android_client_info": {
+          "package_name": "com.comandapp.cliente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394246724047-5e5vcg9conftf8rq26fn10hlg7q7iua8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.comandapp.cliente",
+            "certificate_hash": "67a86676d01250c940ad2a53b8bd247d4ce396ef"
+          }
+        },
+        {
+          "client_id": "394246724047-jgl2t99sf86hdul1da67qg63q9fhrivp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.comandapp.cliente",
+            "certificate_hash": "34ac5ec0a3f3956a78253a9dfed88acbbadc795d"
+          }
+        },
+        {
+          "client_id": "394246724047-vqhp0f2mo4h2q6fidoi4e67de3k6hh0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.comandapp.cliente",
+            "certificate_hash": "e26fc1220465acd479fab0deb00d0932413bd949"
+          }
+        },
+        {
+          "client_id": "394246724047-gibsop2ln51qrf4vpbo4vcob4li3pcu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZt24C7nBPvFTKx01wlY-ovsxg0hODCuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394246724047-gibsop2ln51qrf4vpbo4vcob4li3pcu9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

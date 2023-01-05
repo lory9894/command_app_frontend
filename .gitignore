@@ -30,7 +30,7 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/build/
+/build/**
 
 # Symbolication related
 app.*.symbols
@@ -415,3 +415,6 @@ app.*.map.json
 /gestore/build/last_build_run.json
 /gestore/build/flutter_assets/fonts/MaterialIcons-Regular.otf
 /gestore/build/flutter_assets/NOTICES
+/gestore/build/12ec08a4424a8e8cb20392f17679c15f/_composite.stamp
+/gestore/build/12ec08a4424a8e8cb20392f17679c15f/gen_dart_plugin_registrant.stamp
+/gestore/build/12ec08a4424a8e8cb20392f17679c15f/gen_localizations.stamp
