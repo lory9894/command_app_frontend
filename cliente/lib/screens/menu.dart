@@ -35,9 +35,6 @@ class _MenuState extends State<Menu> {
       //find the number of different courses in list dishes
       courses = dishes.map((e) => e.course).toSet();
       setState(() {});
-      dishes.forEach((element) {
-        print(element);
-      }); //TODO: remove thisii
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
