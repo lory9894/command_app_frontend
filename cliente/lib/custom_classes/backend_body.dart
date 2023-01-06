@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:intl/intl.dart';
+
 import '../session.dart';
 import 'dish.dart';
 
@@ -37,15 +41,29 @@ class MessageOrder {
             username: userCredential!.user!.email!);
     order.shoppingCart.forEach((key, value) {
       for (int i = 0; i < value; i++) {
-        preparations.add(Preparation.fromDishto(key, tableNum));
+        preparations.add(Preparation.fromDish(key, tableNum));
       }
     });
   }
 
   @override
   toString() {
-    return "BackendReservation: $dateTime, $paymentState, $paymentType, $orderState, ${user!.username}, ${preparations.toString()}";
+    return "BackendReservation: $dateTime, $paymentState, $paymentType, $orderState, ${user == null ? null : user!.username}, ${preparations.toString()}";
   }
+
+  toJson() => {
+        'dateTime': DateFormat("dd-MM-yyyy HH:mm:ss").format(dateTime),
+        'paymentState': paymentState.toString().split(".").last,
+        'paymentType': paymentType.toString().split(".").last,
+        'orderState': orderState.toString().split(".").last,
+        'user': user == null
+            ? null
+            : {
+                'userid': user!.userid,
+                'username': user!.username,
+              },
+        'preparations': jsonEncode(preparations)
+      };
 }
 
 class Userinfo {
@@ -61,9 +79,22 @@ class Preparation {
     orderState = OrderStateEnum.WAITING;
   }
 
-  factory Preparation.fromDishto(Dish dish, String tableNum) {
+  factory Preparation.fromDish(Dish dish, String tableNum) {
     return Preparation(name: dish.name, tableNum: tableNum);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'tableNum': tableNum,
+      'orderState': orderState.toString().split(".").last
+    };
+  }
+
+  Preparation.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        tableNum = json['tableNum'],
+        orderState = json['orderState'];
 }
 
 class MessageReservation {

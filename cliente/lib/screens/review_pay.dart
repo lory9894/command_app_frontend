@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:command_app_frontend/custom_classes/backend_body.dart';
 import 'package:command_app_frontend/screens/pay_card.dart';
 import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ReviewPay extends StatelessWidget {
   const ReviewPay({Key? key}) : super(key: key);
@@ -37,7 +40,7 @@ class ReviewPay extends StatelessWidget {
               if (order.tableID != null && order.tableID!.startsWith("T"))
                 ElevatedButton(
                     onPressed: () {
-                      sendOrder();
+                      sendOrder(context);
                     },
                     child: const Text('Paga alla cassa')),
               ElevatedButton(
@@ -52,11 +55,22 @@ class ReviewPay extends StatelessWidget {
     );
   }
 
-  sendOrder() async {
+  sendOrder(context) async {
+    String BASE_URL = "http://localhost:8080/order/create";
     MessageOrder message = MessageOrder(
         dateTime: DateTime.now(),
         paymentState: PaymentState.UNPAID,
         paymentType: PaymentTypeEnum.CASH);
-    print(message);
+    final response = await http.post(Uri.parse(BASE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(message));
+    if (response.statusCode == 200) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      print(response.body);
+      throw Exception('Failed to change state');
+    }
   }
 }
