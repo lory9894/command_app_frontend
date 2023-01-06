@@ -1,7 +1,9 @@
 import 'package:command_app_frontend/payment_utils/card_month_input_formatter.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../custom_classes/backend_body.dart';
 import '../payment_utils/card_number_input_formatter.dart';
 import '../payment_utils/card_type_enum.dart';
 import '../payment_utils/card_utils.dart';
@@ -116,9 +118,11 @@ class _PayCardState extends State<PayCard> {
                 child: ElevatedButton(
                   child: const Text("Paga"),
                   onPressed: () {
-                    /*TODO: distinguere il caso in cui è un preordine/prenotazione e inviare richiesta per la scelta del tavolo
-                    altrimenti inviare direttamente l'ordine in cucina
-                     */
+                    if (order.shoppingCart.isEmpty) {
+                      sendPrenotation();
+                    } else {
+                      sendOrder();
+                    }
                   },
                 ),
               ),
@@ -129,4 +133,14 @@ class _PayCardState extends State<PayCard> {
       ),
     );
   }
+
+  sendOrder() {
+    MessageOrder message = MessageOrder(
+        dateTime: DateTime.now(),
+        paymentState: PaymentState.PAID,
+        paymentType: PaymentTypeEnum.ONLINE);
+    print(message);
+  }
+
+  sendPrenotation() async {}
 }

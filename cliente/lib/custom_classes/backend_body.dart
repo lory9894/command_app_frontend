@@ -9,7 +9,7 @@ enum OrderTypeEnum { TAKEAWAY, DELIVERY, IN_RESTAURANT, PREORDER }
 
 enum OrderStateEnum { WAITING, ACCEPTED, REJECTED, SENT_TO_KITCHEN }
 
-class MessageObject {
+class MessageOrder {
   late double total;
   late String tableNum;
   late DateTime dateTime;
@@ -20,7 +20,7 @@ class MessageObject {
   Userinfo? user;
   List<Preparation> preparations = List.empty(growable: true);
 
-  MessageObject(
+  MessageOrder(
       {required this.dateTime,
       required this.paymentState,
       required this.paymentType}) {
@@ -63,5 +63,19 @@ class Preparation {
 
   factory Preparation.fromDishto(Dish dish, String tableNum) {
     return Preparation(name: dish.name, tableNum: tableNum);
+  }
+}
+
+class MessageReservation {
+  int peopleNum;
+  String? tableNum;
+  DateTime dateTime;
+  late OrderStateEnum state;
+  MessageOrder? messageOrder;
+
+  MessageReservation(
+      {required this.peopleNum, required this.dateTime, this.messageOrder}) {
+    state = OrderStateEnum.WAITING;
+    tableNum = null;
   }
 }

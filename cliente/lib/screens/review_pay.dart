@@ -53,7 +53,7 @@ class ReviewPay extends StatelessWidget {
   }
 
   sendOrder() async {
-    MessageObject message = MessageObject(
+    MessageOrder message = MessageOrder(
         dateTime: DateTime.now(),
         paymentState: PaymentState.UNPAID,
         paymentType: PaymentTypeEnum.CASH);
