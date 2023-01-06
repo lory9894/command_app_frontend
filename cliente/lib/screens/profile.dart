@@ -1,7 +1,6 @@
 import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/screens/prenota_tavolo.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../session.dart';
 
@@ -17,7 +16,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Benvenuto ${userCredential?.user?.displayName}")),
+        title: Center(
+            child: Text("Benvenuto ${userCredential?.user?.displayName}")),
       ),
       body: Row(children: [
         Expanded(
@@ -44,6 +44,14 @@ class _ProfileState extends State<Profile> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
+                    onPressed: () {
+                      order.tableID = "T1";
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Menu()),
+                      ); //TODO: remove, only debug
+                    },
+                    /*
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -77,6 +85,7 @@ class _ProfileState extends State<Profile> {
                         },
                       );
                     },
+                     */
                     child: const FittedBox(
                       fit: BoxFit.fitHeight,
                       child: Text(

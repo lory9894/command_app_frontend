@@ -1,5 +1,6 @@
-import 'package:command_app_frontend/session.dart';
+import 'package:command_app_frontend/custom_classes/backend_body.dart';
 import 'package:command_app_frontend/screens/pay_card.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
 
 class ReviewPay extends StatelessWidget {
@@ -35,7 +36,10 @@ class ReviewPay extends StatelessWidget {
               ),
               if (order.tableID != null && order.tableID!.startsWith("T"))
                 ElevatedButton(
-                    onPressed: () {}, child: const Text('Paga alla cassa')),
+                    onPressed: () {
+                      sendOrder();
+                    },
+                    child: const Text('Paga alla cassa')),
               ElevatedButton(
                 onPressed:
                     () {}, //TODO: implement, or maybe not, fuck it, mock it
@@ -46,5 +50,13 @@ class ReviewPay extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  sendOrder() async {
+    MessageObject message = MessageObject(
+        dateTime: DateTime.now(),
+        paymentState: PaymentState.UNPAID,
+        paymentType: PaymentTypeEnum.CASH);
+    print(message);
   }
 }
