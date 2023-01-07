@@ -62,7 +62,7 @@ class MessageOrder {
                 'userid': user!.userid,
                 'username': user!.username,
               },
-        'preparations': json.encode(preparations)
+        'preparations': preparations
       };
 }
 
