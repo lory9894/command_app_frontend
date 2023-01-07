@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
                 flex: 1,
                 child: Container(),
               ),
-              if (!kIsWeb) //TODO: remove
+              if (!kIsWeb)
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -48,12 +48,12 @@ class _ProfileState extends State<Profile> {
                       ),
                       onPressed: () {
                         order.tableID = "T1";
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Menu()),
-                      ); //TODO: remove, only debug
-                    },
-                    /*
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => const Menu()),
+                        ); //TODO: remove, only debug, use the onPressed below
+                      },
+                      /*
                     onPressed: () {
                       showDialog(
                         context: context,
