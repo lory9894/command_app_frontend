@@ -1,3 +1,4 @@
+import 'package:command_app_frontend/custom_classes/reservation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'custom_classes/order.dart';
@@ -8,5 +9,4 @@ import 'custom_classes/take_away.dart';
 Order order = Order();
 TakeAway? takeAway;
 UserCredential? userCredential;
-
-
+Reservation? reservation;

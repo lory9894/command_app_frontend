@@ -104,9 +104,25 @@ class MessageReservation {
   late OrderStateEnum state;
   MessageOrder? messageOrder;
 
-  MessageReservation(
-      {required this.peopleNum, required this.dateTime, this.messageOrder}) {
+  MessageReservation({required this.peopleNum, required this.dateTime}) {
+    if (order.shoppingCart.isNotEmpty) {
+      messageOrder = MessageOrder(
+          dateTime: dateTime,
+          paymentState:
+              PaymentState.PAID, //TODO: I preordini sono sempre pagati?
+          paymentType: PaymentTypeEnum.ONLINE);
+    }
     state = OrderStateEnum.WAITING;
     tableNum = null;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'peopleNum': peopleNum,
+      'tableNum': tableNum,
+      'dateTime': DateFormat("dd-MM-yyyy HH:mm:ss").format(dateTime),
+      'state': state.toString().split(".").last,
+      'messageOrder': messageOrder == null ? null : messageOrder!.toJson()
+    };
   }
 }
