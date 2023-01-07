@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 
+import '../custom_classes/backend_body.dart';
 import '../custom_classes/reservation.dart';
 
 class PrenotaTavolo extends StatefulWidget {
@@ -199,8 +203,21 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
           MaterialPageRoute(builder: (context) => const Menu()),
         );
       } else {
-        //TODO: send reservation to server
-        Navigator.popUntil(context, (route) => route.isFirst);
+        String BASE_URL = "http://localhost:8080/reservation/create";
+        MessageReservation message = MessageReservation(
+            dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
+        print(jsonEncode(message));
+        final response = await http.post(Uri.parse(BASE_URL),
+            headers: <String, String>{
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(message));
+        if (response.statusCode == 200) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        } else {
+          print(response.body);
+          throw Exception('Failed to change state');
+        }
       }
     }
   }

@@ -62,7 +62,7 @@ class MessageOrder {
                 'userid': user!.userid,
                 'username': user!.username,
               },
-        'preparations': jsonEncode(preparations)
+        'preparations': json.encode(preparations)
       };
 }
 
@@ -83,18 +83,13 @@ class Preparation {
     return Preparation(name: dish.name, tableNum: tableNum);
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, String> toJson() {
     return {
       'name': name,
       'tableNum': tableNum,
       'orderState': orderState.toString().split(".").last
     };
   }
-
-  Preparation.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
-        tableNum = json['tableNum'],
-        orderState = json['orderState'];
 }
 
 class MessageReservation {
@@ -103,6 +98,7 @@ class MessageReservation {
   DateTime dateTime;
   late OrderStateEnum state;
   MessageOrder? messageOrder;
+  Userinfo? user;
 
   MessageReservation({required this.peopleNum, required this.dateTime}) {
     if (order.shoppingCart.isNotEmpty) {
@@ -112,6 +108,12 @@ class MessageReservation {
               PaymentState.PAID, //TODO: I preordini sono sempre pagati?
           paymentType: PaymentTypeEnum.ONLINE);
     }
+    user = userCredential ==
+            null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
+        ? null
+        : Userinfo(
+            userid: userCredential!.user!.uid,
+            username: userCredential!.user!.email!);
     state = OrderStateEnum.WAITING;
     tableNum = null;
   }
@@ -122,7 +124,13 @@ class MessageReservation {
       'tableNum': tableNum,
       'dateTime': DateFormat("dd-MM-yyyy HH:mm:ss").format(dateTime),
       'state': state.toString().split(".").last,
-      'messageOrder': messageOrder == null ? null : messageOrder!.toJson()
+      'messageOrder': messageOrder == null ? null : messageOrder!.toJson(),
+      'user': user == null
+          ? null
+          : {
+              'userid': user!.userid,
+              'username': user!.username,
+            },
     };
   }
 }

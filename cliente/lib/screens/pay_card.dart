@@ -160,7 +160,21 @@ class _PayCardState extends State<PayCard> {
   }
 
   sendPrenotation() async {
+    String BASE_URL = "http://localhost:8080/reservation/create";
     MessageReservation message = MessageReservation(
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
+    print(jsonEncode(message));
+    final response = await http.post(Uri.parse(BASE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(message));
+    if (response.statusCode == 200) {
+      print(response.body);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      print(response.body);
+      throw Exception('Failed to change state');
+    }
   }
 }

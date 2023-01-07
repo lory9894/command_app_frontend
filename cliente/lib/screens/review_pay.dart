@@ -61,6 +61,7 @@ class ReviewPay extends StatelessWidget {
         dateTime: DateTime.now(),
         paymentState: PaymentState.UNPAID,
         paymentType: PaymentTypeEnum.CASH);
+    print(jsonEncode(message));
     final response = await http.post(Uri.parse(BASE_URL),
         headers: <String, String>{
           'Content-Type': 'application/json',

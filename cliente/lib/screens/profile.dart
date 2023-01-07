@@ -35,25 +35,25 @@ class _ProfileState extends State<Profile> {
                 flex: 1,
                 child: Container(),
               ),
-              if (!kIsWeb)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+              //if (!kIsWeb)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      onPressed: () {
-                        order.tableID = "T1";
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => const Menu()),
-                        ); //TODO: remove, only debug, use the onPressed below
-                      },
-                      /*
+                    ),
+                    onPressed: () {
+                      order.tableID = "T1";
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Menu()),
+                      ); //TODO: remove, only debug, use the onPressed below
+                    },
+                    /*
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -88,16 +88,16 @@ class _ProfileState extends State<Profile> {
                       );
                     },
                      */
-                      child: const FittedBox(
-                        fit: BoxFit.fitHeight,
-                        child: Text(
-                          "Ordina al tavolo",
-                          style: TextStyle(fontSize: 60),
-                        ),
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Ordina al tavolo",
+                        style: TextStyle(fontSize: 60),
                       ),
                     ),
                   ),
                 ),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
