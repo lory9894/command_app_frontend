@@ -1,5 +1,6 @@
 import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/screens/prenota_tavolo.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../session.dart';
@@ -34,18 +35,19 @@ class _ProfileState extends State<Profile> {
                 flex: 1,
                 child: Container(),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+              if (!kIsWeb) //TODO: remove
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      order.tableID = "T1";
+                      onPressed: () {
+                        order.tableID = "T1";
                       Navigator.of(context).pop();
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Menu()),
@@ -86,16 +88,16 @@ class _ProfileState extends State<Profile> {
                       );
                     },
                      */
-                    child: const FittedBox(
-                      fit: BoxFit.fitHeight,
-                      child: Text(
-                        "Ordina al tavolo",
-                        style: TextStyle(fontSize: 60),
+                      child: const FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Text(
+                          "Ordina al tavolo",
+                          style: TextStyle(fontSize: 60),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
