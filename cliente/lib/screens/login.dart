@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
@@ -37,26 +38,27 @@ class _LoginPageState extends State<LoginPage> {
                     fit: BoxFit.fitWidth,
                   )
                 ]),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Container(
-                    height: 300,
-                    width: 300,
-                    child: MobileScanner(
-                        allowDuplicates: false,
-                        onDetect: (barcode, args) {
-                          if (barcode.rawValue != null) {
-                            final String code = barcode.rawValue!;
-                            debugPrint('Barcode found: $code');
-                            order.tableID = code;
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const Menu()),
-                            );
-                          }
-                        }),
+                if (!kIsWeb)
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    child: Container(
+                      height: 300,
+                      width: 300,
+                      child: MobileScanner(
+                          allowDuplicates: false,
+                          onDetect: (barcode, args) {
+                            if (barcode.rawValue != null) {
+                              final String code = barcode.rawValue!;
+                              debugPrint('Barcode found: $code');
+                              order.tableID = code;
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const Menu()),
+                              );
+                            }
+                          }),
+                    ),
                   ),
-                ),
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 Container(
                   height: 50,
