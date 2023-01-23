@@ -7,7 +7,7 @@ class PrenotaTavolo extends StatefulWidget {
   const PrenotaTavolo({Key? key}) : super(key: key);
 
   @override
-  _PrenotaTavoloState createState() => _PrenotaTavoloState();
+  State<PrenotaTavolo> createState() => _PrenotaTavoloState();
 }
 
 class _PrenotaTavoloState extends State<PrenotaTavolo> {
