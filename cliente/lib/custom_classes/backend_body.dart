@@ -132,7 +132,7 @@ class MessageReservation {
             null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
         ? null
         : Userinfo(
-            userId: userCredential!.user!.uid,
+            userId: idToken!,
             username: userCredential!.user!.email!);
     state = OrderStateEnum.WAITING;
     tableNum = null;
@@ -148,7 +148,7 @@ class MessageReservation {
       'user': user == null
           ? null
           : {
-              'userid': user!.userId,
+              'userId': user!.userId,
               'username': user!.username,
             },
     };
