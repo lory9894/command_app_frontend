@@ -24,20 +24,29 @@ class MessageOrder {
   Userinfo? user;
   List<Preparation> preparations = List.empty(growable: true);
 
-  MessageOrder(
-      {required this.dateTime,
-      required this.paymentState,
-      required this.paymentType}) {
+  MessageOrder({
+    required this.dateTime,
+    required this.paymentState,
+    required this.paymentType
+  })
+  {
     total = order.total;
     tableNum = order.tableID!;
     orderState = OrderStateEnum
         .ACCEPTED; //TODO: decidere se vogliamo accettare o meno gli ordini di default
 
-    user = userCredential ==
-            null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
-        ? null
+    // if (userCredential == null) {
+    //   user = null;
+    // } else {
+    //   String userId = await getIdTokenLocal();
+    //   user = Userinfo(
+    //
+    // }
+    user =
+      userCredential == null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
+        ? null // se userCredential è null allora l'utente non è autenticato (?)
         : Userinfo(
-            userid: userCredential!.user!.uid,
+            userId: idToken!, // TODO: (problema async) assegnare idtoken in un metodo esterno dopo il termine del costruttore
             username: userCredential!.user!.email!);
     order.shoppingCart.forEach((key, value) {
       for (int i = 0; i < value; i++) {
@@ -45,6 +54,17 @@ class MessageOrder {
       }
     });
   }
+
+  // Future<String> getIdTokenLocal() async {
+  //   try {
+  //     return await userCredential!.user!.getIdToken();
+  //   } catch (e) {
+  //     print(e);
+  //     return "";
+  //   }
+  //   String token = await FirebaseAuth.instance.currentUser!.getIdToken();
+  //   // return token;
+  // }
 
   @override
   toString() {
@@ -59,16 +79,16 @@ class MessageOrder {
         'user': user == null
             ? null
             : {
-                'userid': user!.userid,
+                'userId': user!.userId,
                 'username': user!.username,
               },
-        'preparations': preparations
+        'preparationList': preparations
       };
 }
 
 class Userinfo {
-  String userid, username;
-  Userinfo({required this.userid, required this.username});
+  String userId, username;
+  Userinfo({required this.userId, required this.username});
 }
 
 class Preparation {
@@ -112,7 +132,7 @@ class MessageReservation {
             null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
         ? null
         : Userinfo(
-            userid: userCredential!.user!.uid,
+            userId: userCredential!.user!.uid,
             username: userCredential!.user!.email!);
     state = OrderStateEnum.WAITING;
     tableNum = null;
@@ -128,7 +148,7 @@ class MessageReservation {
       'user': user == null
           ? null
           : {
-              'userid': user!.userid,
+              'userid': user!.userId,
               'username': user!.username,
             },
     };

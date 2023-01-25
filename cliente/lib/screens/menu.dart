@@ -18,7 +18,7 @@ class _MenuState extends State<Menu> {
   List<Dish> dishes = List.empty(growable: true);
   Set<String>? courses;
   static String BASE_URL =
-      'http://localhost:8081/menu'; //TODO: add the correct url, not localhost
+      'http://localhost:8080/menu'; //TODO: add the correct url, not localhost
 
   @override
   void initState() {

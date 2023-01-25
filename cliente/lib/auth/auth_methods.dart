@@ -21,6 +21,7 @@ Future<void> signInWithGoogle(BuildContext context, VoidCallback onSuccess) asyn
 
   // save credential in session
   userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+  idToken = await userCredential?.user?.getIdToken();
   print(userCredential?.user?.displayName);
   print(userCredential?.user?.email);
 
