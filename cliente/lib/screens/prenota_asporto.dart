@@ -6,7 +6,7 @@ class PrenotaAsporto extends StatefulWidget {
   const PrenotaAsporto({Key? key}) : super(key: key);
 
   @override
-  _PrenotaAsportoState createState() => _PrenotaAsportoState();
+  State<PrenotaAsporto> createState() => _PrenotaAsportoState();
 }
 
 

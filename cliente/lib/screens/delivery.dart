@@ -8,7 +8,7 @@ class Delivery extends StatefulWidget {
   const Delivery({Key? key}) : super(key: key);
 
   @override
-  _DeliveryState createState() => _DeliveryState();
+  State<Delivery> createState() => _DeliveryState();
 }
 
 class _DeliveryState extends State<Delivery> {
