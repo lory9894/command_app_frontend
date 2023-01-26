@@ -2,7 +2,6 @@ import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/screens/prenota_tavolo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../session.dart';
 
@@ -36,60 +35,69 @@ class _ProfileState extends State<Profile> {
                 flex: 1,
                 child: Container(),
               ),
-              if (!kIsWeb) //TODO: remove
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+              //if (!kIsWeb)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SimpleDialog(
-                              insetPadding: EdgeInsets.all(30),
-                              title: const Center(
-                                  child: Text('Scansiona il QR Code')),
-                              children: [
-                                SizedBox(
-                                  height: 300,
-                                  width: 200,
-                                  child: MobileScanner(
-                                      allowDuplicates: false,
-                                      onDetect: (barcode, args) {
-                                        if (barcode.rawValue != null) {
-                                          final String code = barcode.rawValue!;
-                                          debugPrint('Barcode found! $code');
-                                          order.tableID = code;
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Menu()),
-                                          );
-                                        }
-                                      }),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: const FittedBox(
-                        fit: BoxFit.fitHeight,
-                        child: Text(
-                          "Ordina al tavolo",
-                          style: TextStyle(fontSize: 60),
-                        ),
+                    ),
+                    onPressed: () {
+                      order.tableID = "T1";
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Menu()),
+                      ); //TODO: remove, only debug, use the onPressed below
+                    },
+                    /*
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SimpleDialog(
+                            insetPadding: EdgeInsets.all(30),
+                            title: const Center(
+                                child: Text('Scansiona il QR Code')),
+                            children: [
+                              SizedBox(
+                                height: 300,
+                                width: 200,
+                                child: MobileScanner(
+                                    allowDuplicates: false,
+                                    onDetect: (barcode, args) {
+                                      if (barcode.rawValue != null) {
+                                        final String code = barcode.rawValue!;
+                                        debugPrint('Barcode found! $code');
+                                        order.tableID = code;
+                                        Navigator.of(context).pop();
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Menu()),
+                                        );
+                                      }
+                                    }),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                     */
+                    child: const FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        "Ordina al tavolo",
+                        style: TextStyle(fontSize: 60),
                       ),
                     ),
                   ),
                 ),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

@@ -1,7 +1,14 @@
+import 'dart:convert';
+
 import 'package:command_app_frontend/screens/menu.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
+
+import '../custom_classes/backend_body.dart';
+import '../custom_classes/reservation.dart';
 
 class PrenotaTavolo extends StatefulWidget {
   const PrenotaTavolo({Key? key}) : super(key: key);
@@ -27,7 +34,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("PRENOTAZIONE TAVOLO")),
+        title: const Center(child: Text("PRENOTAZIONE TAVOLO")),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -45,7 +52,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                         child: TextField(
                           controller: dateInput,
                           //editing controller of this TextField
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               icon: Icon(
                                   Icons.calendar_today), //icon of text field
                               labelText: "Inserisci data" //label text of field
@@ -61,12 +68,8 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                                 lastDate: DateTime(2100));
 
                             if (pickedDate != null) {
-                              print(
-                                  pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                               String formattedDate =
                                   DateFormat('dd-MM-yyyy').format(pickedDate);
-                              print(
-                                  formattedDate); //formatted date output using intl package =>  2021-03-16
                               setState(() {
                                 dateInput.text =
                                     formattedDate; //set output date to TextField value.
@@ -89,7 +92,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                         child: TextField(
                           controller: timeInput,
                           //editing controller of this TextField
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               icon:
                                   Icon(Icons.access_time), //icon of text field
                               labelText: "Inserisci ora" //label text of field
@@ -101,17 +104,11 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                                 context: context, initialTime: TimeOfDay.now());
 
                             if (pickedTime != null) {
-                              print(pickedTime.format(
-                                  context)); //pickedDate output format => 2021-03-10 00:00:00.000String formattedTime =
                               DateTime parsedTime = DateFormat.jm()
                                   .parse(pickedTime.format(context).toString());
                               //converting to DateTime so that we can further format on different pattern.
-                              print(
-                                  parsedTime); //output 1970-01-01 22:53:00.000
                               String formattedTime =
                                   DateFormat('HH:mm').format(parsedTime);
-                              print(
-                                  formattedTime); //formatted date output using intl package =>  2021-03-16
                               setState(() {
                                 timeInput.text =
                                     formattedTime; //set output date to TextField value.
@@ -167,7 +164,9 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                   ),
                 ),
                 child: const Text("Prenota"),
-                onPressed: () {},
+                onPressed: () {
+                  _sendReservation(false);
+                },
               ),
             ),
             Padding(
@@ -182,31 +181,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                 ),
                 child: const Text("Scegli il menù"),
                 onPressed: () {
-                  if (dateInput.text == "" ||
-                      timeInput.text == "" ||
-                      numPeopleInput.text == "0") {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("Errore"),
-                            content: const Text("Compila tutti i campi"),
-                            actions: [
-                              TextButton(
-                                child: const Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ],
-                          );
-                        });
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Menu()),
-                    );
-                  }
+                  _sendReservation(true);
                 },
               ),
             ),
@@ -215,5 +190,61 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
         ),
       ),
     );
+  }
+
+  void _sendReservation(bool goToMenu) async {
+    if (validate()) {
+      reservation = Reservation(
+          dateInput.text, timeInput.text, int.parse(numPeopleInput.text));
+      print(reservation);
+      if (goToMenu) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Menu()),
+        );
+      } else {
+        String BASE_URL = "http://localhost:8080/reservation/create";
+        MessageReservation message = MessageReservation(
+            dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
+        print(jsonEncode(message));
+        final response = await http.post(Uri.parse(BASE_URL),
+            headers: <String, String>{
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(message));
+        if (response.statusCode == 200) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        } else {
+          print(response.body);
+          throw Exception('Failed to change state');
+        }
+      }
+    }
+  }
+
+  bool validate() {
+    if (dateInput.text == "" ||
+        timeInput.text == "" ||
+        numPeopleInput.text == "0") {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Errore"),
+              content: const Text("Compila tutti i campi"),
+              actions: [
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+      return false;
+    } else {
+      return true;
+    }
   }
 }

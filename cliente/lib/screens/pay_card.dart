@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:command_app_frontend/payment_utils/card_month_input_formatter.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
+import '../custom_classes/backend_body.dart';
 import '../payment_utils/card_number_input_formatter.dart';
 import '../payment_utils/card_type_enum.dart';
 import '../payment_utils/card_utils.dart';
@@ -116,9 +121,13 @@ class _PayCardState extends State<PayCard> {
                 child: ElevatedButton(
                   child: const Text("Paga"),
                   onPressed: () {
-                    /*TODO: distinguere il caso in cui è un preordine/prenotazione e inviare richiesta per la scelta del tavolo
-                    altrimenti inviare direttamente l'ordine in cucina
-                     */
+                    if (order.tableID!.startsWith("P")) {
+                      //preorder or prenotation
+                      sendPrenotation();
+                    } else {
+                      //takeaway, delivery or in restaurant
+                      sendOrder();
+                    }
                   },
                 ),
               ),
@@ -128,5 +137,44 @@ class _PayCardState extends State<PayCard> {
         ),
       ),
     );
+  }
+
+  sendOrder() async {
+    String BASE_URL = "http://localhost:8080/order/create";
+    MessageOrder message = MessageOrder(
+        dateTime: DateTime.now(),
+        paymentState: PaymentState.PAID,
+        paymentType: PaymentTypeEnum.ONLINE);
+    print(message);
+    final response = await http.post(Uri.parse(BASE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(message));
+    if (response.statusCode == 200) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      print(response.body);
+      throw Exception('Failed to change state');
+    }
+  }
+
+  sendPrenotation() async {
+    String BASE_URL = "http://localhost:8080/reservation/create";
+    MessageReservation message = MessageReservation(
+        dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
+    print(jsonEncode(message));
+    final response = await http.post(Uri.parse(BASE_URL),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(message));
+    if (response.statusCode == 200) {
+      print(response.body);
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      print(response.body);
+      throw Exception('Failed to change state');
+    }
   }
 }
