@@ -418,3 +418,5 @@ app.*.map.json
 /gestore/build/12ec08a4424a8e8cb20392f17679c15f/_composite.stamp
 /gestore/build/12ec08a4424a8e8cb20392f17679c15f/gen_dart_plugin_registrant.stamp
 /gestore/build/12ec08a4424a8e8cb20392f17679c15f/gen_localizations.stamp
+/html/cliente/
+/html/gestore/
