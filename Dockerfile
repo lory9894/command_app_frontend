@@ -5,7 +5,6 @@ RUN mkdir /app/
 COPY cliente /app/
 WORKDIR /app/
 
-RUN flutter create .
 RUN flutter config --enable-web
 RUN flutter build web --base-href "/cliente/"
 
