@@ -2,7 +2,7 @@ version: "3.2"
 services:
     apache:
       build: . 
-      container_name: frontend_apache
+      container_name: frontend
       volumes:
         - ./html:/var/www/html
       ports:
