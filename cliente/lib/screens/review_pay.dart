@@ -62,10 +62,7 @@ class ReviewPay extends StatelessWidget {
         paymentType: PaymentTypeEnum.CASH,
         orderType: OrderTypeEnum.IN_RESTAURANT);
     print("Sending message:\n ${jsonEncode(message)}"); // TODO remove print
-    print("$BASE_URL/order/create");
-    final response = await http.post(
-        Uri.parse(
-            "$BASE_URL/order/create"), //TODO: chiedere a gianluca come si fa a creare un ordine al tavolo se il preordine presuppone un utente. lui mi aveva detto che l'utente poteva essere null
+    final response = await http.post(Uri.parse("$BASE_URL/order/create"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

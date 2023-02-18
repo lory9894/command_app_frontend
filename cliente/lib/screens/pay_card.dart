@@ -140,8 +140,20 @@ class _PayCardState extends State<PayCard> {
   }
 
   sendOrder() async {
-    OrderTypeEnum orderType = OrderTypeEnum
-        .IN_RESTAURANT; //TODO: mock, cambiarlo per vedere se è asporto o cosa
+    OrderTypeEnum orderType;
+    switch (order.tableID!.substring(0, 1)) {
+      case "A":
+        orderType = OrderTypeEnum.TAKEAWAY;
+        break;
+      case "D":
+        orderType = OrderTypeEnum.DELIVERY;
+        break;
+      case "T":
+        orderType = OrderTypeEnum.IN_RESTAURANT;
+        break;
+      default:
+        orderType = OrderTypeEnum.IN_RESTAURANT;
+    }
     MessageOrder message = MessageOrder(
         dateTime: DateTime.now(),
         paymentState: PaymentState.PAID,

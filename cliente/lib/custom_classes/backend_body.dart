@@ -121,16 +121,12 @@ class MessageReservation {
     if (order.shoppingCart.isNotEmpty) {
       messageOrder = MessageOrder(
           dateTime: dateTime,
-          paymentState: PaymentState
-              .PAID, //TODO: I preordini sono sempre pagati? (nel caso di ordine al tavolo no)
+          paymentState: PaymentState.PAID,
           paymentType: PaymentTypeEnum.ONLINE,
           orderType: OrderTypeEnum.PREORDER);
     }
     print("userCredential: $userCredential");
-    user = userCredential ==
-            null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
-        ? null
-        : Userinfo(userId: idToken!, username: userCredential!.user!.email!);
+    user = Userinfo(userId: idToken!, username: userCredential!.user!.email!);
     state = OrderStateEnum.WAITING;
     tableNum = null;
   }
