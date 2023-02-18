@@ -56,13 +56,12 @@ class ReviewPay extends StatelessWidget {
   }
 
   sendOrder(context) async {
-    String BASE_URL = "http://localhost:8080/order/create";
     MessageOrder message = MessageOrder(
         dateTime: DateTime.now(),
         paymentState: PaymentState.UNPAID,
         paymentType: PaymentTypeEnum.CASH);
     print("Sending message:\n ${jsonEncode(message)}"); // TODO remove print
-    final response = await http.post(Uri.parse(BASE_URL),
+    final response = await http.post(Uri.parse("$BASE_URL/order/create"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
