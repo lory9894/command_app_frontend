@@ -17,8 +17,6 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   List<Dish> dishes = List.empty(growable: true);
   Set<String>? courses;
-  static String BASE_URL =
-      'http://localhost:8080/menu'; //TODO: add the correct url, not localhost
 
   @override
   void initState() {
@@ -27,7 +25,7 @@ class _MenuState extends State<Menu> {
   }
 
   void fetchDishes() async {
-    var response = await http.get(Uri.parse("$BASE_URL/getDishes"));
+    var response = await http.get(Uri.parse("$BASE_URL/menu/getDishes"));
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       //from the response body, get the list of dishes
@@ -41,7 +39,7 @@ class _MenuState extends State<Menu> {
   }
 
   void readJson() async {
-    http.get(Uri.http("$BASE_URL/getDishes")).then((value) => {
+    http.get(Uri.http("$BASE_URL/menu/getDishes")).then((value) => {
           setState(() {
             dishes = (jsonDecode(value.body) as List)
                 .map((e) => Dish(

@@ -140,17 +140,17 @@ class _PayCardState extends State<PayCard> {
   }
 
   sendOrder() async {
-    String BASE_URL = "http://localhost:8080/order/create";
     MessageOrder message = MessageOrder(
         dateTime: DateTime.now(),
         paymentState: PaymentState.PAID,
         paymentType: PaymentTypeEnum.ONLINE);
     print(message);
-    final response = await http.post(Uri.parse(BASE_URL),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(message));
+    final response =
+        await http.post(Uri.parse("$BASE_URL/reservation/create/preorder"),
+            headers: <String, String>{
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(message));
     if (response.statusCode == 200) {
       Navigator.of(context).popUntil((route) => route.isFirst);
     } else {
@@ -160,11 +160,10 @@ class _PayCardState extends State<PayCard> {
   }
 
   sendPrenotation() async {
-    String BASE_URL = "http://localhost:8080/reservation/create";
     MessageReservation message = MessageReservation(
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
-    final response = await http.post(Uri.parse(BASE_URL),
+    final response = await http.post(Uri.parse("$BASE_URL/reservation/create"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
