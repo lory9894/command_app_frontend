@@ -7,6 +7,7 @@ class Reservation {
   DateTime get dateTime => _dateTime;
 
   Reservation(date, time, this._peopleNum) {
+    if (time == null || time.isEmpty) time = "19:45";
     _dateTime =
         DateFormat("dd-MM-yyyy HH:mm:ss").parse(date + " " + time + ":00");
   }

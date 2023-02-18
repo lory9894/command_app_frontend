@@ -104,6 +104,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                                 context: context, initialTime: TimeOfDay.now());
 
                             if (pickedTime != null) {
+                              //TODO: Bug on android devices
                               DateTime parsedTime = DateFormat.jm()
                                   .parse(pickedTime.format(context).toString());
                               //converting to DateTime so that we can further format on different pattern.
@@ -223,9 +224,10 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
   }
 
   bool validate() {
-    if (dateInput.text == "" ||
-        timeInput.text == "" ||
-        numPeopleInput.text == "0") {
+    if (dateInput.text == "" || numPeopleInput.text == "0") {
+      if (timeInput.text == "") {
+        timeInput.text = "19:40"; //TODO: android bug workaround
+      }
       showDialog(
           context: context,
           builder: (BuildContext context) {

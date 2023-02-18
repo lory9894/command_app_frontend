@@ -140,17 +140,19 @@ class _PayCardState extends State<PayCard> {
   }
 
   sendOrder() async {
+    OrderTypeEnum orderType = OrderTypeEnum
+        .IN_RESTAURANT; //TODO: mock, cambiarlo per vedere se è asporto o cosa
     MessageOrder message = MessageOrder(
         dateTime: DateTime.now(),
         paymentState: PaymentState.PAID,
-        paymentType: PaymentTypeEnum.ONLINE);
+        paymentType: PaymentTypeEnum.ONLINE,
+        orderType: orderType);
     print(message);
-    final response =
-        await http.post(Uri.parse("$BASE_URL/reservation/create/preorder"),
-            headers: <String, String>{
-              'Content-Type': 'application/json',
-            },
-            body: jsonEncode(message));
+    final response = await http.post(Uri.parse("$BASE_URL/order/create/"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(message));
     if (response.statusCode == 200) {
       Navigator.of(context).popUntil((route) => route.isFirst);
     } else {

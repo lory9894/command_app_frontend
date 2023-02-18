@@ -1,5 +1,5 @@
-import 'package:command_app_frontend/session.dart';
 import 'package:command_app_frontend/screens/review_pay.dart';
+import 'package:command_app_frontend/session.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -48,12 +48,10 @@ class _ShoppingCartState extends State<ShoppingCart> {
                                 builder: (context) => const ReviewPay()),
                           );
                         } else if (order.tableID!.startsWith("A")) {
-                          /* TODO: schermata scelta asporto
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const TakeAway()),
+                                builder: (context) => const ReviewPay()),
                           );
-                           */
                         } else if (order.tableID!.startsWith("D")) {
                           Navigator.of(context).push(
                             MaterialPageRoute(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:intl/intl.dart';
 
 import '../session.dart';
@@ -24,16 +22,14 @@ class MessageOrder {
   Userinfo? user;
   List<Preparation> preparations = List.empty(growable: true);
 
-  MessageOrder({
-    required this.dateTime,
-    required this.paymentState,
-    required this.paymentType
-  })
-  {
+  MessageOrder(
+      {required this.dateTime,
+      required this.paymentState,
+      required this.paymentType,
+      required this.orderType}) {
     total = order.total;
     tableNum = order.tableID!;
-    orderState = OrderStateEnum
-        .ACCEPTED; //TODO: decidere se vogliamo accettare o meno gli ordini di default
+    orderState = OrderStateEnum.ACCEPTED;
 
     // if (userCredential == null) {
     //   user = null;
@@ -42,11 +38,11 @@ class MessageOrder {
     //   user = Userinfo(
     //
     // }
-    user =
-      userCredential == null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
+    user = userCredential == null
         ? null // se userCredential è null allora l'utente non è autenticato (?)
         : Userinfo(
-            userId: idToken!, // TODO: (problema async) assegnare idtoken in un metodo esterno dopo il termine del costruttore
+            userId:
+                idToken!, // TODO: (problema async) assegnare idtoken in un metodo esterno dopo il termine del costruttore
             username: userCredential!.user!.email!);
     order.shoppingCart.forEach((key, value) {
       for (int i = 0; i < value; i++) {
@@ -76,6 +72,7 @@ class MessageOrder {
         'paymentState': paymentState.toString().split(".").last,
         'paymentType': paymentType.toString().split(".").last,
         'orderState': orderState.toString().split(".").last,
+        'orderType': orderType.toString().split(".").last,
         'user': user == null
             ? null
             : {
@@ -124,16 +121,16 @@ class MessageReservation {
     if (order.shoppingCart.isNotEmpty) {
       messageOrder = MessageOrder(
           dateTime: dateTime,
-          paymentState:
-              PaymentState.PAID, //TODO: I preordini sono sempre pagati?
-          paymentType: PaymentTypeEnum.ONLINE);
+          paymentState: PaymentState
+              .PAID, //TODO: I preordini sono sempre pagati? (nel caso di ordine al tavolo no)
+          paymentType: PaymentTypeEnum.ONLINE,
+          orderType: OrderTypeEnum.PREORDER);
     }
+    print("userCredential: $userCredential");
     user = userCredential ==
             null //TODO: non so se effettivamente le userCredential sono null o se nel caso di utente non autenticato è userCredential.user null
         ? null
-        : Userinfo(
-            userId: idToken!,
-            username: userCredential!.user!.email!);
+        : Userinfo(userId: idToken!, username: userCredential!.user!.email!);
     state = OrderStateEnum.WAITING;
     tableNum = null;
   }
