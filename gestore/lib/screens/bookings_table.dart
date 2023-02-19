@@ -16,8 +16,7 @@ class _BookingsTableState extends State<BookingsTable> {
   List<Booking> bookingsList = List.empty(growable: true);
   List<TextEditingController> _tableControllerList = List.empty(growable: true);
   late Timer timer;
-  static String BASE_URL =
-      'http://localhost:8080/reservation'; //TODO: add the correct url, not localhost
+  static String BASE_URL = 'http://gateway:8080/reservation';
 
   @override
   void initState() {
