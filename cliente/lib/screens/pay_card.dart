@@ -160,7 +160,7 @@ class _PayCardState extends State<PayCard> {
         paymentType: PaymentTypeEnum.ONLINE,
         orderType: orderType);
     print(message);
-    final response = await http.post(Uri.parse("$BASE_URL/order/create/"),
+    final response = await http.post(Uri.parse("$BASE_URL/order/create"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
