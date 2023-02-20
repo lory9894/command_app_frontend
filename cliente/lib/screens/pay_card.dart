@@ -177,7 +177,11 @@ class _PayCardState extends State<PayCard> {
     MessageReservation message = MessageReservation(
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
-    final response = await http.post(Uri.parse("$BASE_URL/reservation/create"),
+
+    String endpoint = message.messageOrder == null
+        ? "reservation/create"
+        : "reservation/create/preorder";
+    final response = await http.post(Uri.parse("$BASE_URL/$endpoint"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
