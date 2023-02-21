@@ -1,9 +1,9 @@
 import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/screens/prenota_tavolo.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../session.dart';
+import '../widgets/home_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -13,6 +13,24 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    const List<SectionContents> sections = <SectionContents>[
+      SectionContents("Prenota un tavolo", "assets/images/restaurant.png"),
+      SectionContents("Visualizza il menu", "assets/images/menu.png"),
+      SectionContents("Visualizza le tue prenotazioni", "assets/images/booking.png"),
+      SectionContents("Visualizza le tue recensioni", "assets/images/review.png"),
+    ];
+
+    return const HomePage(sections);
+
+    return const OldPage();
+  }
+}
+
+class OldPage extends StatelessWidget {
+  const OldPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

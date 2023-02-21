@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/build/
+/android/app/src/main/kotlin/com/comandapp/cliente/MainActivity.kt

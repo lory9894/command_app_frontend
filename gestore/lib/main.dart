@@ -1,3 +1,5 @@
+// app color palette: Orange (#ffb238), Green (#448a66)
+
 import 'package:command_app_frontend/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'CommandApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primaryColor: const Color(0xFFffb238),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: const Color(0xFF448a66)),
       ),
       home: const AdminHomePage(),
     );

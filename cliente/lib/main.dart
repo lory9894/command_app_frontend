@@ -1,3 +1,6 @@
+// app color palette: Orange (#ffb238), Green (#448a66)
+
+import 'package:command_app_frontend/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -18,9 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ComandApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFFffb238),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: const Color(0xFF448a66)),
       ),
       home: const MyHomePage(),
     );
@@ -37,6 +41,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const LoginPage();
+    // return const Login();
+    return const Profile();
   }
 }
