@@ -15,14 +15,24 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    const List<SectionContents> sections = <SectionContents>[
-      SectionContents("Prenota un tavolo", "assets/images/restaurant.png"),
-      SectionContents("Visualizza il menu", "assets/images/menu.png"),
-      SectionContents("Visualizza le tue prenotazioni", "assets/images/booking.png"),
-      SectionContents("Visualizza le tue recensioni", "assets/images/review.png"),
+    List<HomeSection> sections = <HomeSection>[
+      HomeSection("Prenota Tavolo", "Prenota un tavolo e mangia nel nostro ristorante", "menu_g", () {
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const PrenotaTavolo()),
+        );
+      }),
+      HomeSection("Prenota pasto al Tavolo", "Prenota un pasto dal nostro Menu, una volta arrivato al ristorante il pasto sarà pronto per te", "menu_g", () {
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Menu()),
+        );
+      }),
+      HomeSection("Ordina Asporto", "Prenota un pasto d'asporto e ritiralo dal ristorante", "menu_g", () {}),
+      HomeSection("Ordina Delivery", "Prenota un pasto. Lo consegneremo da te!", "menu_g", () {}),
     ];
 
-    return const HomePage(sections);
+    return HomePage(sections);
 
     return const OldPage();
   }

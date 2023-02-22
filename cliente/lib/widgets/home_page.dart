@@ -5,7 +5,7 @@ import '../session.dart';
 
 
 class HomePage extends StatefulWidget {
-  final List<SectionContents> sections;
+  final List<HomeSection> sections;
 
   const HomePage(this.sections, {super.key});
 
@@ -21,31 +21,132 @@ class _HomePageState extends State<HomePage> {
         title: Center(
             child: Text("Benvenuto ${userCredential?.user?.displayName}")),
       ),
-      body: Table(
-        border: TableBorder.all(),
-        children: <TableRow>[
-          for (SectionContents section in widget.sections)
-            TableRow(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(section.sectionText),
+      // body is two rows containing a HomeSection each
+      body: Row(children: [
+        Expanded(
+          flex: 2, // 20%
+          child: Container(),
+        ),
+        Expanded(
+          flex: 6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: widget.sections[0],
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: widget.sections[1],
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(section.sectionImage),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: widget.sections[2],
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: widget.sections[3],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-        ],
-      ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 2, // 20%
+          child: Container(),
+        ),
+      ]),
+
+
+      // body: ListView.builder(
+      //   itemCount: widget.sections.length,
+      //   itemBuilder: (context, index) {
+      //     final section = widget.sections[index];
+      //     return section.build(context);
+      //   },
+      // ),
     );
   }
 }
 
-class SectionContents {
-  final String sectionText;
-  final String sectionImage;
+class HomeSection extends StatelessWidget {
+  final String sectionTitle;
+  final String sectionDescription;
+  final String sectionImageName;
+  final VoidCallback onClicked;
 
-  const SectionContents(this.sectionText, this.sectionImage);
+  const HomeSection(this.sectionTitle, this.sectionDescription, this.sectionImageName, this.onClicked, {super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    // section is a box containing an image, the name of the section it brings to and a description of the section
+    // When clicked, it calls the function onClicked and brings the user to the section
+    // light grey background, black text, rounded corners, shadow. Takes the whole width
+    // leave some space between the sections. Image vertically centered.
+
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey[700],
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.4),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Image.asset("assets/images/sections/$sectionImageName.png"),
+          ),
+          Expanded(
+            flex: 3,
+            child: Center(
+              child: Text(
+                sectionTitle,
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              sectionDescription,
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    // return ListTile(
+    //   leading: Image.asset("assets/images/sections/$sectionImageName.png"),
+    //   title: Text(sectionText),
+    //   onTap: onClicked,
+    // );
+  }
+
 }
