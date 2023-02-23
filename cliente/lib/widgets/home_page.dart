@@ -96,49 +96,52 @@ class HomeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // section is a box containing an image, the name of the section it brings to and a description of the section
-    // When clicked, it calls the function onClicked and brings the user to the section
+    // When the container clicked, it calls the function onClicked and brings the user to the section
     // #ffb238 background, black text, rounded corners, shadow. Takes the whole width
     // leave some space between the sections. Image vertically centered.
 
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.4),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 5,
-            child: Image.asset("assets/images/sections/$sectionImageName.png"),
-          ),
-          Expanded(
-            flex: 3,
-            child: Center(
-              child: Text(
-                sectionTitle,
-                style: Theme.of(context).textTheme.headline2,
+    return InkWell(
+      onTap: onClicked,
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 5,
+              child: Image.asset("assets/images/sections/$sectionImageName.png"),
+            ),
+            Expanded(
+              flex: 3,
+              child: Center(
+                child: Text(
+                  sectionTitle,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              sectionDescription,
-              style: Theme.of(context).textTheme.bodyText2,
+            Expanded(
+              flex: 2,
+              child: Text(
+                sectionDescription,
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
