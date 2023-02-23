@@ -97,14 +97,14 @@ class HomeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     // section is a box containing an image, the name of the section it brings to and a description of the section
     // When clicked, it calls the function onClicked and brings the user to the section
-    // light grey background, black text, rounded corners, shadow. Takes the whole width
+    // #ffb238 background, black text, rounded corners, shadow. Takes the whole width
     // leave some space between the sections. Image vertically centered.
 
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.grey[700],
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

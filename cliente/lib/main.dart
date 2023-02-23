@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFFffb238),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: const Color(0xFF448a66)),
         textTheme: const TextTheme(
-          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold, color: Color(0x00373d3f)), // Color(#373D3F)
-          headline2: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontFamily: 'RobotoMono', color: Colors.white),
+          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
           headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.white),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Color.fromRGBO(66, 94, 59, 1)),
         ),
       ),
       home: const MyHomePage(),
