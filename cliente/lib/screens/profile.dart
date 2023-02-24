@@ -16,20 +16,20 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     List<HomeSection> sections = <HomeSection>[
-      HomeSection("Prenota Tavolo", "Prenota un tavolo e mangia nel nostro ristorante", "chair", () {
+      HomeSection("Prenota", "chair", () {
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const PrenotaTavolo()),
         );
       }),
-      HomeSection("Prenota pasto al Tavolo", "Prenota un pasto dal nostro Menu, una volta arrivato al ristorante il pasto sarà pronto per te", "menu", () {
+      HomeSection("Preordina", "menu", () {
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Menu()),
         );
       }),
-      HomeSection("Ordina Asporto", "Prenota un pasto d'asporto e ritiralo dal ristorante", "take-away", () {}),
-      HomeSection("Ordina Delivery", "Prenota un pasto. Lo consegneremo da te!", "delivery-man", () {}),
+      HomeSection("Asporto", "take-away", () {}),
+      HomeSection("Delivery", "delivery-man", () {}),
     ];
 
     return HomePage(sections);
