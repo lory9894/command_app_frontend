@@ -49,7 +49,7 @@ class _AppBarLoginState extends State<AppBarLogin> {
                       signOutFromGoogle();
                       order.tableID = null;
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const Profile()));
+                          builder: (context) => const HomePage()));
                     },
                     icon: const Icon(Icons.logout))
                 : const ButtonLogin())

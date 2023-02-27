@@ -5,34 +5,44 @@ import 'package:flutter/material.dart';
 import '../session.dart';
 import '../widgets/home_page.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _ProfileState extends State<Profile> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<HomeSection> sections = <HomeSection>[
       HomeSection("Prenota", "chair", () {
-        Navigator.of(context).pop();
+        order.tableID = "T1";
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const PrenotaTavolo()),
         );
       }),
       HomeSection("Preordina", "menu", () {
-        Navigator.of(context).pop();
+        order.tableID = "P1";
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Menu()),
         );
       }),
-      HomeSection("Asporto", "take-away", () {}),
-      HomeSection("Delivery", "delivery-man", () {}),
+      HomeSection("Asporto", "take-away", () {
+        order.tableID = "A1";
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Menu()),
+        );
+      }),
+      HomeSection("Delivery", "delivery-man", () {
+        order.tableID = "D1";
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const Menu()),
+        );
+      }),
     ];
 
-    return HomePage(sections);
+    return HomePageSections(sections);
 
     return const OldPage();
   }

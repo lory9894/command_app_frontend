@@ -4,16 +4,16 @@ import '../session.dart';
 
 
 
-class HomePage extends StatefulWidget {
+class HomePageSections extends StatefulWidget {
   final List<HomeSection> sections;
 
-  const HomePage(this.sections, {super.key});
+  const HomePageSections(this.sections, {super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageSections> createState() => _HomePageSectionsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageSectionsState extends State<HomePageSections> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

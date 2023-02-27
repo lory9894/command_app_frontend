@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Profile()));
+                                  builder: (context) => const HomePage()));
                         });
                       } catch (e, s) {
                         // TODO messaggio di errore quando il login fallisce
