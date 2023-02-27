@@ -7,7 +7,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../auth/auth_methods.dart';
 import '../session.dart';
 import 'menu.dart';
-import 'profile.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

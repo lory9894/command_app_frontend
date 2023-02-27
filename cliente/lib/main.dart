@@ -1,6 +1,6 @@
 // app color palette: Orange (#ffb238), Green (#448a66)
 
-import 'package:command_app_frontend/screens/profile.dart';
+import 'package:command_app_frontend/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

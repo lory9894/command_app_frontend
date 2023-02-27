@@ -1,4 +1,4 @@
-import 'package:command_app_frontend/screens/profile.dart';
+import 'package:command_app_frontend/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../auth/auth_methods.dart';
