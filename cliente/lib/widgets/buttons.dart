@@ -62,3 +62,29 @@ class ButtonLogout extends StatelessWidget {
     );
   }
 }
+
+class ComandAppElevatedButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+
+  const ComandAppElevatedButton({required this.text, this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(200, 50),
+        shadowColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.headline3,
+      ),
+    );
+  }
+}

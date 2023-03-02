@@ -3,6 +3,7 @@ import 'dart:convert' as book_table;
 import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/session.dart';
 import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:command_app_frontend/widgets/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -108,16 +109,16 @@ class _BookTableState extends State<BookTable> {
                   _sizedBox,
                   Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Spacer(flex: 2),
+                      children: [
+                        const Spacer(flex: 2),
                         Expanded(
                           flex: 6,
                           child: Text(
                             'Numero persone',
-                            style: TextStyle(color: Colors.grey),
+                            style: TextStyle(color: Theme.of(context).primaryColor),
                           ),
                         ),
-                        Spacer(flex: 2),
+                        const Spacer(flex: 2),
                       ]),
                   Row(
                     children: [
@@ -128,7 +129,7 @@ class _BookTableState extends State<BookTable> {
                           controller: numPeopleInput,
                           min: 1,
                           max: 20,
-                          incDecBgColor: Colors.blue,
+                          incDecBgColor: Theme.of(context).primaryColor,
                         ),
                       ),
                       const Spacer(flex: 2),
@@ -140,15 +141,8 @@ class _BookTableState extends State<BookTable> {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(150, 50),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: const Text("Prenota"),
+              child: ComandAppElevatedButton(
+                text: "Prenota",
                 onPressed: () {
                   _sendReservation(false);
                 },
@@ -156,15 +150,8 @@ class _BookTableState extends State<BookTable> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(150, 50),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: const Text("Scegli il menù"),
+              child: ComandAppElevatedButton(
+                text: "Scegli da menù",
                 onPressed: () {
                   _sendReservation(true);
                 },
