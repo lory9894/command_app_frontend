@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:command_app_frontend/session.dart';
-import 'package:command_app_frontend/widgets/app_bar_login.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -95,7 +96,10 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarLogin(),
+      appBar: const AppBarComandapp(title: "Menu", actions: [
+        ButtonShoppingCart(),
+        ButtonLogout(),
+      ]),
       body: ListView.builder(
         itemCount: _dishesCourses().length,
         itemBuilder: (BuildContext context, int index) {

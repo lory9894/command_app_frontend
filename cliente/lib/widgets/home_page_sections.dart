@@ -1,3 +1,4 @@
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
 import 'package:flutter/material.dart';
 
 import '../session.dart';
@@ -17,10 +18,8 @@ class _HomePageSectionsState extends State<HomePageSections> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-            child: Text("Benvenuto ${userCredential?.user?.displayName}")),
-      ),
+      // Benvenuto ${userCredential?.user?.displayName}
+      appBar: AppBarComandapp(title: "Benvenuto ${userCredential?.user?.displayName}"),
       // if client is on desktop, show the sections in a 2x2 grid. Otherwise, show them in a 1x4 grid
 
       body: LayoutBuilder(
