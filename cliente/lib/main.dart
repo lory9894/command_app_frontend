@@ -1,6 +1,6 @@
 // app color palette: Orange (#ffb238), Green (#448a66)
 
-import 'package:command_app_frontend/screens/home_page.dart';
+import 'package:command_app_frontend/screens/book_table.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -48,6 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // return const LoginPage();
-    return const HomePage();
+    return const BookTable();
   }
 }

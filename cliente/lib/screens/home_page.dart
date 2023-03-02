@@ -1,5 +1,5 @@
 import 'package:command_app_frontend/screens/menu.dart';
-import 'package:command_app_frontend/screens/prenota_tavolo.dart';
+import 'package:command_app_frontend/screens/book_table.dart';
 import 'package:flutter/material.dart';
 
 import '../session.dart';
@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       HomeSection("Prenota", "chair", () {
         order.tableID = "T1";
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const PrenotaTavolo()),
+          MaterialPageRoute(builder: (context) => const BookTable()),
         );
       }),
       HomeSection("Preordina", "menu", () {
