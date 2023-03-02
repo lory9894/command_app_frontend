@@ -21,8 +21,12 @@ class _AppBarLoginState extends State<AppBarLogin> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Center(
-        child: const Text('Menu'),
+        child: Text(
+            'Menu',
+            style: Theme.of(context).textTheme.headline2,
+        ),
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       // title: order.tableID != null && order.tableID!.startsWith("T")
       //     ? Center(
       //         child: Text(
