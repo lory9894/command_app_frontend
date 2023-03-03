@@ -1,5 +1,7 @@
 import 'package:command_app_frontend/session.dart';
 import 'package:command_app_frontend/screens/review_pay.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import "package:flutter/material.dart";
 
 import '../custom_classes/take_away.dart';
@@ -19,8 +21,8 @@ class _DeliveryState extends State<Delivery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("Delivery")),
+      appBar: const AppBarComandapp(
+        title: "Delivery",
       ),
       body: Row(
         children: [
@@ -48,7 +50,7 @@ class _DeliveryState extends State<Delivery> {
                             send_pressed ? "Inserisci un indirizzo" : null),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 3,
                   child: TextField(
                       keyboardType: TextInputType.multiline,
@@ -59,16 +61,12 @@ class _DeliveryState extends State<Delivery> {
                         labelText: 'Altre informazioni',
                       )),
                 ),
+                const Spacer(flex: 2),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(200, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                  child: ComandAppElevatedButton(
+                      text: "Riepilogo ordine",
                       onPressed: () {
                         if (_address.text.isEmpty) {
                           setState(() {
@@ -82,10 +80,9 @@ class _DeliveryState extends State<Delivery> {
                                 builder: (context) => const ReviewPay()),
                           );
                         }
-                      },
-                      child: Text("Riepilogo ordine")),
+                      }),
                 )),
-                Expanded(child: Container(), flex: 2),
+                Expanded(flex: 2, child: Container()),
               ],
             ),
           ),

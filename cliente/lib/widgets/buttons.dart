@@ -71,20 +71,27 @@ class ComandAppElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size(200, 50),
-        shadowColor: Theme.of(context).primaryColor,
-        backgroundColor: Theme.of(context).primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+    // TODO use button theme to share the style instead of having this ElevatedButton wrapper
+    return  ElevatedButtonTheme(
+        data: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            // TODO minimumSize property does not affect the button size
+            minimumSize: const Size(200, 80),
+            shadowColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
         ),
-      ),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.headline3,
-      ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline3,
+          ),
+        )
     );
   }
 }
