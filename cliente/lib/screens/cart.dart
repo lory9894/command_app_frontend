@@ -1,5 +1,7 @@
 import 'package:command_app_frontend/session.dart';
 import 'package:command_app_frontend/screens/review_pay.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -9,15 +11,15 @@ class ShoppingCart extends StatefulWidget {
   const ShoppingCart({Key? key}) : super(key: key);
 
   @override
-  _ShoppingCartState createState() => _ShoppingCartState();
+  State<ShoppingCart> createState() => _ShoppingCartState();
 }
 
 class _ShoppingCartState extends State<ShoppingCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Carrello"),
+        appBar: const AppBarComandapp(
+          title: "Carrello",
         ),
         body: Column(children: [
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
@@ -39,7 +41,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text("Totale: ${order.total} €"),
-                  ElevatedButton(
+                  ComandAppElevatedButton(
+                    text: "Completa Ordine",
                     onPressed: () {
                       if (order.tableID != null) {
                         if (order.tableID!.startsWith("T")) {
@@ -49,11 +52,11 @@ class _ShoppingCartState extends State<ShoppingCart> {
                           );
                         } else if (order.tableID!.startsWith("A")) {
                           /* TODO: schermata scelta asporto
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const TakeAway()),
-                          );
-                           */
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) => const TakeAway()),
+                                              );
+                                               */
                         } else if (order.tableID!.startsWith("D")) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -67,7 +70,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
                         }
                       }
                     },
-                    child: const Text("Completa ordine"),
                   ),
                 ],
               )),

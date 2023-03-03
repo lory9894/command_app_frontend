@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../auth/auth_methods.dart';
 import '../screens/home_page.dart';
 import '../screens/login.dart';
-import '../screens/shopping_cart.dart';
+import '../screens/cart.dart';
 import '../session.dart';
 
 class ButtonLogin extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:command_app_frontend/screens/shopping_cart.dart';
+import 'package:command_app_frontend/screens/cart.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
