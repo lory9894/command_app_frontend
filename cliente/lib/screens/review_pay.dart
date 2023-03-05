@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:command_app_frontend/custom_classes/backend_body.dart';
 import 'package:command_app_frontend/screens/pay_card.dart';
 import 'package:command_app_frontend/session.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +15,9 @@ class ReviewPay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pagamento")),
+      appBar: const AppBarComandapp(
+        title: "Riepilogo pagamento",
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -28,28 +32,34 @@ class ReviewPay extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const PayCard()),
-                  );
-                },
-                child: const Text('Paga con carta'),
-              ),
-              if (order.tableID != null && order.tableID!.startsWith("T"))
-                ElevatedButton(
-                    onPressed: () {
-                      sendOrder(context);
-                    },
-                    child: const Text('Paga alla cassa')),
-              ElevatedButton(
-                onPressed:
-                    () {}, //TODO: implement, or maybe not, fuck it, mock it
-                child: const Text('PayPal'),
+              ComandAppElevatedButton(
+                  text: "Paga con carta",
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const PayCard()),
+                    );
+                  }
               ),
             ],
           ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (order.tableID != null && order.tableID!.startsWith("T"))
+                ComandAppElevatedButton(
+                    text: "Paga alla cassa",
+                    onPressed: () {
+                      sendOrder(context);
+                    }
+                ),
+              ComandAppElevatedButton(
+                  text: "Paga con PayPal",
+                  onPressed: () {} //TODO: implement, or maybe not, fuck it, mock it
+              ),
+            ],
+          )
         ],
       ),
     );

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:command_app_frontend/payment_utils/card_month_input_formatter.dart';
 import 'package:command_app_frontend/session.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -54,7 +56,9 @@ class _PayCardState extends State<PayCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pagamento")),
+      appBar: const AppBarComandapp(
+        title: "Pagamento",
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -118,8 +122,8 @@ class _PayCardState extends State<PayCard> {
               const Spacer(flex: 2),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: ElevatedButton(
-                  child: const Text("Paga"),
+                child: ComandAppElevatedButton(
+                  text: "Paga",
                   onPressed: () {
                     if (order.tableID!.startsWith("P")) {
                       //preorder or prenotation
