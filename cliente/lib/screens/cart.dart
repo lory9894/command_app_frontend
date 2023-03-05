@@ -4,6 +4,7 @@ import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../session.dart';
 import 'delivery.dart';
 
 class ShoppingCart extends StatefulWidget {

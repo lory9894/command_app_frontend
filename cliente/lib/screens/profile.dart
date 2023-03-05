@@ -1,5 +1,5 @@
+import 'package:command_app_frontend/screens/book_table.dart';
 import 'package:command_app_frontend/screens/menu.dart';
-import 'package:command_app_frontend/screens/prenota_tavolo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -156,7 +156,7 @@ class _ProfileState extends State<Profile> {
                       order.tableID = "P1";
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (context) => const PrenotaTavolo()),
+                            builder: (context) => const BookTable()),
                       );
                     },
                     child: const FittedBox(
