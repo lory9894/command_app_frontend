@@ -25,50 +25,18 @@ class _MenuState extends State<Menu> {
     super.initState();
   }
 
-  // void fetchDishes() async {
-  //   var response = await http.get(Uri.parse("$BASE_URL/menu/getDishes"));
-  //   if (response.statusCode == 200) {
-  //     final jsonResponse = jsonDecode(response.body);
-  //     //from the response body, get the list of dishes
-  //     dishes = jsonResponse.map<Dish>((json) => Dish.fromJson(json)).toList();
-  //     //find the number of different courses in list dishes
-  //     courses = dishes.map((e) => e.course).toSet();
-  //     setState(() {});
-  //   } else {
-  //     print('Request failed with status: ${response.statusCode}.');
-  //   }
-  // }
-
-  // TODO just for testing, remove when done
   void fetchDishes() async {
-    var inputDishes = '''[      
-    {
-        "name": "il Petrone",
-        "price": 5.50,
-        "description": "Vabbeh",
-        "imageUrl": "http://www.di.unito.it/~giovanna/gioNew1.jpg",
-        "course": "Panino"
-      },
-      {
-        "name": "Coppo DiVino",
-        "price": 100.00,
-        "description": "vino rosso",
-        "imageUrl": null,
-        "course": "Bevanda"
-      },
-      {
-        "name": "CapecchiCola",
-        "price": 100.00,
-        "description": "hoha hola",
-        "imageUrl": "http://www.di.unito.it/~capecchi/img/me.jpg",
-        "course": "Bevanda"
-      }
-
-    ]''';
-    var jsonDishes = jsonDecode(inputDishes);
-    dishes = jsonDishes.map<Dish>((json) => Dish.fromJson(json)).toList();
-    courses = dishes.map((e) => e.course).toSet();
-    setState(() {});
+    var response = await http.get(Uri.parse("$BASE_URL/menu/getDishes"));
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      //from the response body, get the list of dishes
+      dishes = jsonResponse.map<Dish>((json) => Dish.fromJson(json)).toList();
+      //find the number of different courses in list dishes
+      courses = dishes.map((e) => e.course).toSet();
+      setState(() {});
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
   }
 
   void readJson() async {
