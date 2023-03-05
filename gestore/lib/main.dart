@@ -14,13 +14,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CommandApp',
+      title: 'ComandApp',
       theme: ThemeData(
-        brightness: Brightness.dark,
         primaryColor: const Color(0xFFffb238),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: const Color(0xFF448a66)),
+        textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
+          headline3: TextStyle(fontSize: 25.0, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
+          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Color.fromRGBO(66, 94, 59, 1)),
+        ),
+        backgroundColor: const Color(0xffe0b572),
       ),
-      home: const AdminHomePage(),
+      home: const HomePage(),
     );
   }
 }
