@@ -1,7 +1,10 @@
-import 'dart:convert';
+import 'dart:convert' as book_table;
 
 import 'package:command_app_frontend/screens/menu.dart';
 import 'package:command_app_frontend/session.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
+import 'package:command_app_frontend/widgets/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -10,18 +13,18 @@ import 'package:number_inc_dec/number_inc_dec.dart';
 import '../custom_classes/backend_body.dart';
 import '../custom_classes/reservation.dart';
 
-class PrenotaTavolo extends StatefulWidget {
-  const PrenotaTavolo({Key? key}) : super(key: key);
+class BookTable extends StatefulWidget {
+  const BookTable({Key? key}) : super(key: key);
 
   @override
-  State<PrenotaTavolo> createState() => _PrenotaTavoloState();
+  State<BookTable> createState() => _BookTableState();
 }
 
-class _PrenotaTavoloState extends State<PrenotaTavolo> {
+class _BookTableState extends State<BookTable> {
   TextEditingController dateInput = TextEditingController();
   TextEditingController timeInput = TextEditingController();
   TextEditingController numPeopleInput = TextEditingController();
-  SizedBox _sizedBox = SizedBox(height: 40);
+  final SizedBox _sizedBox = const SizedBox(height: 40);
 
   @override
   void initState() {
@@ -33,9 +36,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("PRENOTAZIONE TAVOLO")),
-      ),
+      appBar: const AppBarComandapp(title: "Prenota tavolo"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
@@ -49,33 +50,24 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                       const Spacer(flex: 2),
                       Expanded(
                         flex: 6,
-                        child: TextField(
+                        child: ComandAppTextField(
                           controller: dateInput,
-                          //editing controller of this TextField
-                          decoration: const InputDecoration(
-                              icon: Icon(
-                                  Icons.calendar_today), //icon of text field
-                              labelText: "Inserisci data" //label text of field
-                              ),
-                          readOnly: true,
-                          //set it true, so that user will not able to edit text
+                          iconData: Icons.calendar_today,
+                          labelText: "Inserisci data",
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(
                                 context: context,
                                 initialDate: DateTime.now(),
-                                firstDate: DateTime(1950),
-                                //DateTime.now() - not to allow to choose before today.
-                                lastDate: DateTime(2100));
-
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime.now().add(const Duration(days: 7))
+                            );
                             if (pickedDate != null) {
                               String formattedDate =
-                                  DateFormat('dd-MM-yyyy').format(pickedDate);
-                              setState(() {
-                                dateInput.text =
-                                    formattedDate; //set output date to TextField value.
-                              });
-                            } else {
-                              print("Time is not selected");
+                                    DateFormat('dd-MM-yyyy').format(pickedDate);
+                                setState(() {
+                                  dateInput.text =
+                                      formattedDate; //set output date to TextField value.
+                                });
                             }
                           },
                         ),
@@ -89,16 +81,10 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                       const Spacer(flex: 2),
                       Expanded(
                         flex: 6,
-                        child: TextField(
+                        child: ComandAppTextField(
                           controller: timeInput,
-                          //editing controller of this TextField
-                          decoration: const InputDecoration(
-                              icon:
-                                  Icon(Icons.access_time), //icon of text field
-                              labelText: "Inserisci ora" //label text of field
-                              ),
-                          readOnly: true,
-                          //set it true, so that user will not able to edit text
+                          iconData: Icons.access_time,
+                          labelText: "Inserisci ora",
                           onTap: () async {
                             TimeOfDay? pickedTime = await showTimePicker(
                                 context: context, initialTime: TimeOfDay.now());
@@ -124,16 +110,16 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                   _sizedBox,
                   Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Spacer(flex: 2),
+                      children: [
+                        const Spacer(flex: 2),
                         Expanded(
                           flex: 6,
                           child: Text(
                             'Numero persone',
-                            style: TextStyle(color: Colors.grey),
+                            style: TextStyle(color: Theme.of(context).primaryColor),
                           ),
                         ),
-                        Spacer(flex: 2),
+                        const Spacer(flex: 2),
                       ]),
                   Row(
                     children: [
@@ -144,7 +130,7 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
                           controller: numPeopleInput,
                           min: 1,
                           max: 20,
-                          incDecBgColor: Colors.blue,
+                          incDecBgColor: Theme.of(context).primaryColor,
                         ),
                       ),
                       const Spacer(flex: 2),
@@ -156,15 +142,8 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(150, 50),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: const Text("Prenota"),
+              child: ComandAppElevatedButton(
+                text: "Prenota",
                 onPressed: () {
                   _sendReservation(false);
                 },
@@ -172,15 +151,8 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(150, 50),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                child: const Text("Scegli il menù"),
+              child: ComandAppElevatedButton(
+                text: "Scegli da menù",
                 onPressed: () {
                   _sendReservation(true);
                 },
@@ -206,13 +178,13 @@ class _PrenotaTavoloState extends State<PrenotaTavolo> {
       } else {
         MessageReservation message = MessageReservation(
             dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
-        print(jsonEncode(message));
+        print(book_table.jsonEncode(message));
         final response =
             await http.post(Uri.parse("$BASE_URL/reservation/create"),
                 headers: <String, String>{
                   'Content-Type': 'application/json',
                 },
-                body: jsonEncode(message));
+                body: book_table.jsonEncode(message));
         if (response.statusCode == 200) {
           Navigator.of(context).popUntil((route) => route.isFirst);
         } else {

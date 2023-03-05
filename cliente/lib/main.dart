@@ -1,8 +1,9 @@
+// app color palette: Orange (#ffb238), Green (#448a66)
+
+import 'package:command_app_frontend/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
-import 'package:command_app_frontend/screens/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +19,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ComandApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFFffb238),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: const Color(0xFF448a66)),
+        textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
+          headline3: TextStyle(fontSize: 25.0, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
+          headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Color.fromRGBO(66, 94, 59, 1)),
+        ),
+        backgroundColor: const Color(0xffe0b572),
       ),
       home: const MyHomePage(),
     );

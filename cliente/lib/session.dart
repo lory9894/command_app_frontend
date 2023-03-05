@@ -8,6 +8,7 @@ import 'custom_classes/take_away.dart';
 /// Keeps track of the current session items (order, takeaway, userId).
 
 Order order = Order();
+
 TakeAway? takeAway;
 UserCredential? userCredential;
 Reservation? reservation;

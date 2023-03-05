@@ -7,7 +7,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../auth/auth_methods.dart';
 import '../session.dart';
 import 'menu.dart';
-import 'profile.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Profile()));
+                                  builder: (context) => const HomePage()));
                         });
                       } catch (e, s) {
                         // TODO messaggio di errore quando il login fallisce

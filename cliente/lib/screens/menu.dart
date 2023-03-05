@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:command_app_frontend/session.dart';
-import 'package:command_app_frontend/widgets/app_bar_login.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,18 +25,50 @@ class _MenuState extends State<Menu> {
     super.initState();
   }
 
+  // void fetchDishes() async {
+  //   var response = await http.get(Uri.parse("$BASE_URL/menu/getDishes"));
+  //   if (response.statusCode == 200) {
+  //     final jsonResponse = jsonDecode(response.body);
+  //     //from the response body, get the list of dishes
+  //     dishes = jsonResponse.map<Dish>((json) => Dish.fromJson(json)).toList();
+  //     //find the number of different courses in list dishes
+  //     courses = dishes.map((e) => e.course).toSet();
+  //     setState(() {});
+  //   } else {
+  //     print('Request failed with status: ${response.statusCode}.');
+  //   }
+  // }
+
+  // TODO just for testing, remove when done
   void fetchDishes() async {
-    var response = await http.get(Uri.parse("$BASE_URL/menu/getDishes"));
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      //from the response body, get the list of dishes
-      dishes = jsonResponse.map<Dish>((json) => Dish.fromJson(json)).toList();
-      //find the number of different courses in list dishes
-      courses = dishes.map((e) => e.course).toSet();
-      setState(() {});
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
+    var inputDishes = '''[      
+    {
+        "name": "il Petrone",
+        "price": 5.50,
+        "description": "Vabbeh",
+        "imageUrl": "http://www.di.unito.it/~giovanna/gioNew1.jpg",
+        "course": "Panino"
+      },
+      {
+        "name": "Coppo DiVino",
+        "price": 100.00,
+        "description": "vino rosso",
+        "imageUrl": null,
+        "course": "Bevanda"
+      },
+      {
+        "name": "CapecchiCola",
+        "price": 100.00,
+        "description": "hoha hola",
+        "imageUrl": "http://www.di.unito.it/~capecchi/img/me.jpg",
+        "course": "Bevanda"
+      }
+
+    ]''';
+    var jsonDishes = jsonDecode(inputDishes);
+    dishes = jsonDishes.map<Dish>((json) => Dish.fromJson(json)).toList();
+    courses = dishes.map((e) => e.course).toSet();
+    setState(() {});
   }
 
   void readJson() async {
@@ -63,7 +96,10 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarLogin(),
+      appBar: const AppBarComandapp(title: "Menu", actions: [
+        ButtonShoppingCart(),
+        ButtonLogout(),
+      ]),
       body: ListView.builder(
         itemCount: _dishesCourses().length,
         itemBuilder: (BuildContext context, int index) {
@@ -71,6 +107,7 @@ class _MenuState extends State<Menu> {
             //title : course name white text
             title: Text(
               _dishesCourses().elementAt(index),
+              style: Theme.of(context).textTheme.headline3,
             ),
             //background color of the tile when closed
             collapsedBackgroundColor: Theme.of(context).backgroundColor,
