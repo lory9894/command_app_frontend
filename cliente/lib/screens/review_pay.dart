@@ -54,6 +54,12 @@ class ReviewPay extends StatelessWidget {
                       sendOrder(context);
                     }
                 ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
               ComandAppElevatedButton(
                   text: "Paga con PayPal",
                   onPressed: () {} //TODO: implement, or maybe not, fuck it, mock it
