@@ -1,16 +1,19 @@
 import 'package:command_app_frontend/screens/cart.dart';
+import 'package:command_app_frontend/widgets/app_bar_comandapp.dart';
+import 'package:command_app_frontend/widgets/buttons.dart';
+import 'package:command_app_frontend/widgets/text_fields.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
-class PrenotaAsporto extends StatefulWidget {
-  const PrenotaAsporto({Key? key}) : super(key: key);
+class TakeAway extends StatefulWidget {
+  const TakeAway({Key? key}) : super(key: key);
 
   @override
-  State<PrenotaAsporto> createState() => _PrenotaAsportoState();
+  State<TakeAway> createState() => _TakeAwayState();
 }
 
 
-class _PrenotaAsportoState extends State<PrenotaAsporto> {
+class _TakeAwayState extends State<TakeAway> {
   TextEditingController dateInput = TextEditingController();
   TextEditingController timeinput = TextEditingController();
 
@@ -25,8 +28,8 @@ class _PrenotaAsportoState extends State<PrenotaAsporto> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Center (child: Text("RITIRO D'ASPORTO")),
+        appBar: const AppBarComandapp(
+          title: "  Asporto",
         ),
         body:Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -41,15 +44,10 @@ class _PrenotaAsportoState extends State<PrenotaAsporto> {
                         const Spacer(flex: 2),
                         Expanded(
                           flex: 6,
-                          child: TextField(
+                          child: ComandAppTextField(
                             controller: dateInput,
-                            //editing controller of this TextField
-                            decoration: InputDecoration(
-                                icon: Icon(Icons.calendar_today), //icon of text field
-                                labelText: "Inserisci data" //label text of field
-                            ),
-                            readOnly: true,
-                            //set it true, so that user will not able to edit text
+                            labelText: "Inserisci data",
+                            iconData: Icons.calendar_today,
                             onTap: () async {
                               DateTime? pickedDate = await showDatePicker(
                                   context: context,
@@ -63,13 +61,12 @@ class _PrenotaAsportoState extends State<PrenotaAsporto> {
                                     pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                                 String formattedDate =
                                 DateFormat('dd-MM-yyyy').format(pickedDate);
-                                print(
-                                    formattedDate); //formatted date output using intl package =>  2021-03-16
+                                print(formattedDate); //formatted date output using intl package =>  2016-01-25
                                 setState(() {
                                   dateInput.text = formattedDate; //set output date to TextField value.
                                 });
                               } else {
-                                print("Time is not selected");
+                                print("Date is not selected");
                               }
                             },
                           ),
@@ -82,15 +79,10 @@ class _PrenotaAsportoState extends State<PrenotaAsporto> {
                         const Spacer(flex: 2),
                         Expanded(
                           flex: 6,
-                          child: TextField(
+                          child: ComandAppTextField(
                             controller: timeinput,
-                            //editing controller of this TextField
-                            decoration: InputDecoration(
-                                icon: Icon(Icons.access_time), //icon of text field
-                                labelText: "Inserisci ora" //label text of field
-                            ),
-                            readOnly: true,
-                            //set it true, so that user will not able to edit text
+                            labelText: "Inserisci ora",
+                            iconData: Icons.access_time,
                             onTap: () async {
                               TimeOfDay? pickedTime = await showTimePicker(
                                   context: context,
@@ -121,15 +113,8 @@ class _PrenotaAsportoState extends State<PrenotaAsporto> {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(150, 50),
-                    textStyle: const TextStyle(fontSize: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  child: const Text("Riepilogo Ordine"),
+                child: ComandAppElevatedButton(
+                  text: "Riepilogo Ordine",
                   onPressed: () {
                     Navigator.push(
                       context,
