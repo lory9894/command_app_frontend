@@ -77,38 +77,41 @@ class HomeSection extends StatelessWidget {
     // sectionTitle is green, rounded corners, shadow.
     // Image vertically centered, title vertically centered
 
-    return Container(
-      height: 200,
-      width: 250,
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: onClicked,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/$sectionImageName.png",
-              height: 70,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              textAlign: TextAlign.center,
-              sectionTitle,
-              style: Theme.of(context).textTheme.headline2,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 200,
+        width: 250,
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.orange,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
             ),
           ],
+        ),
+        child: TextButton(
+          onPressed: onClicked,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/$sectionImageName.png",
+                height: 70,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                textAlign: TextAlign.center,
+                sectionTitle,
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ],
+          ),
         ),
       ),
     );

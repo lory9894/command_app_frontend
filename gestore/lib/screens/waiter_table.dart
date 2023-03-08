@@ -6,14 +6,14 @@ import 'package:http/http.dart' as http;
 
 import '../res/preparation.dart';
 
-class ServiceTable extends StatefulWidget {
-  const ServiceTable({Key? key}) : super(key: key);
+class WaiterTable extends StatefulWidget {
+  const WaiterTable({Key? key}) : super(key: key);
 
   @override
-  _ServiceTableState createState() => _ServiceTableState();
+  State<WaiterTable> createState() => _WaiterTableState();
 }
 
-class _ServiceTableState extends State<ServiceTable> {
+class _WaiterTableState extends State<WaiterTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
   static String BASE_URL = 'http://api_gateway:8080/waiter/preparations';
   late Timer timer;
@@ -94,22 +94,91 @@ class _ServiceTableState extends State<ServiceTable> {
                         )))));
   }
 
+  // void fetchPreparations() async {
+  //   final response = await http.get(Uri.parse(BASE_URL));
+  //   if (response.statusCode == 200) {
+  //     // If the server did return a 200 OK response,
+  //     // then parse the JSON.
+  //     final prepList = jsonDecode(response.body);
+  //     setState(() {
+  //       preparationsList = prepList
+  //           .map<Preparation>((prep) => Preparation.fromJson(prep))
+  //           .toList();
+  //     });
+  //   } else {
+  //     // If the server did not return a 200 OK response,
+  //     // then throw an exception.
+  //     throw Exception('Failed to load preparations');
+  //   }
+  // }
+
+  // TODO: Dummy, remove when backend is ready
   void fetchPreparations() async {
-    final response = await http.get(Uri.parse(BASE_URL));
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      final prepList = jsonDecode(response.body);
-      setState(() {
-        preparationsList = prepList
-            .map<Preparation>((prep) => Preparation.fromJson(prep))
-            .toList();
-      });
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load preparations');
-    }
+    List<Preparation> prepList = new List.empty(growable: true);
+    prepList.addAll(
+      List.generate(
+        3,
+        (index) => Preparation(
+          id:1,
+          name: "Pasta al Bobbo",
+          state: PreparationState.TO_DELIVER,
+          table: "1",
+        ),
+      ),
+    );
+
+    prepList.addAll(
+      List.generate(
+        3,
+        (index) => Preparation(
+          id:2,
+          name: "Pasta al Bobbo",
+          state: PreparationState.DELIVERED,
+          table: "2",
+        ),
+      ),
+    );
+
+    prepList.addAll(
+      List.generate(
+        3,
+        (index) => Preparation(
+          id:3,
+          name: "Pasta al Bobbo",
+          state: PreparationState.READY,
+          table: "3",
+        ),
+      ),
+    );
+
+    prepList.addAll(
+      List.generate(
+        3,
+        (index) => Preparation(
+          id:4,
+          name: "Pasta al Bobbo",
+          state: PreparationState.UNDERWAY,
+          table: "4",
+        ),
+      ),
+    );
+
+    prepList.addAll(
+      List.generate(
+        3,
+        (index) => Preparation(
+          id:5,
+          name: "Pasta al Bobbo",
+          state: PreparationState.WAITING,
+          table: "5",
+        ),
+      ),
+    );
+
+    setState(() {
+      preparationsList = prepList;
+    });
+
   }
 
   /// change state of 'prep' to 'state', renders to UI
