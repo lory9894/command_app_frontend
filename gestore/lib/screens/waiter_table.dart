@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:command_app_frontend/widgets/app_bars.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,61 +38,93 @@ class _WaiterTableState extends State<WaiterTable> {
   @override
   Widget build(BuildContext context) {
     // TODO rendere le righe una reordable list
-    return Container(
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: DataTable(
-                columnSpacing: 12,
-                horizontalMargin: 12,
-                columns: const <DataColumn>[
-                  DataColumn(
-                      label: Expanded(
-                    child: Text(
-                      'Preparazione',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  )),
-                  DataColumn(
-                      label: Expanded(
-                    child: Text(
-                      'Codice',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  )),
-                  DataColumn(
-                      label: Expanded(
-                    child: Text(
-                      'Stato',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  )),
-                  DataColumn(
-                      label: Expanded(
-                    child: Text(
-                      'Cambia Stato',
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    ),
-                  )),
-                ],
-                rows: List<DataRow>.generate(
-                    preparationsList.length,
-                    (index) => DataRow(
-                          cells: [
-                            DataCell(Text(preparationsList[index].name)),
-                            DataCell(Text(preparationsList[index].table)),
-                            DataCell(Text(preparationsList[index].state.str)),
-                            DataCell(
-                              Center(
-                                child: IconButton(
-                                    onPressed: () => changeState(
-                                        preparationsList[index],
-                                        PreparationState.DELIVERED),
-                                    icon: const Icon(Icons.done)),
-                              ),
-                            )
-                          ],
-                        )))));
+    return Scaffold(
+        appBar: const AppBarComandapp(),
+        body: Column(
+          children: [
+            //padding
+            const SizedBox(
+              height: 20,
+            ),
+            // title
+            Container(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Preparazioni Servizio',
+                style: Theme.of(context).textTheme.headline1,
+              )
+            ),
+            //padding
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+                alignment: Alignment.topCenter,
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: DataTable(
+                        columnSpacing: 12,
+                        horizontalMargin: 12,
+                        columns: const <DataColumn>[
+                          DataColumn(
+                              label: Expanded(
+                            child: Text(
+                              'Preparazione',
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          )),
+                          DataColumn(
+                              label: Expanded(
+                            child: Text(
+                              'Codice',
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          )),
+                          DataColumn(
+                              label: Expanded(
+                            child: Text(
+                              'Stato',
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          )),
+                          DataColumn(
+                              label: Expanded(
+                            child: Text(
+                              'Cambia Stato',
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                            ),
+                          )),
+                        ],
+                        rows: List<DataRow>.generate(
+                            preparationsList.length,
+                            (index) => DataRow(
+                                  cells: [
+                                    DataCell(
+                                        Text(
+                                            preparationsList[index].name,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                        )
+                                    ),
+                                    DataCell(Text(preparationsList[index].table)),
+                                    DataCell(
+                                        Text(
+                                            preparationsList[index].state.str)
+                                    ),
+                                    DataCell(
+                                      Center(
+                                        child: IconButton(
+                                            onPressed: () => changeState(
+                                                preparationsList[index],
+                                                PreparationState.DELIVERED),
+                                            icon: const Icon(Icons.done)),
+                                      ),
+                                    )
+                                  ],
+                                ))))),
+          ],
+        ));
   }
 
   // void fetchPreparations() async {
@@ -114,12 +147,12 @@ class _WaiterTableState extends State<WaiterTable> {
 
   // TODO: Dummy, remove when backend is ready
   void fetchPreparations() async {
-    List<Preparation> prepList = new List.empty(growable: true);
+    List<Preparation> prepList = List.empty(growable: true);
     prepList.addAll(
       List.generate(
-        3,
+        6,
         (index) => Preparation(
-          id:1,
+          id: 1,
           name: "Pasta al Bobbo",
           state: PreparationState.TO_DELIVER,
           table: "1",
@@ -127,58 +160,9 @@ class _WaiterTableState extends State<WaiterTable> {
       ),
     );
 
-    prepList.addAll(
-      List.generate(
-        3,
-        (index) => Preparation(
-          id:2,
-          name: "Pasta al Bobbo",
-          state: PreparationState.DELIVERED,
-          table: "2",
-        ),
-      ),
-    );
-
-    prepList.addAll(
-      List.generate(
-        3,
-        (index) => Preparation(
-          id:3,
-          name: "Pasta al Bobbo",
-          state: PreparationState.READY,
-          table: "3",
-        ),
-      ),
-    );
-
-    prepList.addAll(
-      List.generate(
-        3,
-        (index) => Preparation(
-          id:4,
-          name: "Pasta al Bobbo",
-          state: PreparationState.UNDERWAY,
-          table: "4",
-        ),
-      ),
-    );
-
-    prepList.addAll(
-      List.generate(
-        3,
-        (index) => Preparation(
-          id:5,
-          name: "Pasta al Bobbo",
-          state: PreparationState.WAITING,
-          table: "5",
-        ),
-      ),
-    );
-
     setState(() {
       preparationsList = prepList;
     });
-
   }
 
   /// change state of 'prep' to 'state', renders to UI
