@@ -65,6 +65,11 @@ class _ShoppingCartState extends State<ShoppingCart> {
                             MaterialPageRoute(
                                 builder: (context) => const ReviewPay()),
                           );
+                        } else if (order.tableID!.startsWith("O")) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ReviewPay()),
+                          );
                         }
                       }
                     },

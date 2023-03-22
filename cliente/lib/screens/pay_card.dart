@@ -126,10 +126,10 @@ class _PayCardState extends State<PayCard> {
                   text: "Paga",
                   onPressed: () {
                     if (order.tableID!.startsWith("P")) {
-                      //preorder or prenotation
+                      //prenotation
                       sendPrenotation();
                     } else {
-                      //takeaway, delivery or in restaurant
+                      //preorder, takeaway, delivery or in restaurant
                       sendOrder();
                     }
                   },
@@ -154,6 +154,9 @@ class _PayCardState extends State<PayCard> {
         break;
       case "T":
         orderType = OrderTypeEnum.IN_RESTAURANT;
+        break;
+      case "O":
+        orderType = OrderTypeEnum.PREORDER;
         break;
       default:
         orderType = OrderTypeEnum.IN_RESTAURANT;
