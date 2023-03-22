@@ -53,71 +53,71 @@ class _BookingsTableState extends State<BookingsTable> {
           ),
           // table
           Container(
-          alignment: Alignment.topCenter,
-          child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: DataTable(
-                  columnSpacing: 12,
-                  horizontalMargin: 12,
-                  columns: const <DataColumn>[
-                    DataColumn(
-                        label: Expanded(
+              alignment: Alignment.topCenter,
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: DataTable(
+                      columnSpacing: 12,
+                      horizontalMargin: 12,
+                      columns: const <DataColumn>[
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Data e ora',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Posti',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Tavolo',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Nome',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Conferma / Rifiuta',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                  ],
-                  rows: bookingsList
-                      .map(((booking) => DataRow(cells: <DataCell>[
-                    DataCell(Text(booking.getStringDate())),
-                    DataCell(Text(booking.seats.toString())),
-                    DataCell(TextField(
-                      controller: _tableControllerList[
-                      bookingsList.indexOf(booking)],
-                    )),
-                    DataCell(Text(booking.userName)),
-                    DataCell(Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            onPressed: () => acceptBooking(booking),
-                            icon: const Icon(Icons.check)),
-                        IconButton(
-                            onPressed: () => refuseBooking(booking),
-                            icon: const Icon(Icons.close)),
                       ],
-                    ))
-                  ])))
-                      .toList()))),
+                      rows: bookingsList
+                          .map(((booking) => DataRow(cells: <DataCell>[
+                                DataCell(Text(booking.getStringDate())),
+                                DataCell(Text(booking.seats.toString())),
+                                DataCell(TextField(
+                                  controller: _tableControllerList[
+                                      bookingsList.indexOf(booking)],
+                                )),
+                                DataCell(Text(booking.userName)),
+                                DataCell(Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () => acceptBooking(booking),
+                                        icon: const Icon(Icons.check)),
+                                    IconButton(
+                                        onPressed: () => refuseBooking(booking),
+                                        icon: const Icon(Icons.close)),
+                                  ],
+                                ))
+                              ])))
+                          .toList()))),
         ],
       ),
     );
@@ -157,24 +157,25 @@ class _BookingsTableState extends State<BookingsTable> {
     }
   }
 
-  // fetchBookings() async {
-  //   final response = await http.get(Uri.parse("$BASE_URL/all/waiting"));
-  //   if (response.statusCode == 200) {
-  //     final bookingJson = jsonDecode(response.body);
-  //     setState(() {
-  //       bookingsList =
-  //           bookingJson.map<Booking>((json) => Booking.fromJson(json)).toList();
-  //       //creates a list of TextEditingControllers, one for each booking to grant the possibility to insert the table number
-  //       for (var i = 0; i < bookingsList.length; i++) {
-  //         _tableControllerList.add(TextEditingController());
-  //       }
-  //     });
-  //   } else {
-  //     throw Exception('Failed to load bookings');
-  //   }
-  // }
+  fetchBookings() async {
+    final response = await http.get(Uri.parse("$BASE_URL/all/waiting"));
+    if (response.statusCode == 200) {
+      final bookingJson = jsonDecode(response.body);
+      setState(() {
+        bookingsList =
+            bookingJson.map<Booking>((json) => Booking.fromJson(json)).toList();
+        //creates a list of TextEditingControllers, one for each booking to grant the possibility to insert the table number
+        for (var i = 0; i < bookingsList.length; i++) {
+          _tableControllerList.add(TextEditingController());
+        }
+      });
+    } else {
+      throw Exception('Failed to load bookings');
+    }
+  }
 
   // TODO: Dummy, remove when backend is ready
+  /*
   void fetchBookings() async {
     List<Booking> bookingList = List.empty(growable: true);
 
@@ -242,4 +243,5 @@ class _BookingsTableState extends State<BookingsTable> {
       }
     });
   }
+  */
 }

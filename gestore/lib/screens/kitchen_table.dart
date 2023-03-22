@@ -56,102 +56,103 @@ class _KitchenTableState extends State<KitchenTable> {
             height: 20,
           ),
           Container(
-          alignment: Alignment.topCenter,
-          child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: DataTable(
-                  columnSpacing: 12,
-                  horizontalMargin: 12,
-                  columns: const <DataColumn>[
-                    DataColumn(
-                        label: Expanded(
+              alignment: Alignment.topCenter,
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: DataTable(
+                      columnSpacing: 12,
+                      horizontalMargin: 12,
+                      columns: const <DataColumn>[
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Preparazione',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Codice',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Stato',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                    DataColumn(
-                        label: Expanded(
+                        DataColumn(
+                            label: Expanded(
                           child: Text(
                             'Cambia Stato',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         )),
-                  ],
-                  rows: List<DataRow>.generate(
-                      preparationsList.length,
+                      ],
+                      rows: List<DataRow>.generate(
+                          preparationsList.length,
                           (index) => DataRow(cells: [
-                        DataCell(
-                            Text(
-                              preparationsList[index].name,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            )
-                        ),
-                        DataCell(Text(preparationsList[index].table)),
-                        DataCell(Text(preparationsList[index].state.str)),
-                        DataCell(Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                                onPressed: () => changeState(
-                                    preparationsList[index],
-                                    PreparationState.WAITING),
-                                icon: const Icon(Icons.watch_later)),
-                            IconButton(
-                                onPressed: () => changeState(
-                                    preparationsList[index],
-                                    PreparationState.UNDERWAY),
-                                icon: const Icon(FontAwesomeIcons.briefcase)),
-                            IconButton(
-                                onPressed: () => changeState(
-                                    preparationsList[index],
-                                    PreparationState.READY),
-                                icon: const Icon(Icons.done)),
-                          ],
-                        )),
-                      ]))))),
+                                DataCell(Text(
+                                  preparationsList[index].name,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                )),
+                                DataCell(Text(preparationsList[index].table)),
+                                DataCell(
+                                    Text(preparationsList[index].state.str)),
+                                DataCell(Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () => changeState(
+                                            preparationsList[index],
+                                            PreparationState.WAITING),
+                                        icon: const Icon(Icons.watch_later)),
+                                    IconButton(
+                                        onPressed: () => changeState(
+                                            preparationsList[index],
+                                            PreparationState.UNDERWAY),
+                                        icon: const Icon(
+                                            FontAwesomeIcons.briefcase)),
+                                    IconButton(
+                                        onPressed: () => changeState(
+                                            preparationsList[index],
+                                            PreparationState.READY),
+                                        icon: const Icon(Icons.done)),
+                                  ],
+                                )),
+                              ]))))),
         ],
       ),
     );
   }
 
-  // void fetchPreparations() async {
-  //   final response = await http.get(Uri.parse(BASE_URL));
-  //   if (response.statusCode == 200) {
-  //     // If the server did return a 200 OK response,
-  //     // then parse the JSON.
-  //     final prepList = jsonDecode(response.body);
-  //     setState(() {
-  //       preparationsList = prepList
-  //           .map<Preparation>((prep) => Preparation.fromJson(prep))
-  //           .toList();
-  //     });
-  //     preparationsList.forEach((element) {
-  //       print(element);
-  //     });
-  //   } else {
-  //     // If the server did not return a 200 OK response,
-  //     // then throw an exception.
-  //     throw Exception('Failed to load preparations');
-  //   }
-  // }
-
+  void fetchPreparations() async {
+    final response = await http.get(Uri.parse(BASE_URL));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      final prepList = jsonDecode(response.body);
+      setState(() {
+        preparationsList = prepList
+            .map<Preparation>((prep) => Preparation.fromJson(prep))
+            .toList();
+      });
+      preparationsList.forEach((element) {
+        print(element);
+      });
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load preparations');
+    }
+  }
 
   // TODO: Dummy, remove when backend is ready
+  /*
   void fetchPreparations() async {
     List<Preparation> prepList = List.empty(growable: true);
 
@@ -195,6 +196,7 @@ class _KitchenTableState extends State<KitchenTable> {
       preparationsList = prepList;
     });
   }
+  */
 
   /// change state of 'prep' to 'state', renders to UI
   void changeState(Preparation prep, PreparationState state) async {
