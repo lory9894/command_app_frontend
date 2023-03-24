@@ -1,6 +1,7 @@
 // app color palette: Orange (#ffb238), Green (#448a66)
 
 import 'package:command_app_frontend/screens/home_page.dart';
+import 'package:command_app_frontend/screens/waiter_table.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFFffb238),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: const Color(0xFF448a66)),
         textTheme: const TextTheme(
-          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline1: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontFamily: 'Roboto', fontStyle: FontStyle.italic),
           headline2: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
           headline3: TextStyle(fontSize: 25.0, fontFamily: 'RobotoMono', color: Color(0xFF448a66)),
           headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
@@ -27,7 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         backgroundColor: const Color(0xffe0b572),
       ),
-      home: const HomePage(),
+      home:
+      // const WaiterTable(),
+      const HomePage(),
     );
   }
 }

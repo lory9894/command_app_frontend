@@ -3,7 +3,6 @@ import 'package:command_app_frontend/screens/kitchen_table.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/home_page_sections.dart';
-import '../widgets/multiple_buttons_page.dart';
 import 'waiter_table.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,25 +16,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<HomeSection> sections = <HomeSection>[
-      HomeSection("Area Servizio", "waiter", () {}),
-      HomeSection("Area Cucina", "kitchen", () {}),
-      HomeSection("Area Prenotazioni", "bookings", () {}),
+      HomeSection("Area Servizio", "waiter", () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const WaiterTable()),
+        );
+      }),
+      HomeSection("Area Cucina", "kitchen", () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const KitchenTable()),
+        );
+      }),
+      HomeSection("Area Prenotazioni", "bookings", () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const BookingsTable()),
+        );
+      }),
     ];
 
     return HomePageSections(sections);
   }
 }
-
-// class AdminHomePage extends StatelessWidget {
-//   const AdminHomePage({super.key});
-//   static const List<ButtonData> adminPages = [
-//     ButtonData("Area servizio", ServiceTable()),
-//     ButtonData("Area cucina", KitchenTable()),
-//     ButtonData("Area prenotazioni", BookingsTable()),
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MultipleButtonsPage(adminPages);
-//   }
-// }

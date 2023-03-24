@@ -8,7 +8,7 @@ class AppBarComandapp extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Center(
         child: Text(
-          "Comandapp - zona admin",
+          "Comandapp - Admin",
           style: Theme.of(context).textTheme.headline2,
         ),
       ),
