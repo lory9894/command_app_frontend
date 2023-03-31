@@ -84,7 +84,7 @@ class MessageOrder {
 }
 
 class Userinfo {
-  String userId, username;
+  String userId, username; //userId sarebbe idtoken
   Userinfo({required this.userId, required this.username});
 }
 

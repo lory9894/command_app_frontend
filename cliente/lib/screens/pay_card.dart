@@ -127,7 +127,7 @@ class _PayCardState extends State<PayCard> {
                   onPressed: () {
                     if (order.tableID!.startsWith("P")) {
                       //prenotation
-                      sendPrenotation();
+                      sendPrenotation(); //TODO: capire cosa cazzo fare in caso di preorder, vedere il todo in sendPrenotation
                     } else {
                       //preorder, takeaway, delivery or in restaurant
                       sendOrder();
@@ -184,6 +184,7 @@ class _PayCardState extends State<PayCard> {
     MessageReservation message = MessageReservation(
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
+    //TODO: nel caso sia una reservation va inviato a /reservation/create altrimenti a /reservation/create/preorder
     final response = await http.post(Uri.parse("$BASE_URL/reservation/create"),
         headers: <String, String>{
           'Content-Type': 'application/json',
