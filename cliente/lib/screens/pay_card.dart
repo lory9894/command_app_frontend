@@ -125,7 +125,8 @@ class _PayCardState extends State<PayCard> {
                 child: ComandAppElevatedButton(
                   text: "Paga",
                   onPressed: () {
-                    if (order.tableID!.startsWith("P")) {
+                    if (order.tableID!.startsWith("P") ||
+                        order.tableID!.startsWith("O")) {
                       //prenotation
                       sendPrenotation(); //TODO: capire cosa cazzo fare in caso di preorder, vedere il todo in sendPrenotation
                     } else {
@@ -155,9 +156,6 @@ class _PayCardState extends State<PayCard> {
       case "T":
         orderType = OrderTypeEnum.IN_RESTAURANT;
         break;
-      case "O":
-        orderType = OrderTypeEnum.PREORDER;
-        break;
       default:
         orderType = OrderTypeEnum.IN_RESTAURANT;
     }
@@ -184,8 +182,11 @@ class _PayCardState extends State<PayCard> {
     MessageReservation message = MessageReservation(
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
-    //TODO: nel caso sia una reservation va inviato a /reservation/create altrimenti a /reservation/create/preorder
-    final response = await http.post(Uri.parse("$BASE_URL/reservation/create"),
+    // nel caso sia una reservation va inviato a /reservation/create altrimenti a /reservation/create/preorder
+    String url = order.tableID!.startsWith("P")
+        ? "$BASE_URL/reservation/create"
+        : "$BASE_URL/reservation/create/preorder";
+    final response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

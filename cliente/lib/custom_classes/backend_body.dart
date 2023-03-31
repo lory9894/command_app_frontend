@@ -137,7 +137,7 @@ class MessageReservation {
       'tableNum': tableNum,
       'dateTime': DateFormat("dd-MM-yyyy HH:mm:ss").format(dateTime),
       'state': state.toString().split(".").last,
-      'messageOrder': messageOrder == null ? null : messageOrder!.toJson(),
+      'order': messageOrder == null ? null : messageOrder!.toJson(),
       'user': user == null
           ? null
           : {

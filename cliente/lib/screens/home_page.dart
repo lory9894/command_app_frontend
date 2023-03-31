@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
       HomeSection("Preordina", "menu", () {
         order.tableID = "O1";
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const Menu()),
+          MaterialPageRoute(builder: (context) => const BookTable()),
         );
       }),
       HomeSection("Asporto", "take-away", () {
