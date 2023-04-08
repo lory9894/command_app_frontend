@@ -171,6 +171,7 @@ class _PayCardState extends State<PayCard> {
         },
         body: jsonEncode(message));
     if (response.statusCode == 200) {
+      order.shoppingCart.clear();
       Navigator.of(context).popUntil((route) => route.isFirst);
     } else {
       print(response.body);
@@ -192,7 +193,7 @@ class _PayCardState extends State<PayCard> {
         },
         body: jsonEncode(message));
     if (response.statusCode == 200) {
-      print(response.body);
+      order.shoppingCart.clear();
       Navigator.of(context).popUntil((route) => route.isFirst);
     } else {
       print(response.body);
