@@ -16,7 +16,7 @@ class WaiterTable extends StatefulWidget {
 
 class _WaiterTableState extends State<WaiterTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
-  static String BASE_URL = 'http:/gateway:8080/waiter/preparations';
+  static String BASE_URL = 'http://gateway:8080/waiter/preparations';
   late Timer timer;
 
   @override
@@ -124,6 +124,7 @@ class _WaiterTableState extends State<WaiterTable> {
 
   void fetchPreparations() async {
     final response = await http.get(Uri.parse(BASE_URL));
+    print(response.body);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.

@@ -135,6 +135,7 @@ class _KitchenTableState extends State<KitchenTable> {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
+      print(response.body);
       final prepList = jsonDecode(response.body);
       setState(() {
         preparationsList = prepList
