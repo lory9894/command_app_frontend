@@ -34,7 +34,7 @@ class Preparation {
     return Preparation(
       id: json['id'],
       name: json['name'],
-      table: json['table'],
+      table: json['tableNum'],
       state: PreparationState.values.byName(json['state']),
     );
   }

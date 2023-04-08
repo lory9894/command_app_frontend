@@ -16,7 +16,7 @@ class WaiterTable extends StatefulWidget {
 
 class _WaiterTableState extends State<WaiterTable> {
   List<Preparation> preparationsList = List.empty(growable: true);
-  static String BASE_URL = 'http:/gateway:8080/waiter/preparations';
+  static String BASE_URL = 'http://gateway:8080/waiter/preparations';
   late Timer timer;
 
   @override
