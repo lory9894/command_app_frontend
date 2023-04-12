@@ -184,9 +184,12 @@ class _PayCardState extends State<PayCard> {
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
     // nel caso sia una reservation va inviato a /reservation/create altrimenti a /reservation/create/preorder
-    String url = order.tableID!.startsWith("P")
-        ? "$BASE_URL/reservation/create"
-        : "$BASE_URL/reservation/create/preorder";
+    // String url = order.tableID!.startsWith("P")
+    //     ? "$BASE_URL/reservation/create"
+    //     : "$BASE_URL/reservation/create/preorder";
+    String url = message.messageOrder != null
+        ? "$BASE_URL/reservation/create/preorder"
+        : "$BASE_URL/reservation/create";
     final response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json',
