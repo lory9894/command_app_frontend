@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../session.dart';
 
-
-
 class HomePageSections extends StatefulWidget {
   final List<HomeSection> sections;
 
@@ -19,7 +17,8 @@ class _HomePageSectionsState extends State<HomePageSections> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Benvenuto ${userCredential?.user?.displayName}
-      appBar: AppBarComandapp(title: "Benvenuto ${userCredential?.user?.displayName}"),
+      appBar: AppBarComandapp(
+          title: "Benvenuto ${userCredential?.user?.displayName}"),
       // if client is on desktop, show the sections in a 2x2 grid. Otherwise, show them in a 1x4 grid
 
       body: LayoutBuilder(
@@ -44,10 +43,6 @@ class _HomePageSectionsState extends State<HomePageSections> {
                             flex: 1,
                             child: widget.sections[0],
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: widget.sections[1],
-                          ),
                         ],
                       ),
                     ),
@@ -57,11 +52,11 @@ class _HomePageSectionsState extends State<HomePageSections> {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: widget.sections[2],
+                            child: widget.sections[1],
                           ),
                           Expanded(
                             flex: 1,
-                            child: widget.sections[3],
+                            child: widget.sections[2],
                           ),
                         ],
                       ),
@@ -102,8 +97,6 @@ class _HomePageSectionsState extends State<HomePageSections> {
           }
         },
       ),
-
-
 
       // body: Row(children: [
       //   Expanded(
@@ -163,8 +156,8 @@ class HomeSection extends StatelessWidget {
   final String sectionImageName;
   final VoidCallback onClicked;
 
-  const HomeSection(this.sectionTitle, this.sectionImageName, this.onClicked, {super.key});
-
+  const HomeSection(this.sectionTitle, this.sectionImageName, this.onClicked,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -174,38 +167,36 @@ class HomeSection extends StatelessWidget {
     // Image vertically centered, title vertically centered
 
     return Container(
-        width: 200,
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.orange,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
+      width: 200,
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.orange,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: TextButton(
+        onPressed: onClicked,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/images/sections/$sectionImageName.png",
+              height: 70,
+            ),
+            Text(
+              sectionTitle,
+              style: Theme.of(context).textTheme.headline2,
             ),
           ],
         ),
-        child: TextButton(
-          onPressed: onClicked,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/images/sections/$sectionImageName.png",
-                height: 70,
-              ),
-              Text(
-                sectionTitle,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ],
-          ),
-        ),
-      );
-
+      ),
+    );
   }
-
 }
