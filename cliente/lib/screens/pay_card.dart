@@ -12,6 +12,7 @@ import '../custom_classes/backend_body.dart';
 import '../payment_utils/card_number_input_formatter.dart';
 import '../payment_utils/card_type_enum.dart';
 import '../payment_utils/card_utils.dart';
+import '../widgets/alert_dialog.dart';
 
 class PayCard extends StatefulWidget {
   const PayCard({Key? key}) : super(key: key);
@@ -128,7 +129,7 @@ class _PayCardState extends State<PayCard> {
                     if (order.tableID!.startsWith("P") ||
                         order.tableID!.startsWith("O")) {
                       //prenotation
-                      sendPrenotation(); //TODO: capire cosa cazzo fare in caso di preorder, vedere il todo in sendPrenotation
+                      sendPrenotation();
                     } else {
                       //preorder, takeaway, delivery or in restaurant
                       sendOrder();
@@ -172,7 +173,8 @@ class _PayCardState extends State<PayCard> {
         body: jsonEncode(message));
     if (response.statusCode == 200) {
       order.shoppingCart.clear();
-      Navigator.of(context).popUntil((route) => route.isFirst);
+
+      showAlertDialog(context);
     } else {
       print(response.body);
       throw Exception('Failed to change state');
@@ -197,7 +199,7 @@ class _PayCardState extends State<PayCard> {
         body: jsonEncode(message));
     if (response.statusCode == 200) {
       order.shoppingCart.clear();
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      showAlertDialog(context);
     } else {
       print(response.body);
       throw Exception('Failed to change state');

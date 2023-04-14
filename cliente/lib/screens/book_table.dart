@@ -12,6 +12,7 @@ import 'package:number_inc_dec/number_inc_dec.dart';
 
 import '../custom_classes/backend_body.dart';
 import '../custom_classes/reservation.dart';
+import '../widgets/alert_dialog.dart';
 
 class BookTable extends StatefulWidget {
   const BookTable({Key? key}) : super(key: key);
@@ -59,15 +60,15 @@ class _BookTableState extends State<BookTable> {
                                 context: context,
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime.now(),
-                                lastDate: DateTime.now().add(const Duration(days: 7))
-                            );
+                                lastDate: DateTime.now()
+                                    .add(const Duration(days: 7)));
                             if (pickedDate != null) {
                               String formattedDate =
-                                    DateFormat('dd-MM-yyyy').format(pickedDate);
-                                setState(() {
-                                  dateInput.text =
-                                      formattedDate; //set output date to TextField value.
-                                });
+                                  DateFormat('dd-MM-yyyy').format(pickedDate);
+                              setState(() {
+                                dateInput.text =
+                                    formattedDate; //set output date to TextField value.
+                              });
                             }
                           },
                         ),
@@ -108,19 +109,17 @@ class _BookTableState extends State<BookTable> {
                     ],
                   ),
                   _sizedBox,
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Spacer(flex: 2),
-                        Expanded(
-                          flex: 6,
-                          child: Text(
-                            'Numero persone',
-                            style: TextStyle(color: Theme.of(context).primaryColor),
-                          ),
-                        ),
-                        const Spacer(flex: 2),
-                      ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    const Spacer(flex: 2),
+                    Expanded(
+                      flex: 6,
+                      child: Text(
+                        'Numero persone',
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                    const Spacer(flex: 2),
+                  ]),
                   Row(
                     children: [
                       const Spacer(flex: 2),
@@ -186,7 +185,7 @@ class _BookTableState extends State<BookTable> {
                 },
                 body: book_table.jsonEncode(message));
         if (response.statusCode == 200) {
-          Navigator.of(context).popUntil((route) => route.isFirst);
+          showAlertDialog(context);
         } else {
           print(response.body);
           throw Exception('Failed to change state');
