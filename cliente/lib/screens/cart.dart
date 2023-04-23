@@ -40,7 +40,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("Totale: ${order.total} €"),
+                  Text("Totale: ${order.total.toStringAsFixed(2)} €"),
                   ComandAppElevatedButton(
                     text: "Completa Ordine",
                     onPressed: () {
