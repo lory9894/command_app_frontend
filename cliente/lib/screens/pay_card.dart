@@ -12,6 +12,7 @@ import '../custom_classes/backend_body.dart';
 import '../payment_utils/card_number_input_formatter.dart';
 import '../payment_utils/card_type_enum.dart';
 import '../payment_utils/card_utils.dart';
+import '../widgets/alert_dialog.dart';
 
 class PayCard extends StatefulWidget {
   const PayCard({Key? key}) : super(key: key);
@@ -128,7 +129,7 @@ class _PayCardState extends State<PayCard> {
                     if (order.tableID!.startsWith("P") ||
                         order.tableID!.startsWith("O")) {
                       //prenotation
-                      sendPrenotation(); //TODO: capire cosa cazzo fare in caso di preorder, vedere il todo in sendPrenotation
+                      sendPrenotation();
                     } else {
                       //preorder, takeaway, delivery or in restaurant
                       sendOrder();
@@ -171,7 +172,9 @@ class _PayCardState extends State<PayCard> {
         },
         body: jsonEncode(message));
     if (response.statusCode == 200) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      order.shoppingCart.clear();
+
+      showAlertDialog(context);
     } else {
       print(response.body);
       throw Exception('Failed to change state');
@@ -183,17 +186,20 @@ class _PayCardState extends State<PayCard> {
         dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
     // nel caso sia una reservation va inviato a /reservation/create altrimenti a /reservation/create/preorder
-    String url = order.tableID!.startsWith("P")
-        ? "$BASE_URL/reservation/create"
-        : "$BASE_URL/reservation/create/preorder";
+    // String url = order.tableID!.startsWith("P")
+    //     ? "$BASE_URL/reservation/create"
+    //     : "$BASE_URL/reservation/create/preorder";
+    String url = message.messageOrder != null
+        ? "$BASE_URL/reservation/create/preorder"
+        : "$BASE_URL/reservation/create";
     final response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
         body: jsonEncode(message));
     if (response.statusCode == 200) {
-      print(response.body);
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      order.shoppingCart.clear();
+      showAlertDialog(context);
     } else {
       print(response.body);
       throw Exception('Failed to change state');

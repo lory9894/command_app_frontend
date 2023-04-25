@@ -8,6 +8,8 @@ import 'package:command_app_frontend/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../widgets/alert_dialog.dart';
+
 class ReviewPay extends StatelessWidget {
   const ReviewPay({Key? key}) : super(key: key);
 
@@ -36,11 +38,9 @@ class ReviewPay extends StatelessWidget {
                   text: "Paga con carta",
                   onPressed: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => const PayCard()),
+                      MaterialPageRoute(builder: (context) => const PayCard()),
                     );
-                  }
-              ),
+                  }),
             ],
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
@@ -52,8 +52,7 @@ class ReviewPay extends StatelessWidget {
                     text: "Paga alla cassa",
                     onPressed: () {
                       sendOrder(context);
-                    }
-                ),
+                    }),
             ],
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
@@ -62,8 +61,9 @@ class ReviewPay extends StatelessWidget {
             children: [
               ComandAppElevatedButton(
                   text: "Paga con PayPal",
-                  onPressed: () {} //TODO: implement, or maybe not, fuck it, mock it
-              ),
+                  onPressed:
+                      () {} //TODO: implement, or maybe not, fuck it, mock it
+                  ),
             ],
           )
         ],
@@ -84,7 +84,7 @@ class ReviewPay extends StatelessWidget {
         },
         body: jsonEncode(message));
     if (response.statusCode == 200) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      showAlertDialog(context);
     } else {
       print(response.body);
       throw Exception('Failed to change state');
