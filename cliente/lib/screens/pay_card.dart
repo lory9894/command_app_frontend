@@ -172,6 +172,7 @@ class _PayCardState extends State<PayCard> {
         },
         body: jsonEncode(message));
     if (response.statusCode == 200) {
+      order.shoppingCart.clear();
       order.total = 0;
       showAlertDialog(context);
     } else {
