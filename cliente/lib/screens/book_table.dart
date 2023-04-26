@@ -174,10 +174,8 @@ class _BookTableState extends State<BookTable> {
           MaterialPageRoute(builder: (context) => const Menu()),
         );
       } else {
-        DateTime time = DateFormat("dd-MM-yyyy HH:mm:ss").
-          parse("${dateInput.text} ${timeInput.text}:00");
         MessageReservation message = MessageReservation(
-            dateTime: time, peopleNum: reservation!.peopleNum);
+            dateTime: reservation!.dateTime, peopleNum: reservation!.peopleNum);
         final response =
             await http.post(Uri.parse("$BASE_URL/reservation/create"),
                 headers: <String, String>{

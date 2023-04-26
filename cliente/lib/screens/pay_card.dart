@@ -183,7 +183,7 @@ class _PayCardState extends State<PayCard> {
 
   sendPrenotation() async {
     MessageReservation message = MessageReservation(
-        dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
+        dateTime: reservation!.dateTime, peopleNum: reservation!.peopleNum);
     print(jsonEncode(message));
     // nel caso sia una reservation va inviato a /reservation/create altrimenti a /reservation/create/preorder
     // String url = order.tableID!.startsWith("P")
