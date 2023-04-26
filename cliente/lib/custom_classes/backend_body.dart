@@ -134,6 +134,7 @@ class MessageReservation {
   Map<String, dynamic> toJson() {
     return {
       'peopleNum': peopleNum,
+      'total': order.total,
       'tableNum': tableNum,
       'dateTime': DateFormat("dd-MM-yyyy HH:mm:ss").format(dateTime),
       'state': state.toString().split(".").last,
