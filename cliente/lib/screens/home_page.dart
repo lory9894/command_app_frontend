@@ -17,19 +17,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     List<HomeSection> sections = <HomeSection>[
       HomeSection("Prenota", "chair", () {
-        order.tableID = "P1";
+        order.tableID = "P";
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const BookTable()),
         );
       }),
       HomeSection("Asporto", "take-away", () {
-        order.tableID = "A1";
+        order.tableID = "A";
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Menu()),
         );
       }),
       HomeSection("Delivery", "delivery-man", () {
-        order.tableID = "D1";
+        order.tableID = "D";
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const Menu()),
         );

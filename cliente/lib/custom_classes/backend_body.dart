@@ -73,6 +73,7 @@ class MessageOrder {
         'paymentType': paymentType.toString().split(".").last,
         'orderState': orderState.toString().split(".").last,
         'orderType': orderType.toString().split(".").last,
+        'total': total,
         'user': user == null
             ? null
             : {
