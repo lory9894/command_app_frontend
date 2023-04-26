@@ -166,6 +166,8 @@ class _BookTableState extends State<BookTable> {
 
   void _sendReservation(bool goToMenu) async {
     if (validate()) {
+      order.shoppingCart.clear();
+      order.total = 0;
       reservation = Reservation(
           dateInput.text, timeInput.text, int.parse(numPeopleInput.text));
       if (goToMenu) {
