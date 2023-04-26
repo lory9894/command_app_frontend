@@ -168,16 +168,16 @@ class _BookTableState extends State<BookTable> {
     if (validate()) {
       reservation = Reservation(
           dateInput.text, timeInput.text, int.parse(numPeopleInput.text));
-      print(reservation);
       if (goToMenu) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const Menu()),
         );
       } else {
+        DateTime time = DateFormat("dd-MM-yyyy HH:mm:ss").
+          parse("${dateInput.text} ${timeInput.text}:00");
         MessageReservation message = MessageReservation(
-            dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
-        print(book_table.jsonEncode(message));
+            dateTime: time, peopleNum: reservation!.peopleNum);
         final response =
             await http.post(Uri.parse("$BASE_URL/reservation/create"),
                 headers: <String, String>{
