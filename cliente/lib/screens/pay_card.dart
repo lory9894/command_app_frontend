@@ -173,7 +173,7 @@ class _PayCardState extends State<PayCard> {
         body: jsonEncode(message));
     if (response.statusCode == 200) {
       order.shoppingCart.clear();
-      order.total = 0;
+      order.total = 0.00;
       showAlertDialog(context);
     } else {
       print(response.body);
@@ -199,7 +199,7 @@ class _PayCardState extends State<PayCard> {
         body: jsonEncode(message));
     if (response.statusCode == 200) {
       order.shoppingCart.clear();
-      order.total = 0;
+      order.total = 0.00;
       showAlertDialog(context);
     } else {
       print(response.body);
