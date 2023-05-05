@@ -87,10 +87,6 @@ class _HomePageSectionsState extends State<HomePageSections> {
                     flex: 1,
                     child: widget.sections[2],
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: widget.sections[3],
-                  ),
                 ],
               ),
             );

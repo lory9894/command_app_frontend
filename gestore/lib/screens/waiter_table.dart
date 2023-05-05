@@ -124,6 +124,7 @@ class _WaiterTableState extends State<WaiterTable> {
 
   void fetchPreparations() async {
     final response = await http.get(Uri.parse(BASE_URL));
+    print(response.body);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
