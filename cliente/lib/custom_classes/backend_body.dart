@@ -71,7 +71,7 @@ class MessageOrder {
         'dateTime': DateFormat("dd-MM-yyyy HH:mm:ss").format(dateTime),
         'paymentState': paymentState.toString().split(".").last,
         'paymentType': paymentType.toString().split(".").last,
-        'orderState': orderState.toString().split(".").last,
+        'state': orderState.toString().split(".").last,
         'orderType': orderType.toString().split(".").last,
         'total': total,
         'user': user == null
