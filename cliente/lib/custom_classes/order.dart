@@ -16,7 +16,8 @@ class Order {
   String? get tableID => _tableID;
 
   set total(double value) {
-    _total = value;
+    _total = value.toStringAsFixed(2) as double;
+
   }
 
   set tableID(String? value) {

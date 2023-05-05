@@ -166,9 +166,10 @@ class _BookTableState extends State<BookTable> {
 
   void _sendReservation(bool goToMenu) async {
     if (validate()) {
+      order.shoppingCart.clear();
+      order.total = 0;
       reservation = Reservation(
           dateInput.text, timeInput.text, int.parse(numPeopleInput.text));
-      print(reservation);
       if (goToMenu) {
         Navigator.push(
           context,
@@ -176,8 +177,7 @@ class _BookTableState extends State<BookTable> {
         );
       } else {
         MessageReservation message = MessageReservation(
-            dateTime: DateTime.now(), peopleNum: reservation!.peopleNum);
-        print(book_table.jsonEncode(message));
+            dateTime: reservation!.dateTime, peopleNum: reservation!.peopleNum);
         final response =
             await http.post(Uri.parse("$BASE_URL/reservation/create"),
                 headers: <String, String>{
